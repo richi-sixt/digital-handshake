@@ -1,0 +1,32 @@
+import { ProjectLayout } from '@/components/ProjectLayout'
+
+export const project = {
+  title: 'Tic-Tac-Toe',
+  description:
+    'First steps in learning React. A classic Tic-Tac-Toe game based on the official React tutorial.',
+  tech: ['React', 'TypeScript', 'Vite'],
+  url: 'https://sixt.services/games/tic-tac-toe/',
+  github: 'https://github.com/richi-sixt/tic-tac-toe',
+  date: '2024-01-01',
+}
+
+export const metadata = {
+  title: project.title,
+  description: project.description,
+}
+
+export default (props) => <ProjectLayout project={project} {...props} />
+
+A classic Tic-Tac-Toe game built as my first React project, based on the official React tutorial.
+
+## What I learned
+
+- React component structure and composition
+- State management with `useState`
+- Handling user interactions and events
+- Conditional rendering
+- Setting up a project with Vite and TypeScript
+
+## Technical details
+
+The game features a 3x3 grid where two players take turns placing X and O marks. It includes move history tracking and the ability to jump back to any previous move.
