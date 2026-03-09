@@ -15,7 +15,7 @@ export const metadata = {
   description: project.description,
 }
 
-export default (props) => <ProjectLayout project={project} {...props} />
+export default ({ children }) => <ProjectLayout project={project}>{children}</ProjectLayout>
 
 A classic Tic-Tac-Toe game built as my first React project, based on the official React tutorial.
 

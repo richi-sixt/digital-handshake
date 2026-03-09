@@ -8,6 +8,9 @@ import { GitHubIcon, LinkedInIcon } from '@/components/SocialIcons'
 import logoMobiliar from '@/images/logos/mobiliar.svg'
 import logoPerforma from '@/images/logos/performa.svg'
 import logoCvp from '@/images/logos/cvp.svg'
+import iconIreb from '@/images/skills/ireb.svg'
+import iconScrum from '@/images/skills/scrum.svg'
+import iconSAFe from '@/images/skills/safe.svg'
 import iconPython from '@/images/skills/python.svg'
 import iconJavascript from '@/images/skills/javascript.svg'
 import iconTypescript from '@/images/skills/typescript.svg'
@@ -148,6 +151,7 @@ function Resume() {
 interface Skill {
   name: string
   icon: string | StaticImageData
+  url: string
 }
 
 interface SkillCategory {
@@ -159,21 +163,22 @@ const skillCategories: SkillCategory[] = [
   {
     title: 'Methodical Skills',
     skills: [
-      { name: 'Scrum', icon: '\uD83D\uDD04' },
-      { name: 'SAFe', icon: '\uD83C\uDFD7\uFE0F' },
+      { name: 'IREB', icon: iconIreb, url: 'https://www.ireb.org/' },
+      { name: 'Scrum', icon: iconScrum, url: 'https://www.scrum.org/' },
+      { name: 'SAFe', icon: iconSAFe, url: 'https://scaledagileframework.com/' },
     ],
   },
   {
     title: 'Technical Skills',
     skills: [
-      { name: 'Python', icon: iconPython },
-      { name: 'JavaScript', icon: iconJavascript },
-      { name: 'TypeScript', icon: iconTypescript },
-      { name: 'React', icon: iconReact },
-      { name: 'Git', icon: iconGit },
-      { name: 'Node.js', icon: iconNodejs },
-      { name: 'Vite', icon: iconVite },
-      { name: 'Next.js', icon: iconNextjs },
+      { name: 'Python', icon: iconPython, url: 'https://www.python.org/' },
+      { name: 'JavaScript', icon: iconJavascript, url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
+      { name: 'TypeScript', icon: iconTypescript, url: 'https://www.typescriptlang.org/' },
+      { name: 'React', icon: iconReact, url: 'https://react.dev/' },
+      { name: 'Git', icon: iconGit, url: 'https://git-scm.com/' },
+      { name: 'Node.js', icon: iconNodejs, url: 'https://nodejs.org/' },
+      { name: 'Vite', icon: iconVite, url: 'https://vite.dev/' },
+      { name: 'Next.js', icon: iconNextjs, url: 'https://nextjs.org/' },
     ],
   },
 ]
@@ -277,9 +282,12 @@ export default async function Home() {
               </h3>
               <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
                 {category.skills.map((skill) => (
-                  <div
+                  <Link
+                    href={skill.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     key={skill.name}
-                    className="flex items-center gap-3 rounded-xl border border-zinc-100 p-4 dark:border-zinc-700/40"
+                    className="flex items-center gap-3 rounded-xl border border-zinc-100 p-4 transition hover:bg-zinc-50 dark:border-zinc-700/40 dark:hover:bg-zinc-800/50"
                   >
                     {typeof skill.icon === 'string' ? (
                       <span className="text-2xl">{skill.icon}</span>
@@ -294,7 +302,7 @@ export default async function Home() {
                     <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
                       {skill.name}
                     </span>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>

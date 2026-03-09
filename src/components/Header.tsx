@@ -78,9 +78,9 @@ function MoonIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 const navItems = [
   { href: '/#about', label: 'About' },
-  { href: '/work', label: 'Work' },
   { href: '/#skills', label: 'Skills' },
-  { href: '/#projects', label: 'Projects' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/work', label: 'Work' },
 ]
 
 function MobileNavItem({

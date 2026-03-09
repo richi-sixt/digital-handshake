@@ -2,19 +2,21 @@ import nextMDX from '@next/mdx'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
-  outputFileTracingIncludes: {
-    '/projects/*': ['./src/app/projects/**/*.mdx'],
-    '/work/*': ['./src/app/work/**/*.mdx'],
-  },
-}
+output: 'export',
+images: { unoptimized: true },
+pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
+outputFileTracingIncludes: {
+  '/projects/*': ['./src/app/projects/**/*.mdx'],
+  '/work/*': ['./src/app/work/**/*.mdx'],
+},
+ }
 
-const withMDX = nextMDX({
-  extension: /\.mdx?$/,
-  options: {
-    remarkPlugins: ['remark-gfm'],
-    rehypePlugins: ['@mapbox/rehype-prism'],
-  },
-})
+ const withMDX = nextMDX({
+   extension: /\.mdx?$/,
+   options: {
+     remarkPlugins: ['remark-gfm'],
+     rehypePlugins: ['@mapbox/rehype-prism'],
+   },
+ })
 
-export default withMDX(nextConfig)
+ export default withMDX(nextConfig)

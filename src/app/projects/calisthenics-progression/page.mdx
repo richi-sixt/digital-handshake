@@ -15,7 +15,7 @@ export const metadata = {
   description: project.description,
 }
 
-export default (props) => <ProjectLayout project={project} {...props} />
+export default ({ children }) => <ProjectLayout project={project}>{children}</ProjectLayout>
 
 A web application for tracking bodyweight exercise progressions, helping users systematically advance through calisthenics movements.
 
