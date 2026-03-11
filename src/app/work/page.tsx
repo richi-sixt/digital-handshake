@@ -20,6 +20,18 @@ function WorkEntry({ work }: { work: WorkWithSlug }) {
           {work.period}
         </Card.Eyebrow>
         <Card.Description>{work.description}</Card.Description>
+        {work.tech && work.tech.length > 0 && (
+          <div className="relative z-10 mt-4 flex flex-wrap gap-1">
+            {work.tech.map((t) => (
+              <span
+                key={t}
+                className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        )}
         <Card.Cta>Read more</Card.Cta>
       </Card>
       <Card.Eyebrow

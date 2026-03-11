@@ -7,6 +7,7 @@ interface Work {
   period: string
   description: string
   date: string
+  tech?: string[]
 }
 
 export interface WorkWithSlug extends Work {

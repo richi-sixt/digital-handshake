@@ -7,6 +7,7 @@ interface Project {
   url?: string
   github?: string
   date: string
+  category: 'work' | 'personal'
 }
 
 export interface ProjectWithSlug extends Project {
