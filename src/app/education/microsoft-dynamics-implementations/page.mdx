@@ -1,0 +1,30 @@
+import { EducationLayout } from '@/components/EducationLayout'
+
+export const education = {
+  institution: 'Microsoft',
+  degree: 'MCTS: Managing Microsoft Dynamics Implementations',
+  period: '2011',
+  description:
+    'Microsoft Certified Technology Specialist certification for managing Microsoft Dynamics implementation projects.',
+  date: '2011-04-02',
+  tech: ['Microsoft Dynamics', 'Project Management', 'Implementation'],
+}
+
+export const metadata = {
+  title: education.degree,
+  description: education.description,
+}
+
+export default ({ children }) => <EducationLayout education={education}>{children}</EducationLayout>
+
+## Microsoft Certified Technology Specialist: Managing Microsoft Dynamics Implementations
+
+Certification demonstrating expertise in planning, managing, and delivering Microsoft Dynamics implementation projects.
+
+### Key Competencies
+
+- Implementation project planning and management
+- Requirements analysis and solution design
+- Data migration strategies
+- Testing and quality assurance
+- Go-live planning and post-implementation support

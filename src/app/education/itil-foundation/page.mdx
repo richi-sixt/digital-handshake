@@ -1,0 +1,30 @@
+import { EducationLayout } from '@/components/EducationLayout'
+
+export const education = {
+  institution: 'TUeV SueD',
+  degree: 'Foundation Certificate in IT Service Management',
+  period: '2008',
+  description:
+    'ITIL Foundation certification covering IT service management best practices and the ITIL framework.',
+  date: '2008-12-01',
+  tech: ['ITIL', 'IT Service Management'],
+}
+
+export const metadata = {
+  title: education.degree,
+  description: education.description,
+}
+
+export default ({ children }) => <EducationLayout education={education}>{children}</EducationLayout>
+
+## Foundation Certificate in IT Service Management
+
+The ITIL Foundation certification provides a comprehensive understanding of IT service management best practices.
+
+### Key Competencies
+
+- IT service lifecycle management
+- Incident and problem management
+- Change and release management
+- Service level management
+- Continual service improvement

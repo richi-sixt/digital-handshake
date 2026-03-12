@@ -8,6 +8,7 @@ pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
 outputFileTracingIncludes: {
   '/projects/*': ['./src/app/projects/**/*.mdx'],
   '/work/*': ['./src/app/work/**/*.mdx'],
+  '/education/*' : ['./src/app/education/**/*.mdx'],
 },
  }
 

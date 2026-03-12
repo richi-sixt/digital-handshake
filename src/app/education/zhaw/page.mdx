@@ -1,0 +1,40 @@
+import { EducationLayout } from '@/components/EducationLayout'
+
+export const education = {
+  institution: 'ZHAW School of Management and Law',
+  degree: 'MAS Insurance Management',
+  field: 'Versicherungsmanagement',
+  location: 'Winterthur',
+  period: '2018 – 2021',
+  description:
+    'Four Certificate of Advanced Studies (CAS) programs covering insurance management, leadership, risk management, and marketing.',
+  date: '2018-01-01',
+  tech: ['Insurance', 'Leadership', 'Risk Management', 'Marketing'],
+}
+
+export const metadata = {
+  title: education.institution,
+  description: education.description,
+}
+
+export default ({ children }) => <EducationLayout education={education}>{children}</EducationLayout>
+
+## CAS Programs at ZHAW
+
+Completed four CAS programs at the ZHAW School of Management and Law, building deep expertise across the insurance value chain.
+
+### CAS Transformations-Management in Versicherungen (2021)
+
+Focused on managing transformation and change processes in the insurance industry, including digital transformation strategies and organizational change management.
+
+### CAS Leadership and International Insurance (2021)
+
+Covered leadership principles and international insurance markets, including cross-cultural management and global insurance trends.
+
+### CAS Recht, Regulierung und Risikomanagement im Versicherungsunternehmen (2019)
+
+Studied legal frameworks, regulatory requirements, and risk management practices specific to insurance companies in Switzerland.
+
+### CAS in Marketing und Vertrieb von Versicherungsunternehmen (2018)
+
+Explored marketing strategies and distribution channels for insurance products, including customer relationship management and digital marketing.

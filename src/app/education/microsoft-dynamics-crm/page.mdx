@@ -1,0 +1,30 @@
+import { EducationLayout } from '@/components/EducationLayout'
+
+export const education = {
+  institution: 'Microsoft',
+  degree: 'MCTS: Microsoft Dynamics CRM Applications',
+  period: '2011',
+  description:
+    'Microsoft Certified Technology Specialist certification for Microsoft Dynamics CRM Applications.',
+  date: '2011-04-01',
+  tech: ['Microsoft Dynamics', 'CRM', '.NET'],
+}
+
+export const metadata = {
+  title: education.degree,
+  description: education.description,
+}
+
+export default ({ children }) => <EducationLayout education={education}>{children}</EducationLayout>
+
+## Microsoft Certified Technology Specialist: Microsoft Dynamics CRM Applications
+
+Certification demonstrating expertise in configuring, customizing, and administering Microsoft Dynamics CRM applications.
+
+### Key Competencies
+
+- CRM system configuration and customization
+- Entity and relationship management
+- Workflow and business process automation
+- Security model and role-based access control
+- Reporting and analytics

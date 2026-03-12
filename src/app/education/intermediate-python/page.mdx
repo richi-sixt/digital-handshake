@@ -1,0 +1,30 @@
+import { EducationLayout } from '@/components/EducationLayout'
+
+export const education = {
+  institution: 'DataCamp',
+  degree: 'Intermediate Python for Data Science',
+  period: '2018',
+  description:
+    'Online course covering intermediate Python concepts for data science, including data visualization and data manipulation.',
+  date: '2018-07-01',
+  tech: ['Python', 'Data Science', 'Matplotlib', 'NumPy'],
+}
+
+export const metadata = {
+  title: education.degree,
+  description: education.description,
+}
+
+export default ({ children }) => <EducationLayout education={education}>{children}</EducationLayout>
+
+## Intermediate Python for Data Science
+
+An online course from DataCamp focused on Python programming for data science applications.
+
+### Key Topics
+
+- Data visualization with Matplotlib
+- Working with dictionaries and Pandas DataFrames
+- Logic, control flow, and filtering
+- Loops and iteration patterns
+- NumPy for numerical computing
