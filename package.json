@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "prepare-content": "node scripts/prepare-content.mjs",
+    "dev": "npm run prepare-content && next dev",
+    "build": "npm run prepare-content && next build",
     "start": "next start",
     "lint": "next lint"
   },

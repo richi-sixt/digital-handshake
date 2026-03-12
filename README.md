@@ -69,16 +69,47 @@ cd digital-handshake
 npm install
 ```
 
-### 2. Run the development server
+### 2. Content setup
+
+MDX content files (projects, work, education) are **not** included in the repository — only example data ships with the repo in `content-examples/`.
+
+A build script (`scripts/prepare-content.mjs`) automatically copies content into `src/app/` before every `dev` and `build` run:
+
+| Directory | Purpose | In Git? |
+|---|---|---|
+| `content/` | Your real content | No (gitignored) |
+| `content-examples/` | Example/dummy content | Yes |
+| `src/app/*/page.mdx` | Active pages (auto-generated) | No (gitignored) |
+
+**To add your own content**, create MDX files in the `content/` directory mirroring the structure of `content-examples/`:
+
+```
+content/
+├── projects/
+│   └── my-project/page.mdx
+├── work/
+│   └── my-company/page.mdx
+└── education/
+    └── my-university/page.mdx
+```
+
+If `content/` is missing (e.g. fresh clone), the example data is used as a fallback automatically.
+
+You can also force example content with:
+
+```bash
+npm run prepare-content -- --examples
+```
+
+### 3. Run the development server
 
 ```bash
 npm run dev
 ```
 
-The site will be available at `http://localhost:3000`.<br>
-Replace MDX files and images with own content.
+The site will be available at `http://localhost:3000`.
 
-### 3. Build for production
+### 4. Build for production
 
 ```bash
 npm run build

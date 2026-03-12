@@ -1,0 +1,36 @@
+import { EducationLayout } from '@/components/EducationLayout'
+
+export const education = {
+  institution: 'Example University',
+  degree: 'Bachelor of Science',
+  field: 'Computer Science',
+  location: 'Zurich',
+  period: '2020 – 2023',
+  description: 'This is an example education entry. Replace the content/ directory with your own MDX files to customize.',
+  date: '2020-09-01',
+  tech: ['Software Engineering', 'Algorithms', 'Databases'],
+}
+
+export const metadata = {
+  title: education.institution,
+  description: education.description,
+}
+
+export default ({ children }) => <EducationLayout education={education}>{children}</EducationLayout>
+
+## Program Overview
+
+This is an example education page. It demonstrates the MDX content structure used in this portfolio.
+
+### Key Subjects
+
+- Software Engineering & Design Patterns
+- Data Structures & Algorithms
+- Database Systems
+- Web Development
+
+### Thesis
+
+Example thesis title about modern web technologies and their applications.
+
+To add your own education entries, create MDX files in the `content/education/` directory following this same structure.

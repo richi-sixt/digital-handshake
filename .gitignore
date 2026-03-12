@@ -33,3 +33,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# real content (not tracked, only examples are in git)
+/content/
+
+# generated MDX content pages (copied by scripts/prepare-content.mjs)
+/src/app/projects/*/
+/src/app/work/*/
+/src/app/education/*/

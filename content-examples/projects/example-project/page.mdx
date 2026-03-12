@@ -1,0 +1,32 @@
+import { ProjectLayout } from '@/components/ProjectLayout'
+
+export const project = {
+  title: 'Example Project',
+  description: 'This is an example project entry. Replace the content/ directory with your own MDX files to customize.',
+  tech: ['React', 'Next.js', 'TypeScript'],
+  url: 'https://example.com',
+  github: 'https://github.com/example/project',
+  date: '2025-01-01',
+  category: 'personal',
+}
+
+export const metadata = {
+  title: project.title,
+  description: project.description,
+}
+
+export default ({ children }) => <ProjectLayout project={project}>{children}</ProjectLayout>
+
+## About this project
+
+This is an example project page. It demonstrates the MDX content structure used in this portfolio.
+
+### Features
+
+- Built with modern web technologies
+- Responsive design
+- Dark mode support
+
+### Getting Started
+
+To add your own projects, create MDX files in the `content/projects/` directory following this same structure.

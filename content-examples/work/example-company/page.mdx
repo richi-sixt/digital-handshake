@@ -1,0 +1,34 @@
+import { WorkLayout } from '@/components/WorkLayout'
+
+export const work = {
+  company: 'Example Company',
+  title: 'Software Engineer',
+  location: 'Zurich',
+  period: '2023 – Present',
+  description: 'This is an example work experience entry. Replace the content/ directory with your own MDX files to customize.',
+  date: '2023-01-01',
+  tech: ['TypeScript', 'React', 'Node.js'],
+}
+
+export const metadata = {
+  title: work.company,
+  description: work.description,
+}
+
+export default ({ children }) => <WorkLayout work={work}>{children}</WorkLayout>
+
+## Role & Responsibilities
+
+This is an example work experience page. It demonstrates the MDX content structure used in this portfolio.
+
+- Led development of key features
+- Collaborated with cross-functional teams
+- Mentored junior developers
+
+## Key Achievements
+
+- Improved application performance by 40%
+- Implemented CI/CD pipeline
+- Reduced deployment time from hours to minutes
+
+To add your own work experiences, create MDX files in the `content/work/` directory following this same structure.
