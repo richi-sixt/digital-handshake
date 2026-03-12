@@ -1,0 +1,30 @@
+import { EducationLayout } from '@/components/EducationLayout'
+
+export const education = {
+  institution: 'Scrum Alliance',
+  degree: 'Certified Scrum Product Owner',
+  period: '2013',
+  description:
+    'Certification in Scrum product ownership, covering backlog management, stakeholder collaboration, and value delivery.',
+  date: '2013-11-01',
+  tech: ['Scrum', 'Product Management', 'Agile'],
+}
+
+export const metadata = {
+  title: education.degree,
+  description: education.description,
+}
+
+export default ({ children }) => <EducationLayout education={education}>{children}</EducationLayout>
+
+## Certified Scrum Product Owner (CSPO)
+
+The CSPO certification from Scrum Alliance validates the ability to serve as an effective Product Owner in Scrum teams.
+
+### Key Competencies
+
+- Product backlog creation, refinement, and prioritization
+- Stakeholder management and communication
+- Maximizing the value delivered by the Scrum team
+- User story writing and acceptance criteria definition
+- Sprint planning and review facilitation

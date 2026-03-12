@@ -19,7 +19,6 @@ import iconGit from '@/images/skills/git.svg'
 import iconNodejs from '@/images/skills/nodedotjs.svg'
 import iconVite from '@/images/skills/vite.svg'
 import iconNextjs from '@/images/skills/next-js-dark.svg'
-import { type ProjectWithSlug, getAllProjects } from '@/lib/projects'
 
 function BriefcaseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -39,6 +38,25 @@ function BriefcaseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
       <path
         d="M3 14.25h6.249c.484 0 .952-.002 1.316.319l.777.682a.996.996 0 0 0 1.316 0l.777-.682c.364-.32.832-.319 1.316-.319H21M8.75 6.5V4.75a2 2 0 0 1 2-2h2.5a2 2 0 0 1 2 2V6.5"
         className="stroke-zinc-400 dark:stroke-zinc-500"
+      />
+    </svg>
+  )
+}
+
+function AcademicCapIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15v-3.75m0 0h-.008v.008H6.75v-.008Z"
+        className="fill-zinc-100 stroke-zinc-400 dark:fill-zinc-100/10 dark:stroke-zinc-500"
       />
     </svg>
   )
@@ -183,31 +201,91 @@ const skillCategories: SkillCategory[] = [
   },
 ]
 
-function ProjectCard({ project }: { project: ProjectWithSlug }) {
+interface EducationItem {
+  institution: string
+  degree: string
+  start: string | { label: string; dateTime: string }
+  end: string | { label: string; dateTime: string }
+}
+
+function EducationItemEntry({ item }: { item: EducationItem }) {
+  let startLabel =
+    typeof item.start === 'string' ? item.start : item.start.label
+  let startDate =
+    typeof item.start === 'string' ? item.start : item.start.dateTime
+
+  let endLabel = typeof item.end === 'string' ? item.end : item.end.label
+  let endDate = typeof item.end === 'string' ? item.end : item.end.dateTime
+
   return (
-    <Card as="article">
-      <Card.Title href={`/projects/${project.slug}`}>
-        {project.title}
-      </Card.Title>
-      <Card.Description>{project.description}</Card.Description>
-      <p className="relative z-10 mt-4 flex flex-wrap gap-1">
-        {project.tech.map((t) => (
-          <span
-            key={t}
-            className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
-          >
-            {t}
-          </span>
-        ))}
-      </p>
-      <Card.Cta>View project</Card.Cta>
-    </Card>
+    <li className="flex gap-4">
+      <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md ring-1 shadow-zinc-800/5 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
+        <AcademicCapIcon className="h-7 w-7" />
+      </div>
+      <dl className="flex flex-auto flex-wrap gap-x-2">
+        <dt className="sr-only">Institution</dt>
+        <dd className="w-full flex-none text-sm font-medium text-zinc-900 dark:text-zinc-100">
+          {item.institution}
+        </dd>
+        <dt className="sr-only">Degree</dt>
+        <dd className="text-xs text-zinc-500 dark:text-zinc-400">
+          {item.degree}
+        </dd>
+        <dt className="sr-only">Date</dt>
+        <dd
+          className="ml-auto text-xs text-zinc-400 dark:text-zinc-500"
+          aria-label={`${startLabel} until ${endLabel}`}
+        >
+          <time dateTime={startDate}>{startLabel}</time>{' '}
+          <span aria-hidden="true">&mdash;</span>{' '}
+          <time dateTime={endDate}>{endLabel}</time>
+        </dd>
+      </dl>
+    </li>
   )
 }
 
-export default async function Home() {
-  let projects = await getAllProjects()
+function EducationPreview() {
+  let items: Array<EducationItem> = [
+    {
+      institution: 'ZHAW School of Management and Law',
+      degree: 'CAS Insurance Management',
+      start: '2018',
+      end: '2021',
+    },
+    {
+      institution: 'Kalaidos Fachhochschule Schweiz',
+      degree: 'BSc Business Information Technology',
+      start: '2014',
+      end: '2016',
+    },
+    {
+      institution: 'WISS',
+      degree: 'Wirtschaftsinformatiker HF',
+      start: '2007',
+      end: '2010',
+    },
+  ]
 
+  return (
+    <div className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
+      <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+        <AcademicCapIcon className="h-6 w-6 flex-none" />
+        <span className="ml-3">Education</span>
+      </h2>
+      <ol className="mt-6 space-y-4">
+        {items.map((item, itemIndex) => (
+          <EducationItemEntry key={itemIndex} item={item} />
+        ))}
+      </ol>
+      <Button href="/education" variant="secondary" className="group mt-6 w-full">
+        View all education
+      </Button>
+    </div>
+  )
+}
+
+export default function Home() {
   return (
     <>
       {/* Hero */}
@@ -269,62 +347,50 @@ export default async function Home() {
         </Container>
       </section>
 
-      {/* Skills */}
+      {/* Skills & Education */}
       <section id="skills">
         <Container className="mt-24 md:mt-28">
-          <h2 className="text-3xl font-bold tracking-tight text-zinc-800 sm:text-4xl dark:text-zinc-100">
-            Skills &amp; Tech Stack
-          </h2>
-          {skillCategories.map((category) => (
-            <div key={category.title}>
-              <h3 className="mt-8 text-lg font-semibold text-zinc-800 dark:text-zinc-100">
-                {category.title}
-              </h3>
-              <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-                {category.skills.map((skill) => (
-                  <Link
-                    href={skill.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    key={skill.name}
-                    className="flex items-center gap-3 rounded-xl border border-zinc-100 p-4 transition hover:bg-zinc-50 dark:border-zinc-700/40 dark:hover:bg-zinc-800/50"
-                  >
-                    {typeof skill.icon === 'string' ? (
-                      <span className="text-2xl">{skill.icon}</span>
-                    ) : (
-                      <Image
-                        src={skill.icon}
-                        alt={skill.name}
-                        className="h-7 w-7"
-                        unoptimized
-                      />
-                    )}
-                    <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                      {skill.name}
-                    </span>
-                  </Link>
-                ))}
-              </div>
+          <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
+            <div>
+              <h2 className="text-3xl font-bold tracking-tight text-zinc-800 sm:text-4xl dark:text-zinc-100">
+                Skills &amp; Tech Stack
+              </h2>
+              {skillCategories.map((category) => (
+                <div key={category.title}>
+                  <h3 className="mt-8 text-lg font-semibold text-zinc-800 dark:text-zinc-100">
+                    {category.title}
+                  </h3>
+                  <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-2">
+                    {category.skills.map((skill) => (
+                      <Link
+                        href={skill.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        key={skill.name}
+                        className="flex items-center gap-3 rounded-xl border border-zinc-100 p-4 transition hover:bg-zinc-50 dark:border-zinc-700/40 dark:hover:bg-zinc-800/50"
+                      >
+                        {typeof skill.icon === 'string' ? (
+                          <span className="text-2xl">{skill.icon}</span>
+                        ) : (
+                          <Image
+                            src={skill.icon}
+                            alt={skill.name}
+                            className="h-7 w-7"
+                            unoptimized
+                          />
+                        )}
+                        <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                          {skill.name}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </Container>
-      </section>
-
-      {/* Projects */}
-      <section id="projects">
-        <Container className="mt-24 md:mt-28">
-          <h2 className="text-3xl font-bold tracking-tight text-zinc-800 sm:text-4xl dark:text-zinc-100">
-            Projects
-          </h2>
-          <div className="mt-8 grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
-            ))}
-          </div>
-          <div className="mt-8 flex justify-center">
-            <Button href="/projects" variant="secondary">
-              View all projects
-            </Button>
+            <div className="lg:pl-16 xl:pl-24">
+              <EducationPreview />
+            </div>
           </div>
         </Container>
       </section>

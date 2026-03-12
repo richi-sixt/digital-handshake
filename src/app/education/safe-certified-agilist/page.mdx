@@ -1,0 +1,30 @@
+import { EducationLayout } from '@/components/EducationLayout'
+
+export const education = {
+  institution: 'SAFe by Scaled Agile, Inc.',
+  degree: 'SAFe 4 Certified Agilist',
+  period: '2016',
+  description:
+    'Certification in the Scaled Agile Framework, demonstrating expertise in lean-agile principles and enterprise agility.',
+  date: '2016-09-01',
+  tech: ['SAFe', 'Agile', 'Lean'],
+}
+
+export const metadata = {
+  title: education.degree,
+  description: education.description,
+}
+
+export default ({ children }) => <EducationLayout education={education}>{children}</EducationLayout>
+
+## SAFe 4 Certified Agilist
+
+The SAFe Agilist certification validates knowledge of the Scaled Agile Framework and the ability to apply lean-agile principles at enterprise scale.
+
+### Key Competencies
+
+- Lean-Agile leadership and mindset
+- Implementing SAFe Agile Release Trains
+- Portfolio management and value stream mapping
+- Continuous delivery pipeline
+- Organizational change management for agile adoption
