@@ -77,8 +77,7 @@ function MoonIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 }
 
 const navItems = [
-  { href: '/#about', label: 'About' },
-  { href: '/#skills', label: 'Skills' },
+  { href: '/', label: 'Home' },
   { href: '/education', label: 'Education' },
   { href: '/projects', label: 'Projects' },
   { href: '/work', label: 'Work' },

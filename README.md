@@ -2,7 +2,7 @@
 
 A personal portfolio website built with Next.js, React, TypeScript, and Tailwind CSS — statically exported and powered by MDX content.
 
-Showcase my work experience, education, skills, and personal projects — all managed as MDX files with metadata.
+Showcase your work experience, education, skills, and personal projects — all managed as MDX files with metadata.
 
 ---
 
