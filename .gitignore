@@ -34,8 +34,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# real content (not tracked, only examples are in git)
-/content/
+# real content is now a submodule (handshake-content-private)
 
 # generated MDX content pages (copied by scripts/prepare-content.mjs)
 /src/app/projects/*/

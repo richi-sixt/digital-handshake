@@ -6,12 +6,15 @@
  * Copies MDX content files into src/app/ before build/dev.
  *
  * Priority:
- *   1. content/        → real content (gitignored)
- *   2. content-examples/ → example/dummy content (tracked in git)
+ *   1. content/          → real content (private submodule)
+ *   2. content-examples/ → example content (fallback, tracked in public repo)
+ *
+ * If the content/ submodule is cloned and has content, it is used.
+ * Otherwise falls back to content-examples/.
  *
  * Usage:
- *   node scripts/prepare-content.mjs           # auto-detect (content/ or fallback to examples)
- *   node scripts/prepare-content.mjs --examples # force use of example content
+ *   node scripts/prepare-content.mjs           # auto-detect
+ *   node scripts/prepare-content.mjs --examples # force use of examples
  */
 
 import { existsSync, cpSync, rmSync, readdirSync, statSync } from 'node:fs'
@@ -25,6 +28,27 @@ const APP_DIR = join(ROOT, 'src', 'app')
 const SECTIONS = ['projects', 'work', 'education']
 
 const forceExamples = process.argv.includes('--examples')
+
+/**
+ * Check if a content directory has any MDX files
+ */
+function hasContent(dir) {
+  if (!existsSync(dir)) return false
+  for (const section of SECTIONS) {
+    const sectionDir = join(dir, section)
+    if (!existsSync(sectionDir)) continue
+
+    const entries = readdirSync(sectionDir)
+    for (const entry of entries) {
+      const entryPath = join(sectionDir, entry)
+      if (statSync(entryPath).isDirectory()) {
+        const mdxPath = join(entryPath, 'page.mdx')
+        if (existsSync(mdxPath)) return true
+      }
+    }
+  }
+  return false
+}
 
 /**
  * Remove all content subdirectories from src/app/{section}/
@@ -81,7 +105,7 @@ let sourceLabel
 if (forceExamples) {
   sourceDir = EXAMPLES_DIR
   sourceLabel = 'content-examples/ (forced)'
-} else if (existsSync(CONTENT_DIR) && hasContent(CONTENT_DIR)) {
+} else if (hasContent(CONTENT_DIR)) {
   sourceDir = CONTENT_DIR
   sourceLabel = 'content/ (real)'
 } else {
@@ -103,23 +127,3 @@ for (const section of SECTIONS) {
 }
 
 console.log(`\n✅ Done! ${totalCopied} content entries prepared.\n`)
-
-/**
- * Check if a content directory has any MDX files
- */
-function hasContent(dir) {
-  for (const section of SECTIONS) {
-    const sectionDir = join(dir, section)
-    if (!existsSync(sectionDir)) continue
-
-    const entries = readdirSync(sectionDir)
-    for (const entry of entries) {
-      const entryPath = join(sectionDir, entry)
-      if (statSync(entryPath).isDirectory()) {
-        const mdxPath = join(entryPath, 'page.mdx')
-        if (existsSync(mdxPath)) return true
-      }
-    }
-  }
-  return false
-}

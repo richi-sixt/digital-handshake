@@ -1,0 +1,3 @@
+[submodule "content"]
+	path = content
+	url = git@github.com:richi-sixt/handshake-content-private.git
