@@ -1,39 +1,36 @@
-import glob from 'fast-glob'
+import fs from 'node:fs'
+import path from 'node:path'
 
-interface Project {
+export interface ProjectWithSlug {
+  slug: string
   title: string
   description: string
   tech: string[]
   url?: string
   github?: string
   date: string
-  category: 'work' | 'personal'
+  category: string
 }
 
-export interface ProjectWithSlug extends Project {
-  slug: string
-}
+const PLAYGROUND_PROJECTS_PATH = path.join(
+  process.cwd(),
+  'data/playground-projects.json',
+)
 
-async function importProject(
-  projectFilename: string,
-): Promise<ProjectWithSlug> {
-  let { project } = (await import(`../app/projects/${projectFilename}`)) as {
-    default: React.ComponentType
-    project: Project
+/**
+ * Load projects from playground's exported JSON.
+ * Falls back to an empty array if the file doesn't exist yet.
+ */
+export async function getAllProjects(): Promise<ProjectWithSlug[]> {
+  if (!fs.existsSync(PLAYGROUND_PROJECTS_PATH)) {
+    console.warn(
+      'Warning: data/playground-projects.json not found. Run "npm run sync-projects" first.',
+    )
+    return []
   }
 
-  return {
-    slug: projectFilename.replace(/(\/page)?\.mdx$/, ''),
-    ...project,
-  }
-}
-
-export async function getAllProjects() {
-  let projectFilenames = await glob('*/page.mdx', {
-    cwd: './src/app/projects',
-  })
-
-  let projects = await Promise.all(projectFilenames.map(importProject))
+  const raw = fs.readFileSync(PLAYGROUND_PROJECTS_PATH, 'utf-8')
+  const projects: ProjectWithSlug[] = JSON.parse(raw)
 
   return projects.sort((a, z) => +new Date(z.date) - +new Date(a.date))
 }

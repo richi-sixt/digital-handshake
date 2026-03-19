@@ -3,10 +3,15 @@
 import { useContext } from 'react'
 import { useRouter } from 'next/navigation'
 
+import Link from 'next/link'
+
 import { AppContext } from '@/app/providers'
 import { Container } from '@/components/Container'
 import { Prose } from '@/components/Prose'
+import { useTranslation } from '@/i18n'
 import { type WorkWithSlug } from '@/lib/work'
+
+const PLAYGROUND_BASE = 'https://playground.sixt.services'
 
 function ArrowLeftIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -30,6 +35,7 @@ export function WorkLayout({
 }) {
   let router = useRouter()
   let { previousPathname } = useContext(AppContext)
+  let { t } = useTranslation()
 
   return (
     <Container className="mt-16 lg:mt-32">
@@ -59,13 +65,26 @@ export function WorkLayout({
               </p>
               {work.tech && work.tech.length > 0 && (
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {work.tech.map((t) => (
+                  {work.tech.map((tech) => (
                     <span
-                      key={t}
+                      key={tech}
                       className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200"
                     >
-                      {t}
+                      {tech}
                     </span>
+                  ))}
+                </div>
+              )}
+              {work.relatedProjects && work.relatedProjects.length > 0 && (
+                <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+                  {work.relatedProjects.map((projectSlug) => (
+                    <Link
+                      key={projectSlug}
+                      href={`${PLAYGROUND_BASE}/apps/${projectSlug}/`}
+                      className="text-sm font-medium text-violet-500 hover:text-violet-600"
+                    >
+                      {t('nav.projects')}: {projectSlug}
+                    </Link>
                   ))}
                 </div>
               )}

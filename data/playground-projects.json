@@ -1,0 +1,59 @@
+[
+  {
+    "slug": "digital-handshake",
+    "title": "Digital Handshake",
+    "description": "A personal portfolio website built with Next.js, React, TypeScript, and Tailwind CSS — statically exported and powered by MDX content.",
+    "tech": [
+      "React",
+      "TypeScript",
+      "Next.js",
+      "Tailwind CSS",
+      "MDX"
+    ],
+    "url": "https://richi.sixt.services",
+    "github": "https://github.com/richi-sixt/digital-handshake",
+    "date": "2026-03-07",
+    "category": "web"
+  },
+  {
+    "slug": "memory-game",
+    "title": "Memory Game",
+    "description": "A card-matching memory game with flip animations. Find all 6 matching pairs in as few moves as possible.",
+    "tech": [
+      "React",
+      "TypeScript",
+      "useState",
+      "useEffect"
+    ],
+    "url": "/apps/memory-game/play/",
+    "date": "2025-03-14",
+    "category": "games"
+  },
+  {
+    "slug": "tic-tac-toe",
+    "title": "Tic Tac Toe",
+    "description": "Classic two-player game with move history and time travel. Built following the official React tutorial.",
+    "tech": [
+      "React",
+      "TypeScript",
+      "useState"
+    ],
+    "url": "/apps/tic-tac-toe/play/",
+    "date": "2025-03-02",
+    "category": "games"
+  },
+  {
+    "slug": "calisthenics-progression",
+    "title": "Calisthenics Progression",
+    "description": "A Flask web application for tracking calisthenics workouts and exercise progressions.",
+    "tech": [
+      "Python",
+      "Flask",
+      "Bootstrap"
+    ],
+    "url": "https://calisthenics-progression.sixt.services/",
+    "github": "https://github.com/richi-sixt/calisthenics-progression",
+    "date": "2019-01-06",
+    "category": "tools"
+  }
+]

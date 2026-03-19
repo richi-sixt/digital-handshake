@@ -249,7 +249,7 @@ function EducationPreview() {
   let items: Array<EducationItem> = [
     {
       institution: 'ZHAW School of Management and Law',
-      degree: 'CAS Insurance Management',
+      degree: 'MAS Insurance Management',
       start: '2018',
       end: '2021',
     },
@@ -336,7 +336,7 @@ export default function Home() {
                   continuous improvement, and fostering scaling organizations
                   within the SAFe framework. I empower teams, promote
                   collaboration, and enable efficient, customer-focused
-                  operations.
+                  processes.
                 </p>
               </div>
             </div>

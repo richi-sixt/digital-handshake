@@ -13,6 +13,7 @@ import {
 import clsx from 'clsx'
 
 import { Container } from '@/components/Container'
+import { useTranslation } from '@/i18n'
 import avatarImage from '@/images/avatar.jpg'
 
 function CloseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
@@ -76,12 +77,15 @@ function MoonIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-const navItems = [
-  { href: '/', label: 'Home' },
-  { href: '/education', label: 'Education' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/work', label: 'Work' },
-]
+function useNavItems() {
+  let { t } = useTranslation()
+  return [
+    { href: '/', label: t('nav.home') },
+    { href: '/education', label: t('nav.education') },
+    { href: '/projects', label: t('nav.projects') },
+    { href: '/work', label: t('nav.work') },
+  ]
+}
 
 function MobileNavItem({
   href,
@@ -102,10 +106,13 @@ function MobileNavItem({
 function MobileNavigation(
   props: React.ComponentPropsWithoutRef<typeof Popover>,
 ) {
+  let { t } = useTranslation()
+  let navItems = useNavItems()
+
   return (
     <Popover {...props}>
       <PopoverButton className="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20">
-        Menu
+        {t('nav.menu')}
         <ChevronDownIcon className="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400" />
       </PopoverButton>
       <PopoverBackdrop
@@ -122,7 +129,7 @@ function MobileNavigation(
             <CloseIcon className="h-6 w-6 text-zinc-500 dark:text-zinc-400" />
           </PopoverButton>
           <h2 className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
-            Navigation
+            {t('nav.navigation')}
           </h2>
         </div>
         <nav className="mt-6">
@@ -159,6 +166,8 @@ function NavItem({
 }
 
 function DesktopNavigation(props: React.ComponentPropsWithoutRef<'nav'>) {
+  let navItems = useNavItems()
+
   return (
     <nav {...props}>
       <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
@@ -169,6 +178,32 @@ function DesktopNavigation(props: React.ComponentPropsWithoutRef<'nav'>) {
         ))}
       </ul>
     </nav>
+  )
+}
+
+function LanguageToggle() {
+  let { locale, setLocale } = useTranslation()
+  let [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  return (
+    <button
+      type="button"
+      aria-label={
+        mounted
+          ? `Switch to ${locale === 'en' ? 'German' : 'English'}`
+          : 'Toggle language'
+      }
+      className="group rounded-full bg-white/90 px-3 py-2 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
+      onClick={() => setLocale(locale === 'en' ? 'de' : 'en')}
+    >
+      <span className="text-sm font-medium text-zinc-800 transition group-hover:text-zinc-600 dark:text-zinc-200 dark:group-hover:text-zinc-100">
+        {mounted ? (locale === 'en' ? 'DE' : 'EN') : 'DE'}
+      </span>
+    </button>
   )
 }
 
@@ -249,7 +284,8 @@ export function Header() {
               <DesktopNavigation className="pointer-events-auto hidden md:block" />
             </div>
             <div className="flex justify-end md:flex-1">
-              <div className="pointer-events-auto">
+              <div className="pointer-events-auto flex items-center gap-3">
+                <LanguageToggle />
                 <ThemeToggle />
               </div>
             </div>

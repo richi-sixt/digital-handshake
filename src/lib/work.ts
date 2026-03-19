@@ -8,6 +8,7 @@ interface Work {
   description: string
   date: string
   tech?: string[]
+  relatedProjects?: string[]
 }
 
 export interface WorkWithSlug extends Work {

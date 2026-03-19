@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "prepare-content": "node scripts/prepare-content.mjs",
-    "dev": "npm run prepare-content && next dev",
-    "build": "npm run prepare-content && next build",
+    "sync-projects": "node scripts/sync-projects.mjs",
+    "dev": "npm run prepare-content && npm run sync-projects && next dev",
+    "build": "npm run prepare-content && npm run sync-projects && next build",
     "start": "next start",
     "lint": "next lint"
   },

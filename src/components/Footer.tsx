@@ -1,25 +1,11 @@
-import Link from 'next/link'
+'use client'
 
 import { ContainerInner, ContainerOuter } from '@/components/Container'
-
-function NavLink({
-  href,
-  children,
-}: {
-  href: string
-  children: React.ReactNode
-}) {
-  return (
-    <Link
-      href={href}
-      className="transition hover:text-violet-500 dark:hover:text-violet-400"
-    >
-      {children}
-    </Link>
-  )
-}
+import { useTranslation } from '@/i18n'
 
 export function Footer() {
+  let { t } = useTranslation()
+
   return (
     <footer className="mt-32 flex-none">
       <ContainerOuter>
@@ -27,8 +13,8 @@ export function Footer() {
           <ContainerInner>
             <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
               <p className="text-sm text-zinc-400 dark:text-zinc-500">
-                &copy; {new Date().getFullYear()} R&uuml;chan Sixt. All rights
-                reserved.
+                &copy; {new Date().getFullYear()} R&uuml;chan Sixt.{' '}
+                {t('footer.rights')}
               </p>
             </div>
           </ContainerInner>
