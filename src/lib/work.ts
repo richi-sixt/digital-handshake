@@ -22,13 +22,13 @@ async function importWork(workFilename: string): Promise<WorkWithSlug> {
   }
 
   return {
-    slug: workFilename.replace(/(\/page)?\.mdx$/, ''),
+    slug: workFilename.replace(/(\/page)?\.en\.mdx$/, ''),
     ...work,
   }
 }
 
 export async function getAllWork() {
-  let workFilenames = await glob('*/page.mdx', {
+  let workFilenames = await glob('*/page.en.mdx', {
     cwd: './src/app/work',
   })
 

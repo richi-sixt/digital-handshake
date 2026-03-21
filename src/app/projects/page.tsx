@@ -1,7 +1,6 @@
 import { type Metadata } from 'next'
 
-import { SimpleLayout } from '@/components/SimpleLayout'
-import { ProjectList } from '@/components/ProjectList'
+import { ProjectsPageContent } from '@/components/ProjectsPageContent'
 import { getAllProjects } from '@/lib/projects'
 
 export const metadata: Metadata = {
@@ -12,12 +11,5 @@ export const metadata: Metadata = {
 export default async function Projects() {
   let projects = await getAllProjects()
 
-  return (
-    <SimpleLayout
-      title="Things I've worked on"
-      intro="while learning and exploring."
-    >
-      <ProjectList projects={projects} /> 
-    </SimpleLayout>
-  )
+  return <ProjectsPageContent projects={projects} />
 }

@@ -3,18 +3,13 @@
 /**
  * prepare-content.mjs
  *
- * Copies MDX content files into src/app/ before build/dev.
+ * Copies content entries from content/ into src/app/ before build/dev.
  *
- * Priority:
- *   1. content/          → real content (private submodule)
- *   2. content-examples/ → example content (fallback, tracked in public repo)
- *
- * If the content/ submodule is cloned and has content, it is used.
- * Otherwise falls back to content-examples/.
+ * The content/ directory is the single source of truth.
+ * Use content-examples/ as a reference to create your own entries.
  *
  * Usage:
- *   node scripts/prepare-content.mjs           # auto-detect
- *   node scripts/prepare-content.mjs --examples # force use of examples
+ *   node scripts/prepare-content.mjs
  */
 
 import { existsSync, cpSync, rmSync, readdirSync, statSync } from 'node:fs'
@@ -22,37 +17,13 @@ import { join, resolve } from 'node:path'
 
 const ROOT = resolve(import.meta.dirname, '..')
 const CONTENT_DIR = join(ROOT, 'content')
-const EXAMPLES_DIR = join(ROOT, 'content-examples')
 const APP_DIR = join(ROOT, 'src', 'app')
 
 const SECTIONS = ['projects', 'work', 'education']
 
-const forceExamples = process.argv.includes('--examples')
-
-/**
- * Check if a content directory has any MDX files
- */
-function hasContent(dir) {
-  if (!existsSync(dir)) return false
-  for (const section of SECTIONS) {
-    const sectionDir = join(dir, section)
-    if (!existsSync(sectionDir)) continue
-
-    const entries = readdirSync(sectionDir)
-    for (const entry of entries) {
-      const entryPath = join(sectionDir, entry)
-      if (statSync(entryPath).isDirectory()) {
-        const mdxPath = join(entryPath, 'page.mdx')
-        if (existsSync(mdxPath)) return true
-      }
-    }
-  }
-  return false
-}
-
 /**
  * Remove all content subdirectories from src/app/{section}/
- * but preserve the list page files (page.tsx, page.jsx, etc.)
+ * but preserve top-level files (page.tsx, etc.)
  */
 function cleanSection(section) {
   const sectionDir = join(APP_DIR, section)
@@ -68,14 +39,13 @@ function cleanSection(section) {
 }
 
 /**
- * Copy content subdirectories from source into src/app/{section}/
+ * Copy entry subdirectories from content/{section} into src/app/{section}/
  */
-function copySection(sourceBase, section) {
-  const sourceDir = join(sourceBase, section)
+function copySection(section) {
+  const sourceDir = join(CONTENT_DIR, section)
   const targetDir = join(APP_DIR, section)
 
   if (!existsSync(sourceDir)) {
-    console.log(`  ⚠ No ${section}/ directory found in ${sourceBase}, skipping`)
     return 0
   }
 
@@ -96,33 +66,20 @@ function copySection(sourceBase, section) {
 
 // --- Main ---
 
-console.log('📄 Preparing content...\n')
+console.log('📄 Preparing content from content/...\n')
 
-// Determine source
-let sourceDir
-let sourceLabel
-
-if (forceExamples) {
-  sourceDir = EXAMPLES_DIR
-  sourceLabel = 'content-examples/ (forced)'
-} else if (hasContent(CONTENT_DIR)) {
-  sourceDir = CONTENT_DIR
-  sourceLabel = 'content/ (real)'
-} else {
-  sourceDir = EXAMPLES_DIR
-  sourceLabel = 'content-examples/ (fallback)'
+if (!existsSync(CONTENT_DIR)) {
+  console.log('⚠  content/ directory not found.')
+  console.log('   Copy entries from content-examples/ to content/ to get started.\n')
+  process.exit(0)
 }
 
-console.log(`📁 Source: ${sourceLabel}\n`)
-
-// Clean and copy each section
 let totalCopied = 0
 
 for (const section of SECTIONS) {
-  console.log(`🔄 ${section}/`)
   cleanSection(section)
-  const count = copySection(sourceDir, section)
-  console.log(`   → ${count} entries copied`)
+  const count = copySection(section)
+  console.log(`   ${section}/ → ${count} entries copied`)
   totalCopied += count
 }
 

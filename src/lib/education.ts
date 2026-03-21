@@ -27,13 +27,13 @@ async function importEducation(
   }
 
   return {
-    slug: educationFilename.replace(/(\/page)?\.mdx$/, ''),
+    slug: educationFilename.replace(/(\/page)?\.en\.mdx$/, ''),
     ...education,
   }
 }
 
 export async function getAllEducation() {
-  let educationFilenames = await glob('*/page.mdx', {
+  let educationFilenames = await glob('*/page.en.mdx', {
     cwd: './src/app/education',
   })
 

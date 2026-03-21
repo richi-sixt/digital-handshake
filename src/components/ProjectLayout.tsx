@@ -7,6 +7,7 @@ import { AppContext } from '@/app/providers'
 import { Container } from '@/components/Container'
 import { Prose } from '@/components/Prose'
 import { GitHubIcon } from '@/components/SocialIcons'
+import { useTranslation } from '@/i18n'
 import { type ProjectWithSlug } from '@/lib/projects'
 
 function ArrowLeftIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
@@ -42,6 +43,7 @@ export function ProjectLayout({
 }) {
   let router = useRouter()
   let { previousPathname } = useContext(AppContext)
+  let { t } = useTranslation()
 
   return (
     <Container className="mt-16 lg:mt-32">
@@ -51,7 +53,7 @@ export function ProjectLayout({
             <button
               type="button"
               onClick={() => router.back()}
-              aria-label="Go back to projects"
+              aria-label={t('project.goBack')}
               className="group mb-8 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md ring-1 shadow-zinc-800/5 ring-zinc-900/5 transition lg:absolute lg:-left-5 lg:-mt-2 lg:mb-0 xl:-top-1.5 xl:left-0 xl:mt-0 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0 dark:ring-white/10 dark:hover:border-zinc-700 dark:hover:ring-white/20"
             >
               <ArrowLeftIcon className="h-4 w-4 stroke-zinc-500 transition group-hover:stroke-zinc-700 dark:stroke-zinc-500 dark:group-hover:stroke-zinc-400" />
@@ -81,7 +83,7 @@ export function ProjectLayout({
                     className="flex items-center text-sm font-medium text-violet-500 hover:text-violet-600"
                   >
                     <LinkIcon className="mr-2 h-5 w-5 flex-none" />
-                    View live project
+                    {t('project.viewLive')}
                   </a>
                 )}
                 {project.github && (
@@ -92,7 +94,7 @@ export function ProjectLayout({
                     className="flex items-center text-sm font-medium text-violet-500 hover:text-violet-600"
                   >
                     <GitHubIcon className="mr-2 h-5 w-5 flex-none fill-current" />
-                    View on GitHub
+                    {t('project.viewGithub')}
                   </a>
                 )}
               </div>

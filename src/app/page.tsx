@@ -1,10 +1,12 @@
+'use client'
+
 import Image, { type ImageProps, type StaticImageData } from 'next/image'
 import Link from 'next/link'
 
 import { Button } from '@/components/Button'
-import { Card } from '@/components/Card'
 import { Container } from '@/components/Container'
 import { GitHubIcon, LinkedInIcon } from '@/components/SocialIcons'
+import { useTranslation } from '@/i18n'
 import logoMobiliar from '@/images/logos/mobiliar.svg'
 import logoPerforma from '@/images/logos/performa.svg'
 import logoCvp from '@/images/logos/cvp.svg'
@@ -84,6 +86,7 @@ interface Role {
 }
 
 function RoleEntry({ role }: { role: Role }) {
+  let { t } = useTranslation()
   let startLabel =
     typeof role.start === 'string' ? role.start : role.start.label
   let startDate =
@@ -98,18 +101,18 @@ function RoleEntry({ role }: { role: Role }) {
         <Image src={role.logo} alt="" className="h-7 w-7" unoptimized />
       </div>
       <dl className="flex flex-auto flex-wrap gap-x-2">
-        <dt className="sr-only">Company</dt>
+        <dt className="sr-only">{t('sr.company')}</dt>
         <dd className="w-full flex-none text-sm font-medium text-zinc-900 dark:text-zinc-100">
           {role.company}
         </dd>
-        <dt className="sr-only">Role</dt>
+        <dt className="sr-only">{t('sr.role')}</dt>
         <dd className="text-xs text-zinc-500 dark:text-zinc-400">
           {role.title}
         </dd>
-        <dt className="sr-only">Date</dt>
+        <dt className="sr-only">{t('sr.date')}</dt>
         <dd
           className="ml-auto text-xs text-zinc-400 dark:text-zinc-500"
-          aria-label={`${startLabel} until ${endLabel}`}
+          aria-label={t('sr.dateUntil', { start: startLabel, end: endLabel })}
         >
           <time dateTime={startDate}>{startLabel}</time>{' '}
           <span aria-hidden="true">&mdash;</span>{' '}
@@ -121,27 +124,28 @@ function RoleEntry({ role }: { role: Role }) {
 }
 
 function Resume() {
+  let { t } = useTranslation()
   let resume: Array<Role> = [
     {
       company: 'Die Mobiliar',
-      title: 'Leiter Prozess Vertragsf\u00FChrung',
+      title: t('home.role.mobiliar'),
       logo: logoMobiliar,
       start: '2013',
       end: {
-        label: 'Present',
+        label: t('home.present'),
         dateTime: new Date().getFullYear().toString(),
       },
     },
     {
       company: 'Performa AG',
-      title: 'Projektleiter/Berater',
+      title: t('home.role.performa'),
       logo: logoPerforma,
       start: '2008',
       end: '2012',
     },
     {
       company: 'CVP Schweiz',
-      title: 'IT-Verantwortlicher',
+      title: t('home.role.cvp'),
       logo: logoCvp,
       start: '2006',
       end: '2008',
@@ -152,7 +156,7 @@ function Resume() {
     <div className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
         <BriefcaseIcon className="h-6 w-6 flex-none" />
-        <span className="ml-3">Work</span>
+        <span className="ml-3">{t('home.work')}</span>
       </h2>
       <ol className="mt-6 space-y-4">
         {resume.map((role, roleIndex) => (
@@ -160,7 +164,7 @@ function Resume() {
         ))}
       </ol>
       <Button href="/work" variant="secondary" className="group mt-6 w-full">
-        View all positions
+        {t('home.viewAllPositions')}
       </Button>
     </div>
   )
@@ -177,29 +181,32 @@ interface SkillCategory {
   skills: Skill[]
 }
 
-const skillCategories: SkillCategory[] = [
-  {
-    title: 'Methodical Skills',
-    skills: [
-      { name: 'IREB', icon: iconIreb, url: 'https://www.ireb.org/' },
-      { name: 'Scrum', icon: iconScrum, url: 'https://www.scrum.org/' },
-      { name: 'SAFe', icon: iconSAFe, url: 'https://scaledagileframework.com/' },
-    ],
-  },
-  {
-    title: 'Technical Skills',
-    skills: [
-      { name: 'Python', icon: iconPython, url: 'https://www.python.org/' },
-      { name: 'JavaScript', icon: iconJavascript, url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
-      { name: 'TypeScript', icon: iconTypescript, url: 'https://www.typescriptlang.org/' },
-      { name: 'React', icon: iconReact, url: 'https://react.dev/' },
-      { name: 'Git', icon: iconGit, url: 'https://git-scm.com/' },
-      { name: 'Node.js', icon: iconNodejs, url: 'https://nodejs.org/' },
-      { name: 'Vite', icon: iconVite, url: 'https://vite.dev/' },
-      { name: 'Next.js', icon: iconNextjs, url: 'https://nextjs.org/' },
-    ],
-  },
-]
+function useSkillCategories(): SkillCategory[] {
+  let { t } = useTranslation()
+  return [
+    {
+      title: t('home.methodicalSkills'),
+      skills: [
+        { name: 'IREB', icon: iconIreb, url: 'https://www.ireb.org/' },
+        { name: 'Scrum', icon: iconScrum, url: 'https://www.scrum.org/' },
+        { name: 'SAFe', icon: iconSAFe, url: 'https://scaledagileframework.com/' },
+      ],
+    },
+    {
+      title: t('home.technicalSkills'),
+      skills: [
+        { name: 'Python', icon: iconPython, url: 'https://www.python.org/' },
+        { name: 'JavaScript', icon: iconJavascript, url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
+        { name: 'TypeScript', icon: iconTypescript, url: 'https://www.typescriptlang.org/' },
+        { name: 'React', icon: iconReact, url: 'https://react.dev/' },
+        { name: 'Git', icon: iconGit, url: 'https://git-scm.com/' },
+        { name: 'Node.js', icon: iconNodejs, url: 'https://nodejs.org/' },
+        { name: 'Vite', icon: iconVite, url: 'https://vite.dev/' },
+        { name: 'Next.js', icon: iconNextjs, url: 'https://nextjs.org/' },
+      ],
+    },
+  ]
+}
 
 interface EducationItem {
   institution: string
@@ -209,6 +216,7 @@ interface EducationItem {
 }
 
 function EducationItemEntry({ item }: { item: EducationItem }) {
+  let { t } = useTranslation()
   let startLabel =
     typeof item.start === 'string' ? item.start : item.start.label
   let startDate =
@@ -223,18 +231,18 @@ function EducationItemEntry({ item }: { item: EducationItem }) {
         <AcademicCapIcon className="h-7 w-7" />
       </div>
       <dl className="flex flex-auto flex-wrap gap-x-2">
-        <dt className="sr-only">Institution</dt>
+        <dt className="sr-only">{t('sr.institution')}</dt>
         <dd className="w-full flex-none text-sm font-medium text-zinc-900 dark:text-zinc-100">
           {item.institution}
         </dd>
-        <dt className="sr-only">Degree</dt>
+        <dt className="sr-only">{t('sr.degree')}</dt>
         <dd className="text-xs text-zinc-500 dark:text-zinc-400">
           {item.degree}
         </dd>
-        <dt className="sr-only">Date</dt>
+        <dt className="sr-only">{t('sr.date')}</dt>
         <dd
           className="ml-auto text-xs text-zinc-400 dark:text-zinc-500"
-          aria-label={`${startLabel} until ${endLabel}`}
+          aria-label={t('sr.dateUntil', { start: startLabel, end: endLabel })}
         >
           <time dateTime={startDate}>{startLabel}</time>{' '}
           <span aria-hidden="true">&mdash;</span>{' '}
@@ -246,6 +254,7 @@ function EducationItemEntry({ item }: { item: EducationItem }) {
 }
 
 function EducationPreview() {
+  let { t } = useTranslation()
   let items: Array<EducationItem> = [
     {
       institution: 'ZHAW School of Management and Law',
@@ -271,7 +280,7 @@ function EducationPreview() {
     <div className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
         <AcademicCapIcon className="h-6 w-6 flex-none" />
-        <span className="ml-3">Education</span>
+        <span className="ml-3">{t('home.education')}</span>
       </h2>
       <ol className="mt-6 space-y-4">
         {items.map((item, itemIndex) => (
@@ -279,13 +288,16 @@ function EducationPreview() {
         ))}
       </ol>
       <Button href="/education" variant="secondary" className="group mt-6 w-full">
-        View all education
+        {t('home.viewAllEducation')}
       </Button>
     </div>
   )
 }
 
 export default function Home() {
+  let { t } = useTranslation()
+  let skillCategories = useSkillCategories()
+
   return (
     <>
       {/* Hero */}
@@ -296,8 +308,7 @@ export default function Home() {
               R&uuml;chan Sixt
             </h1>
             <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-              Hobby Developer &amp; Head of Process Contract Management in
-              Non-Life Insurance
+              {t('home.subtitle')}
             </p>
             <div className="mt-6 flex gap-6">
               <SocialLink
@@ -321,23 +332,11 @@ export default function Home() {
           <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
             <div>
               <h2 className="text-3xl font-bold tracking-tight text-zinc-800 sm:text-4xl dark:text-zinc-100">
-                About Me
+                {t('home.aboutMe')}
               </h2>
               <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
-                <p>
-                  Hobby developer who loves exploring new technologies and
-                  continuously learning to advance my technical skills.
-                  Currently focusing on Python, JavaScript, React, and AI
-                  agents.
-                </p>
-                <p>
-                  Also an agile process leader in the insurance industry,
-                  passionate about optimizing contract management, driving
-                  continuous improvement, and fostering scaling organizations
-                  within the SAFe framework. I empower teams, promote
-                  collaboration, and enable efficient, customer-focused
-                  processes.
-                </p>
+                <p>{t('home.aboutP1')}</p>
+                <p>{t('home.aboutP2')}</p>
               </div>
             </div>
             <div className="lg:pl-16 xl:pl-24">
@@ -353,7 +352,7 @@ export default function Home() {
           <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
             <div>
               <h2 className="text-3xl font-bold tracking-tight text-zinc-800 sm:text-4xl dark:text-zinc-100">
-                Skills &amp; Tech Stack
+                {t('home.skillsAndTech')}
               </h2>
               {skillCategories.map((category) => (
                 <div key={category.title}>
