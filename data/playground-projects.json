@@ -30,6 +30,21 @@
     "category": "games"
   },
   {
+    "slug": "playground",
+    "title": "Playground",
+    "description": "A React Plattform for learning, documenting and exploring React features, patterns, and concepts hands-on",
+    "tech": [
+      "React",
+      "Supabase",
+      "Next.js",
+      "MDX"
+    ],
+    "url": "https://playground.sixt.services/",
+    "github": "https://github.com/richi-sixt/react-playground",
+    "date": "2025-03-02",
+    "category": "tools"
+  },
+  {
     "slug": "tic-tac-toe",
     "title": "Tic Tac Toe",
     "description": "Classic two-player game with move history and time travel. Built following the official React tutorial.",
