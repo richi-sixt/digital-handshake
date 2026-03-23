@@ -2,6 +2,7 @@
   "name": "digital-handshake",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "prepare-content": "node scripts/prepare-content.mjs",
     "sync-projects": "node scripts/sync-projects.mjs",
