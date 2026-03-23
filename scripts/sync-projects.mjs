@@ -14,7 +14,9 @@ import { existsSync, mkdirSync, copyFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 
 const ROOT = resolve(import.meta.dirname, '..')
-const PLAYGROUND_ROOT = resolve(ROOT, '..', 'react-playground')
+const PLAYGROUND_ROOT = process.env.PLAYGROUND_ROOT 
+  ? resolve(process.env.PLAYGROUND_ROOT) // Server-variable with local fallback
+  : resolve(ROOT, '..', 'react-playground')
 const SOURCE = join(PLAYGROUND_ROOT, 'public', 'api', 'projects.json')
 const DATA_DIR = join(ROOT, 'data')
 const TARGET = join(DATA_DIR, 'playground-projects.json')
