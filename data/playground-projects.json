@@ -1,5 +1,20 @@
 [
   {
+    "slug": "puzzle-slider",
+    "title": "15 Puzzle",
+    "description": "A classic sliding puzzle. Arrange the 15 numbered tiles in order by sliding them into the empty space.",
+    "tech": [
+      "React",
+      "TypeScript",
+      "useState",
+      "useEffect",
+      "useRef"
+    ],
+    "url": "/apps/puzzle-slider/play/",
+    "date": "2026-03-27",
+    "category": "games"
+  },
+  {
     "slug": "digital-handshake",
     "title": "Digital Handshake",
     "description": "A personal portfolio website built with Next.js, React, TypeScript, and Tailwind CSS — statically exported and powered by MDX content.",
@@ -18,7 +33,7 @@
   {
     "slug": "memory-game",
     "title": "Memory Game",
-    "description": "A card-matching memory game with flip animations. Find all 6 matching pairs in as few moves as possible.",
+    "description": "A card-matching memory game with flip animations. Find all matching pairs in as few moves as possible.",
     "tech": [
       "React",
       "TypeScript",
