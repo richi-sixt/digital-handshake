@@ -1,20 +1,5 @@
 [
   {
-    "slug": "puzzle-slider",
-    "title": "15 Puzzle",
-    "description": "A classic sliding puzzle. Arrange the 15 numbered tiles in order by sliding them into the empty space.",
-    "tech": [
-      "React",
-      "TypeScript",
-      "useState",
-      "useEffect",
-      "useRef"
-    ],
-    "url": "/apps/puzzle-slider/play/",
-    "date": "2026-03-27",
-    "category": "games"
-  },
-  {
     "slug": "lazy-inviter",
     "title": "Lazy Inviter",
     "description": "A React web application for creating themed birthday party invitations for kids.",
@@ -28,8 +13,23 @@
     ],
     "url": "https://lazy-inviter.sixt.services/",
     "github": "https://github.com/richi-sixt/lazy-inviter",
-    "date": "2026-03-26",
+    "date": "2026-03-29",
     "category": "tools"
+  },
+  {
+    "slug": "puzzle-slider",
+    "title": "15 Puzzle",
+    "description": "A classic sliding puzzle. Arrange the 15 numbered tiles in order by sliding them into the empty space.",
+    "tech": [
+      "React",
+      "TypeScript",
+      "useState",
+      "useEffect",
+      "useRef"
+    ],
+    "url": "/apps/puzzle-slider/play/",
+    "date": "2026-03-27",
+    "category": "games"
   },
   {
     "slug": "digital-handshake",
