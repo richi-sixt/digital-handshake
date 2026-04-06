@@ -90,6 +90,21 @@
     "category": "games"
   },
   {
+    "slug": "cream",
+    "title": "C.R.E.A.M. - A personal finance app",
+    "description": "C.R.E.A.M. — a personal finance management app for Swiss bank accounts and invoices.",
+    "tech": [
+      "Python",
+      "Flask",
+      "SQLite",
+      "PDF Parsing"
+    ],
+    "url": "",
+    "github": "https://github.com/richi-sixt/cream",
+    "date": "2021-08-24",
+    "category": "tools"
+  },
+  {
     "slug": "calisthenics-progression",
     "title": "Calisthenics Progression",
     "description": "A Flask web application for tracking calisthenics workouts and exercise progressions.",
