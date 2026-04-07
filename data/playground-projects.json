@@ -1,5 +1,20 @@
 [
   {
+    "slug": "uno",
+    "title": "UNO",
+    "description": "The classic card game for 2-4 players. Match colors and numbers, use action cards, and be the first to empty your hand!",
+    "tech": [
+      "React",
+      "TypeScript",
+      "Supabase Realtime",
+      "Multiplayer"
+    ],
+    "url": "/apps/uno/play/multiplayer/",
+    "github": "https://github.com/richi-sixt/react-playground",
+    "date": "2026-04-07",
+    "category": "games"
+  },
+  {
     "slug": "lazy-inviter",
     "title": "Lazy Inviter",
     "description": "A React web application for creating themed birthday party invitations for kids.",
@@ -86,6 +101,7 @@
       "useState"
     ],
     "url": "/apps/tic-tac-toe/play/",
+    "github": "https://github.com/richi-sixt/react-playground",
     "date": "2025-03-02",
     "category": "games"
   },
