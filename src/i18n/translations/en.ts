@@ -54,7 +54,7 @@ const en = {
 
   // Projects page
   'projects.title': "Things I've worked on",
-  'projects.intro': 'while learning and exploring.',
+  'projects.intro': 'private and professional.',
 
   // Education page
   'education.title': 'Education & Training',

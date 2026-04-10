@@ -55,8 +55,8 @@ const de: Record<keyof typeof en, string> & Record<string, string> = {
   'sr.dateUntil': '{{start}} bis {{end}}',
 
   // Projects page
-  'projects.title': 'Meine Projekte',
-  'projects.intro': 'beim Lernen und Entdecken.',
+  'projects.title': 'Dinge, an denen ich gearbeitet habe',
+  'projects.intro': 'privat und beruflich.',
 
   // Education page
   'education.title': 'Ausbildung & Weiterbildung',
