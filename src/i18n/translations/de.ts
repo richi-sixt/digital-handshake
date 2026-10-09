@@ -49,7 +49,7 @@ const de: Record<keyof typeof en, string> & Record<string, string> = {
     'Ein Karten-Memory-Spiel mit Umdreh-Animationen. Finde alle 6 passenden Paare in so wenigen Z\u00FCgen wie m\u00F6glich.',
   'app.calisthenics-progression.title': 'Calisthenics Progression',
   'app.calisthenics-progression.description':
-    'Eine Flask-Webanwendung zur Verfolgung von Calisthenics-Workouts und \u00DCbungsprogressionen.',
+    'Ein Full-Stack-Tracker für Calisthenics-Workouts.',
   'app.digital-handshake.title': 'Digital Handshake',
   'app.digital-handshake.description':
     'Eine pers\u00F6nliche Portfolio-Website, erstellt mit Next.js, React, TypeScript und Tailwind CSS \u2014 statisch exportiert und mit MDX-Inhalten.',
