@@ -9,7 +9,7 @@ import { Container } from '@/components/Container'
 import { Prose } from '@/components/Prose'
 import { useTranslation } from '@/i18n'
 import { type AppWithSlug } from '@/lib/apps'
-import { type JournalEntryWithSlug } from '@/lib/journal'
+import { type BlogEntryWithSlug } from '@/lib/blog'
 import { formatDate } from '@/lib/formatDate'
 import { te } from '@/lib/translatedEntry'
 
@@ -52,11 +52,11 @@ function GitHubIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 export function AppLayout({
   app,
   children,
-  journalEntries,
+  blogEntries,
 }: {
   app: AppWithSlug
   children: React.ReactNode
-  journalEntries?: JournalEntryWithSlug[]
+  blogEntries?: BlogEntryWithSlug[]
 }) {
   let router = useRouter()
   let { previousPathname } = useContext(AppContext)
@@ -119,20 +119,20 @@ export function AppLayout({
             </Prose>
           </article>
 
-          {journalEntries && journalEntries.length > 0 && (
+          {blogEntries && blogEntries.length > 0 && (
             <section className="mt-16 border-t border-zinc-100 pt-10 dark:border-zinc-700/40">
               <h2 className="text-lg font-semibold text-zinc-800 dark:text-zinc-100">
-                {t('appDetail.relatedJournal')}
+                {t('appDetail.relatedBlog')}
               </h2>
               <ul className="mt-4 space-y-4">
-                {journalEntries.map((entry) => (
+                {blogEntries.map((entry) => (
                   <li key={entry.slug}>
                     <Link
-                      href={`/journal/${entry.slug}/`}
+                      href={`/blog/${entry.slug}/`}
                       className="group flex flex-col"
                     >
                       <span className="text-sm font-medium text-zinc-800 group-hover:text-violet-500 dark:text-zinc-200 dark:group-hover:text-violet-400">
-                        {te(t, `journal.${entry.slug}.title`, entry.title)}
+                        {te(t, `blog.${entry.slug}.title`, entry.title)}
                       </span>
                       <span className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
                         {formatDate(entry.date, locale)}

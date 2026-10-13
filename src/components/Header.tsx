@@ -81,7 +81,7 @@ function useNavItems() {
   let { t } = useTranslation()
   return [
     { href: '/', label: t('nav.home') },
-    { href: '/journal/', label: t('nav.blog') },
+    { href: '/blog/', label: t('nav.blog') },
     { href: '/projects', label: t('nav.projects') },
     { href: '/work', label: t('nav.work') },
     { href: '/education', label: t('nav.education') },

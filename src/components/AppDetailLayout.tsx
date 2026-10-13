@@ -1,7 +1,7 @@
-// Async server component wrapper — fetches journal entries and passes them to AppLayout.
+// Async server component wrapper — fetches blog posts and passes them to AppLayout.
 
 import { AppLayout } from '@/components/AppLayout'
-import { getJournalEntriesForApp } from '@/lib/journal'
+import { getBlogEntriesForApp } from '@/lib/blog'
 
 export async function AppDetailLayout({
   app,
@@ -23,10 +23,10 @@ export async function AppDetailLayout({
   let slug =
     app.slug || app.url?.match(/\/apps\/([^/]+)/)?.[1] || ''
 
-  let journalEntries = await getJournalEntriesForApp(slug)
+  let blogEntries = await getBlogEntriesForApp(slug)
 
   return (
-    <AppLayout app={{ ...app, slug }} journalEntries={journalEntries}>
+    <AppLayout app={{ ...app, slug }} blogEntries={blogEntries}>
       {children}
     </AppLayout>
   )

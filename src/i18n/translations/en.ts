@@ -19,11 +19,11 @@ const en = {
   // App detail layout
   'appDetail.goToApp': 'Go to app',
   'appDetail.viewOnGithub': 'View on GitHub',
-  'appDetail.relatedJournal': 'Related Journal Entries',
+  'appDetail.relatedBlog': 'Related Blog Posts',
 
-  // Journal
-  'journal.title': 'Journal',
-  'journal.description':
+  // Blog
+  'blog.title': 'Blog',
+  'blog.description':
     'Documenting my learnings and journey. Notes on patterns, bugs, and discoveries along the way.',
 
   // Footer
