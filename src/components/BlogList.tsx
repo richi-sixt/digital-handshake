@@ -6,10 +6,10 @@ import clsx from 'clsx'
 import { Card } from '@/components/Card'
 import { formatDate } from '@/lib/formatDate'
 import { useTranslation } from '@/i18n'
-import { type JournalEntryWithSlug } from '@/lib/journal'
+import { type BlogEntryWithSlug } from '@/lib/blog'
 import { te } from '@/lib/translatedEntry'
 
-export function JournalList({ entries }: { entries: JournalEntryWithSlug[] }) {
+export function BlogList({ entries }: { entries: BlogEntryWithSlug[] }) {
   let [category, setCategory] = useState('all')
   let { t, locale } = useTranslation()
 
@@ -50,8 +50,8 @@ export function JournalList({ entries }: { entries: JournalEntryWithSlug[] }) {
               className="md:grid md:grid-cols-4 md:items-baseline"
             >
               <Card className="md:col-span-3">
-                <Card.Title href={`/journal/${entry.slug}/`}>
-                  {te(t, `journal.${entry.slug}.title`, entry.title)}
+                <Card.Title href={`/blog/${entry.slug}/`}>
+                  {te(t, `blog.${entry.slug}.title`, entry.title)}
                 </Card.Title>
                 <Card.Eyebrow
                   as="time"
@@ -61,7 +61,7 @@ export function JournalList({ entries }: { entries: JournalEntryWithSlug[] }) {
                 >
                   {formatDate(entry.date, locale)}
                 </Card.Eyebrow>
-                <Card.Description>{te(t, `journal.${entry.slug}.description`, entry.description)}</Card.Description>
+                <Card.Description>{te(t, `blog.${entry.slug}.description`, entry.description)}</Card.Description>
                 <div className="relative z-10 mt-4 flex flex-wrap gap-1">
                   <span className="rounded-full bg-violet-100 px-2 py-0.5 text-xs text-violet-700 dark:bg-violet-900/30 dark:text-violet-300">
                     {entry.category}

@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-interface JournalEntry {
+interface BlogEntry {
   title: string
   description: string
   date: string
@@ -11,16 +11,16 @@ interface JournalEntry {
   relatedWork?: string[]
 }
 
-export interface JournalEntryWithSlug extends JournalEntry {
+export interface BlogEntryWithSlug extends BlogEntry {
   slug: string
 }
 
 async function importEntry(
   entryFilename: string,
-): Promise<JournalEntryWithSlug> {
-  let { entry } = (await import(`../app/journal/${entryFilename}`)) as {
+): Promise<BlogEntryWithSlug> {
+  let { entry } = (await import(`../app/blog/${entryFilename}`)) as {
     default: React.ComponentType
-    entry: JournalEntry
+    entry: BlogEntry
   }
 
   return {
@@ -29,14 +29,14 @@ async function importEntry(
   }
 }
 
-export async function getAllJournalEntries() {
-  let journalDir = path.join(process.cwd(), 'src/app/journal')
-  let dirEntries = fs.readdirSync(journalDir, { withFileTypes: true })
+export async function getAllBlogEntries() {
+  let blogDir = path.join(process.cwd(), 'src/app/blog')
+  let dirEntries = fs.readdirSync(blogDir, { withFileTypes: true })
   let entryFilenames = dirEntries
     .filter(
       (e) =>
         e.isDirectory() &&
-        fs.existsSync(path.join(journalDir, e.name, 'page.en.mdx')),
+        fs.existsSync(path.join(blogDir, e.name, 'page.en.mdx')),
     )
     .map((e) => `${e.name}/page.en.mdx`)
 
@@ -45,17 +45,17 @@ export async function getAllJournalEntries() {
   return entries.sort((a, z) => +new Date(z.date) - +new Date(a.date))
 }
 
-export async function getJournalEntriesForApp(appSlug: string) {
-  let entries = await getAllJournalEntries()
+export async function getBlogEntriesForApp(appSlug: string) {
+  let entries = await getAllBlogEntries()
   return entries.filter((e) => e.relatedApps?.includes(appSlug))
 }
 
-export async function getJournalEntriesForWork(workSlug: string) {
-  let entries = await getAllJournalEntries()
+export async function getBlogEntriesForWork(workSlug: string) {
+  let entries = await getAllBlogEntries()
   return entries.filter((e) => e.relatedWork?.includes(workSlug))
 }
 
-export async function getJournalCategories() {
-  let entries = await getAllJournalEntries()
+export async function getBlogCategories() {
+  let entries = await getAllBlogEntries()
   return [...new Set(entries.map((e) => e.category))]
 }

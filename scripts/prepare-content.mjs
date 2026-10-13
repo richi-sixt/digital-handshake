@@ -4,7 +4,7 @@
  * prepare-content.mjs
  *
  * Copies content into src/app/ before build/dev:
- *   - journal/            → src/app/journal/ (+ assets to public/journal/)
+ *   - journal/            → src/app/blog/ (+ assets to public/journal/)
  *   - content/work|education → src/app/work|education/
  *
  * journal/ and content/ are private git submodules and the single source of truth.
@@ -19,7 +19,9 @@ import { join, resolve } from 'node:path'
 
 const ROOT = resolve(import.meta.dirname, '..')
 const JOURNAL_DIR = join(ROOT, 'journal')
-const TARGET_DIR = join(ROOT, 'src', 'app', 'journal')
+const TARGET_DIR = join(ROOT, 'src', 'app', 'blog')
+// Entries reference images as /journal/screenshots/...; keep that path until
+// the posts move to the database (Phase 4).
 const PUBLIC_JOURNAL_DIR = join(ROOT, 'public', 'journal')
 const CONTENT_DIR = join(ROOT, 'content')
 const APP_DIR = join(ROOT, 'src', 'app')
@@ -29,7 +31,7 @@ const CONTENT_SECTIONS = ['work', 'education']
 const PAGE_EXTENSIONS = new Set(['.mdx', '.md', '.tsx', '.ts', '.jsx', '.js'])
 
 /**
- * Remove all content subdirectories from src/app/journal/
+ * Remove all content subdirectories from src/app/blog/
  * but preserve top-level files (page.tsx, etc.)
  */
 function cleanTarget() {
@@ -57,7 +59,7 @@ function isEntryDirectory(dirPath) {
 }
 
 /**
- * Copy entry subdirectories from journal/ into src/app/journal/
+ * Copy entry subdirectories from journal/ into src/app/blog/
  * and copy asset directories into public/journal/ for static serving.
  */
 function copyEntries() {
@@ -74,7 +76,7 @@ function copyEntries() {
     if (!statSync(sourcePath).isDirectory()) continue
 
     if (isEntryDirectory(sourcePath)) {
-      // Journal entry → copy to src/app/journal/ for Next.js routing
+      // Blog entry → copy to src/app/blog/ for Next.js routing
       const targetPath = join(TARGET_DIR, item)
       cpSync(sourcePath, targetPath, { recursive: true })
       entries++

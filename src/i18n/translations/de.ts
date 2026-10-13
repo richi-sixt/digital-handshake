@@ -21,11 +21,11 @@ const de: Record<keyof typeof en, string> & Record<string, string> = {
   // App detail layout
   'appDetail.goToApp': 'Zur App',
   'appDetail.viewOnGithub': 'Auf GitHub ansehen',
-  'appDetail.relatedJournal': 'Verwandte Journal-Eintr\u00E4ge',
+  'appDetail.relatedBlog': 'Verwandte Blog-Beitr\u00E4ge',
 
-  // Journal
-  'journal.title': 'Journal',
-  'journal.description':
+  // Blog
+  'blog.title': 'Blog',
+  'blog.description':
     'Dokumentation meiner Lernreise. Notizen zu Patterns, Bugs und Entdeckungen.',
 
   // Footer
@@ -135,21 +135,21 @@ const de: Record<keyof typeof en, string> & Record<string, string> = {
   'app.cream.title': 'C.R.E.A.M. - eine persöliche Finanz-App',
   'app.cream.description':
     ' C.R.E.A.M. — eine persöliche Finanzverwaltungs-App für Schweizer Bankkonten und Rechnungen.',
-  // Journal detail titles & descriptions
-  'journal.hydration-fix.title': 'Hydration-Mismatch im Memory-Spiel beheben',
-  'journal.hydration-fix.description':
+  // Blog detail titles & descriptions
+  'blog.hydration-fix.title': 'Hydration-Mismatch im Memory-Spiel beheben',
+  'blog.hydration-fix.description':
     'Wie Math.random() SSR-Hydration-Fehler verursacht und die L\u00F6sung mit dem Mounted-Pattern.',
-  'journal.static-export-cpanel.title': 'Von Standalone zu Static Export: Lösung der cPanel Prozesslimiten',
-  'journal.static-export-cpanel.description':
+  'blog.static-export-cpanel.title': 'Von Standalone zu Static Export: Lösung der cPanel Prozesslimiten',
+  'blog.static-export-cpanel.description':
     'Wie ein Next.js Standalone-Server die Prozesslimiten auf Shared Hosting erreichte und warum Static Export die richtige Lösung war.',
-  'journal.private-submodules.title': 'Privater Inhalt mit Git Submodules',
-  'journal.private-submodules.description':
+  'blog.private-submodules.title': 'Privater Inhalt mit Git Submodules',
+  'blog.private-submodules.description':
     'Wie man ein öffentliches Repository beibehält und gleichzeitig private Inhalte wie Tagebucheinträge oder Portfolio-Daten mit Git-Submodulen verwaltet.',
-  'journal.playground-doc.title': 'Dokumentation der Playground-App',
-  'journal.playground-doc.description':
+  'blog.playground-doc.title': 'Dokumentation der Playground-App',
+  'blog.playground-doc.description':
     'Eine anf\u00E4ngerfreundliche Schritt-für-Schritt-Anleitung zum gesamten Playground-Projekt',
-  'journal.memory-features.title': 'Memory-Spiel: Spielfeldgrösse & Thema-Auswahl',
-  'journal.memory-features.description':
+  'blog.memory-features.title': 'Memory-Spiel: Spielfeldgrösse & Thema-Auswahl',
+  'blog.memory-features.description':
     'Wie die konfigurierbaren Spielfeldgrössen und Karten-Themen zum Memory-Spiel hinzugefügt wurden, mit Anleitung zur Erweiterung.',
 
   
