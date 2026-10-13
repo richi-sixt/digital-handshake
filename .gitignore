@@ -14,10 +14,11 @@
 /build
 /deploy
 
-# generated content (copied/built by scripts/prepare-content.mjs & export-projects.mjs)
+# generated content (copied by scripts/prepare-content.mjs)
 /src/app/journal/*/
+/src/app/work/*/
+/src/app/education/*/
 /public/journal/
-/public/api/projects.json
 
 # misc
 .DS_Store

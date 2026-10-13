@@ -3,10 +3,12 @@
 /**
  * prepare-content.mjs
  *
- * Copies journal entries from journal/ into src/app/journal/ before build/dev.
+ * Copies content into src/app/ before build/dev:
+ *   - journal/            → src/app/journal/ (+ assets to public/journal/)
+ *   - content/work|education → src/app/work|education/
  *
- * The journal/ directory is the single source of truth.
- * Use journal-examples/ as a reference to create your own entries.
+ * journal/ and content/ are private git submodules and the single source of truth.
+ * Use journal-examples/ and content-examples/ as references.
  *
  * Usage:
  *   node scripts/prepare-content.mjs
@@ -19,6 +21,9 @@ const ROOT = resolve(import.meta.dirname, '..')
 const JOURNAL_DIR = join(ROOT, 'journal')
 const TARGET_DIR = join(ROOT, 'src', 'app', 'journal')
 const PUBLIC_JOURNAL_DIR = join(ROOT, 'public', 'journal')
+const CONTENT_DIR = join(ROOT, 'content')
+const APP_DIR = join(ROOT, 'src', 'app')
+const CONTENT_SECTIONS = ['work', 'education']
 
 /** File extensions that are treated as journal entry pages. */
 const PAGE_EXTENSIONS = new Set(['.mdx', '.md', '.tsx', '.ts', '.jsx', '.js'])
@@ -85,22 +90,56 @@ function copyEntries() {
   return { entries, assets }
 }
 
+/**
+ * Copy content/{section}/* into src/app/{section}/ (work, education).
+ * Generated folders are gitignored; top-level files (page.tsx) are preserved.
+ */
+function copyContentSection(section) {
+  const sourceDir = join(CONTENT_DIR, section)
+  const targetDir = join(APP_DIR, section)
+
+  if (existsSync(targetDir)) {
+    for (const entry of readdirSync(targetDir)) {
+      const fullPath = join(targetDir, entry)
+      if (statSync(fullPath).isDirectory()) {
+        rmSync(fullPath, { recursive: true, force: true })
+      }
+    }
+  }
+
+  if (!existsSync(sourceDir)) return 0
+
+  let count = 0
+  for (const entry of readdirSync(sourceDir)) {
+    const sourcePath = join(sourceDir, entry)
+    if (!statSync(sourcePath).isDirectory()) continue
+    cpSync(sourcePath, join(targetDir, entry), { recursive: true })
+    count++
+  }
+  return count
+}
+
 // --- Main ---
 
-console.log('📄 Preparing journal content from journal/...\n')
+console.log('📄 Preparing content...\n')
 
-if (!existsSync(JOURNAL_DIR)) {
-  console.log('⚠  journal/ directory not found.')
-  console.log('   Copy entries from journal-examples/ to journal/ to get started.\n')
-  process.exit(0)
+if (existsSync(JOURNAL_DIR)) {
+  cleanTarget()
+  const { entries, assets } = copyEntries()
+  console.log(`   → journal: ${entries} entries copied`)
+  if (assets > 0) {
+    console.log(`   → journal: ${assets} asset folders copied to public/journal/`)
+  }
+} else {
+  console.log('⚠  journal/ directory not found (copy from journal-examples/).')
 }
 
-cleanTarget()
-
-const { entries, assets } = copyEntries()
-console.log(`   → ${entries} entries copied`)
-if (assets > 0) {
-  console.log(`   → ${assets} asset folders copied to public/journal/`)
+if (existsSync(CONTENT_DIR)) {
+  for (const section of CONTENT_SECTIONS) {
+    console.log(`   → ${section}: ${copyContentSection(section)} entries copied`)
+  }
+} else {
+  console.log('⚠  content/ directory not found (copy from content-examples/).')
 }
 
-console.log(`\n✅ Done! ${entries} journal entries prepared.\n`)
+console.log('\n✅ Done!\n')
