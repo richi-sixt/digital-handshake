@@ -14,7 +14,7 @@ export function Footer() {
             <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
               <p className="text-sm text-zinc-400 dark:text-zinc-500">
                 &copy; {new Date().getFullYear()} R&uuml;chan Sixt.{' '}
-                {t('footer.builtWith')}
+                {t('footer.rights')}
               </p>
             </div>
           </ContainerInner>

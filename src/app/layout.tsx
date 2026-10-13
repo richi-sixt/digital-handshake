@@ -7,11 +7,11 @@ import '@/styles/tailwind.css'
 
 export const metadata: Metadata = {
   title: {
-    template: '%s - Playground',
-    default: 'Playground - Explore Projects, Apps & Games',
+    template: '%s - R\u00FCchan Sixt',
+    default: 'R\u00FCchan Sixt - Hobby Developer & Agile Process Leader',
   },
   description:
-    'A playground for exploring projects, apps, games, and experiments.',
+    'Portfolio of R\u00FCchan Sixt. Hobby developer and Head of Process Contract Management in Non-Life Insurance.',
 }
 
 export default function RootLayout({

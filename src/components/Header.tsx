@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import {
@@ -13,6 +14,7 @@ import clsx from 'clsx'
 
 import { Container } from '@/components/Container'
 import { useTranslation } from '@/i18n'
+import avatarImage from '@/images/avatar.jpg'
 
 function CloseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -79,7 +81,10 @@ function useNavItems() {
   let { t } = useTranslation()
   return [
     { href: '/', label: t('nav.home') },
-    { href: '/journal/', label: t('nav.journal') },
+    { href: '/journal/', label: t('nav.blog') },
+    { href: '/projects', label: t('nav.projects') },
+    { href: '/work', label: t('nav.work') },
+    { href: '/education', label: t('nav.education') },
   ]
 }
 
@@ -178,7 +183,7 @@ function DesktopNavigation(props: React.ComponentPropsWithoutRef<'nav'>) {
 }
 
 function LanguageToggle() {
-  let { locale, setLocale } = useTranslation()
+  let { locale, setLocale, t } = useTranslation()
   let [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -190,8 +195,10 @@ function LanguageToggle() {
       type="button"
       aria-label={
         mounted
-          ? `Switch to ${locale === 'en' ? 'German' : 'English'}`
-          : 'Toggle language'
+          ? locale === 'en'
+            ? t('header.switchToGerman')
+            : t('header.switchToEnglish')
+          : t('header.toggleLanguage')
       }
       className="group rounded-full bg-white/90 px-3 py-2 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
       onClick={() => setLocale(locale === 'en' ? 'de' : 'en')}
@@ -205,6 +212,7 @@ function LanguageToggle() {
 
 function ThemeToggle() {
   let { resolvedTheme, setTheme } = useTheme()
+  let { t } = useTranslation()
   let otherTheme = resolvedTheme === 'dark' ? 'light' : 'dark'
   let [mounted, setMounted] = useState(false)
 
@@ -215,7 +223,13 @@ function ThemeToggle() {
   return (
     <button
       type="button"
-      aria-label={mounted ? `Switch to ${otherTheme} theme` : 'Toggle theme'}
+      aria-label={
+        mounted
+          ? resolvedTheme === 'dark'
+            ? t('header.switchToLight')
+            : t('header.switchToDark')
+          : t('header.toggleTheme')
+      }
       className="group rounded-full bg-white/90 px-3 py-2 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5 backdrop-blur-sm transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
       onClick={() => setTheme(otherTheme)}
     >
@@ -251,25 +265,23 @@ function Avatar({
       className={clsx(className, 'pointer-events-auto')}
       {...props}
     >
-      <svg
-        viewBox="0 0 36 36"
-        aria-hidden="true"
-        className="h-9 w-9 text-violet-500 dark:text-violet-400"
-      >
-        <circle cx="18" cy="18" r="18" fill="currentColor" opacity="0.15" />
-        <polygon
-          points="14,11 28,18 14,25"
-          fill="currentColor"
-        />
-      </svg>
+      <Image
+        src={avatarImage}
+        alt=""
+        sizes="2.25rem"
+        className="h-9 w-9 rounded-full bg-zinc-100 object-cover dark:bg-zinc-800"
+        priority
+      />
     </Link>
   )
 }
 
 export function Header() {
   return (
-    <header className="pointer-events-none fixed top-0 z-50 w-full">
-      <div className="h-20 bg-zinc-50 pt-6 dark:bg-black">
+    <header
+      className="pointer-events-none fixed top-0 z-50 w-full"
+    >
+      <div className="h-20 pt-6 bg-zinc-50 dark:bg-black">
         <Container>
           <div className="relative flex items-center gap-4">
             <div className="flex flex-1">
