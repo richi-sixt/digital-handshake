@@ -7,7 +7,6 @@ import { Card } from '@/components/Card'
 import { formatDate } from '@/lib/formatDate'
 import { useTranslation } from '@/i18n'
 import { type BlogEntryWithSlug } from '@/lib/blog'
-import { te } from '@/lib/translatedEntry'
 
 export function BlogList({ entries }: { entries: BlogEntryWithSlug[] }) {
   let [category, setCategory] = useState('all')
@@ -51,7 +50,7 @@ export function BlogList({ entries }: { entries: BlogEntryWithSlug[] }) {
             >
               <Card className="md:col-span-3">
                 <Card.Title href={`/blog/${entry.slug}/`}>
-                  {te(t, `blog.${entry.slug}.title`, locale === 'de' && entry.titleDe ? entry.titleDe : entry.title)}
+                  {locale === 'de' && entry.titleDe ? entry.titleDe : entry.title}
                 </Card.Title>
                 <Card.Eyebrow
                   as="time"
@@ -61,7 +60,7 @@ export function BlogList({ entries }: { entries: BlogEntryWithSlug[] }) {
                 >
                   {formatDate(entry.date, locale)}
                 </Card.Eyebrow>
-                <Card.Description>{te(t, `blog.${entry.slug}.description`, locale === 'de' && entry.descriptionDe ? entry.descriptionDe : entry.description)}</Card.Description>
+                <Card.Description>{locale === 'de' && entry.descriptionDe ? entry.descriptionDe : entry.description}</Card.Description>
                 <div className="relative z-10 mt-4 flex flex-wrap gap-1">
                   <span className="rounded-full bg-violet-100 px-2 py-0.5 text-xs text-violet-700 dark:bg-violet-900/30 dark:text-violet-300">
                     {entry.category}

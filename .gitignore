@@ -15,11 +15,8 @@
 /deploy
 
 # generated content (copied by scripts/prepare-content.mjs)
-/src/app/blog/*/
-!/src/app/blog/\[slug\]/
 /src/app/work/*/
 /src/app/education/*/
-/public/journal/
 
 # misc
 .DS_Store

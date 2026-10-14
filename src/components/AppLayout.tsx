@@ -132,7 +132,7 @@ export function AppLayout({
                       className="group flex flex-col"
                     >
                       <span className="text-sm font-medium text-zinc-800 group-hover:text-violet-500 dark:text-zinc-200 dark:group-hover:text-violet-400">
-                        {te(t, `blog.${entry.slug}.title`, locale === 'de' && entry.titleDe ? entry.titleDe : entry.title)}
+                        {locale === 'de' && entry.titleDe ? entry.titleDe : entry.title}
                       </span>
                       <span className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
                         {formatDate(entry.date, locale)}

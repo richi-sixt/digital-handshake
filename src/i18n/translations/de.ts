@@ -135,22 +135,6 @@ const de: Record<keyof typeof en, string> & Record<string, string> = {
   'app.cream.title': 'C.R.E.A.M. - eine persöliche Finanz-App',
   'app.cream.description':
     ' C.R.E.A.M. — eine persöliche Finanzverwaltungs-App für Schweizer Bankkonten und Rechnungen.',
-  // Blog detail titles & descriptions
-  'blog.hydration-fix.title': 'Hydration-Mismatch im Memory-Spiel beheben',
-  'blog.hydration-fix.description':
-    'Wie Math.random() SSR-Hydration-Fehler verursacht und die L\u00F6sung mit dem Mounted-Pattern.',
-  'blog.static-export-cpanel.title': 'Von Standalone zu Static Export: Lösung der cPanel Prozesslimiten',
-  'blog.static-export-cpanel.description':
-    'Wie ein Next.js Standalone-Server die Prozesslimiten auf Shared Hosting erreichte und warum Static Export die richtige Lösung war.',
-  'blog.private-submodules.title': 'Privater Inhalt mit Git Submodules',
-  'blog.private-submodules.description':
-    'Wie man ein öffentliches Repository beibehält und gleichzeitig private Inhalte wie Tagebucheinträge oder Portfolio-Daten mit Git-Submodulen verwaltet.',
-  'blog.playground-doc.title': 'Dokumentation der Playground-App',
-  'blog.playground-doc.description':
-    'Eine anf\u00E4ngerfreundliche Schritt-für-Schritt-Anleitung zum gesamten Playground-Projekt',
-  'blog.memory-features.title': 'Memory-Spiel: Spielfeldgrösse & Thema-Auswahl',
-  'blog.memory-features.description':
-    'Wie die konfigurierbaren Spielfeldgrössen und Karten-Themen zum Memory-Spiel hinzugefügt wurden, mit Anleitung zur Erweiterung.',
 
   
   // Tic Tac Toe (solo)
