@@ -3,103 +3,28 @@
 /**
  * prepare-content.mjs
  *
- * Copies content into src/app/ before build/dev:
- *   - journal/            → src/app/blog/ (+ assets to public/journal/)
- *   - content/work|education → src/app/work|education/
- *
- * journal/ and content/ are private git submodules and the single source of truth.
- * Use journal-examples/ and content-examples/ as references.
+ * Copies content/work|education (private git submodule) into
+ * src/app/work|education/ before build/dev. The generated folders are
+ * gitignored. Use content-examples/ as a reference for the entry format.
+ * Blog posts are not handled here; they live in the Supabase `posts` table.
  *
  * Usage:
  *   node scripts/prepare-content.mjs
  */
 
-import { existsSync, cpSync, rmSync, readdirSync, statSync, mkdirSync } from 'node:fs'
+import { existsSync, cpSync, rmSync, readdirSync, statSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 
 const ROOT = resolve(import.meta.dirname, '..')
-const JOURNAL_DIR = join(ROOT, 'journal')
-const TARGET_DIR = join(ROOT, 'src', 'app', 'blog')
-// Entries reference images as /journal/screenshots/...; keep that path until
-// the posts move to the database (Phase 4).
-const PUBLIC_JOURNAL_DIR = join(ROOT, 'public', 'journal')
 const CONTENT_DIR = join(ROOT, 'content')
 const APP_DIR = join(ROOT, 'src', 'app')
-const CONTENT_SECTIONS = ['work', 'education']
-
-/** File extensions that are treated as journal entry pages. */
-const PAGE_EXTENSIONS = new Set(['.mdx', '.md', '.tsx', '.ts', '.jsx', '.js'])
+const SECTIONS = ['work', 'education']
 
 /**
- * Remove all content subdirectories from src/app/blog/
- * but preserve top-level files (page.tsx, etc.)
+ * Replace the generated entry folders in src/app/{section}/ with the ones from
+ * content/{section}. Top-level files (page.tsx) are preserved.
  */
-function cleanTarget() {
-  if (!existsSync(TARGET_DIR)) return
-
-  const entries = readdirSync(TARGET_DIR)
-  for (const entry of entries) {
-    // Keep route segments like [slug] (database posts); only generated entry
-    // folders are removed.
-    if (entry.startsWith('[') || entry.startsWith('(')) continue
-    const fullPath = join(TARGET_DIR, entry)
-    if (statSync(fullPath).isDirectory()) {
-      rmSync(fullPath, { recursive: true, force: true })
-    }
-  }
-}
-
-/**
- * Check whether a directory looks like a journal entry (contains page files)
- * vs. a static asset directory (screenshots, images, etc.)
- */
-function isEntryDirectory(dirPath) {
-  const files = readdirSync(dirPath)
-  return files.some((f) => {
-    const ext = f.slice(f.lastIndexOf('.'))
-    return PAGE_EXTENSIONS.has(ext)
-  })
-}
-
-/**
- * Copy entry subdirectories from journal/ into src/app/blog/
- * and copy asset directories into public/journal/ for static serving.
- */
-function copyEntries() {
-  if (!existsSync(JOURNAL_DIR)) {
-    return { entries: 0, assets: 0 }
-  }
-
-  const items = readdirSync(JOURNAL_DIR)
-  let entries = 0
-  let assets = 0
-
-  for (const item of items) {
-    const sourcePath = join(JOURNAL_DIR, item)
-    if (!statSync(sourcePath).isDirectory()) continue
-
-    if (isEntryDirectory(sourcePath)) {
-      // Blog entry → copy to src/app/blog/ for Next.js routing
-      const targetPath = join(TARGET_DIR, item)
-      cpSync(sourcePath, targetPath, { recursive: true })
-      entries++
-    } else {
-      // Asset directory (screenshots, images, etc.) → copy to public/journal/
-      const publicPath = join(PUBLIC_JOURNAL_DIR, item)
-      mkdirSync(publicPath, { recursive: true })
-      cpSync(sourcePath, publicPath, { recursive: true })
-      assets++
-    }
-  }
-
-  return { entries, assets }
-}
-
-/**
- * Copy content/{section}/* into src/app/{section}/ (work, education).
- * Generated folders are gitignored; top-level files (page.tsx) are preserved.
- */
-function copyContentSection(section) {
+function copySection(section) {
   const sourceDir = join(CONTENT_DIR, section)
   const targetDir = join(APP_DIR, section)
 
@@ -128,23 +53,13 @@ function copyContentSection(section) {
 
 console.log('📄 Preparing content...\n')
 
-if (existsSync(JOURNAL_DIR)) {
-  cleanTarget()
-  const { entries, assets } = copyEntries()
-  console.log(`   → journal: ${entries} entries copied`)
-  if (assets > 0) {
-    console.log(`   → journal: ${assets} asset folders copied to public/journal/`)
-  }
-} else {
-  console.log('⚠  journal/ directory not found (copy from journal-examples/).')
+if (!existsSync(CONTENT_DIR)) {
+  console.log('⚠  content/ directory not found (copy from content-examples/).\n')
+  process.exit(0)
 }
 
-if (existsSync(CONTENT_DIR)) {
-  for (const section of CONTENT_SECTIONS) {
-    console.log(`   → ${section}: ${copyContentSection(section)} entries copied`)
-  }
-} else {
-  console.log('⚠  content/ directory not found (copy from content-examples/).')
+for (const section of SECTIONS) {
+  console.log(`   → ${section}: ${copySection(section)} entries copied`)
 }
 
 console.log('\n✅ Done!\n')

@@ -1,6 +1,3 @@
-[submodule "journal"]
-	path = journal
-	url = git@github-playground:richi-sixt/playground-journal-private.git
 [submodule "content"]
 	path = content
 	url = git@github-handshake:richi-sixt/handshake-content-private.git

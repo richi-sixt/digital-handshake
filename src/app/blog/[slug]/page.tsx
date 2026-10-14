@@ -16,8 +16,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: post.title_en, description: post.description_en }
 }
 
-// Legacy MDX entries have their own static folders (src/app/blog/<slug>/) and
-// win over this dynamic route; everything else is served from the database.
 export default async function BlogPostPage({ params }: Props) {
   let { slug } = await params
   let post = await getPublishedPostBySlug(slug)
@@ -34,7 +32,6 @@ export default async function BlogPostPage({ params }: Props) {
     tags: post.tags,
     relatedApps: post.related_apps,
     relatedWork: post.related_work,
-    source: 'db' as const,
   }
 
   return (

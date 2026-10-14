@@ -6,7 +6,6 @@ const nextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
   images: { unoptimized: true },
   // Server-rendered (no static export): /admin, Supabase posts and redirects.
-  // Screenshots stay under /journal/screenshots/ until posts move to the DB.
   async redirects() {
     return [
       {
@@ -15,7 +14,7 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/journal/:path((?!screenshots/).+)',
+        source: '/journal/:path+',
         destination: '/blog/:path',
         permanent: true,
       },
