@@ -27,7 +27,9 @@ $$;
 revoke all on function public.is_admin() from public;
 grant execute on function public.is_admin() to anon, authenticated;
 
--- insert into public.admin_emails (email) values ('ruechan.sixt@proton.me');
+-- Add your own address once, manually (keep that query out of git, e.g. in
+-- supabase/local/, which is gitignored):
+-- insert into public.admin_emails (email) values ('you@example.com');
 
 -- ----------------------------------------------------------------- posts ---
 create table if not exists public.posts (

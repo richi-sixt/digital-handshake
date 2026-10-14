@@ -18,6 +18,9 @@
 /src/app/work/*/
 /src/app/education/*/
 
+# private one-off queries and local notes (never commit)
+/supabase/local/
+
 # misc
 .DS_Store
 *.pem
