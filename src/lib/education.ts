@@ -1,5 +1,6 @@
 
-import glob from 'fast-glob'
+import fs from 'node:fs'
+import path from 'node:path'
 
 interface Education {
   institution: string
@@ -33,9 +34,14 @@ async function importEducation(
 }
 
 export async function getAllEducation() {
-  let educationFilenames = await glob('*/page.en.mdx', {
-    cwd: './src/app/education',
-  })
+  let dir = path.join(process.cwd(), 'src/app/education')
+  let educationFilenames = fs
+    .readdirSync(dir, { withFileTypes: true })
+    .filter(
+      (e) =>
+        e.isDirectory() && fs.existsSync(path.join(dir, e.name, 'page.en.mdx')),
+    )
+    .map((e) => `${e.name}/page.en.mdx`)
 
   let educations = await Promise.all(educationFilenames.map(importEducation))
 

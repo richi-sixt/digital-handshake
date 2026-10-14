@@ -1,4 +1,5 @@
-import glob from 'fast-glob'
+import fs from 'node:fs'
+import path from 'node:path'
 
 interface Work {
   company: string
@@ -28,9 +29,14 @@ async function importWork(workFilename: string): Promise<WorkWithSlug> {
 }
 
 export async function getAllWork() {
-  let workFilenames = await glob('*/page.en.mdx', {
-    cwd: './src/app/work',
-  })
+  let dir = path.join(process.cwd(), 'src/app/work')
+  let workFilenames = fs
+    .readdirSync(dir, { withFileTypes: true })
+    .filter(
+      (e) =>
+        e.isDirectory() && fs.existsSync(path.join(dir, e.name, 'page.en.mdx')),
+    )
+    .map((e) => `${e.name}/page.en.mdx`)
 
   let works = await Promise.all(workFilenames.map(importWork))
 
