@@ -61,7 +61,7 @@ export function BlogLayout({
                 <span className="ml-3">{formatDate(entry.date, locale)}</span>
               </time>
               <h1 className="mt-6 text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-                {te(t, `blog.${entry.slug}.title`, entry.title)}
+                {te(t, `blog.${entry.slug}.title`, locale === 'de' && entry.titleDe ? entry.titleDe : entry.title)}
               </h1>
               <div className="mt-4 flex flex-wrap gap-2">
                 <span className="rounded-full bg-violet-100 px-3 py-1 text-xs font-medium text-violet-700 dark:bg-violet-900/30 dark:text-violet-300">

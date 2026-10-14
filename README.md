@@ -28,14 +28,26 @@ This project exists to:
 3. Create the game component in `src/components/games/YourGame.tsx` (use `'use client'`)
 4. Create `play/page.tsx` for the playable page
 
-The home page picks up new apps automatically.
+The `/projects` page picks up new apps automatically.
 
-### Adding a Journal Entry
+### Adding a Blog Post (temporary, until the admin editor exists)
 
 1. Create a directory in `journal-examples/your-slug/` (public) or `journal/your-slug/` (private submodule)
 2. Add `page.en.mdx` with an exported `entry` metadata object and your MDX content
 3. Add `page.tsx`, `MdxContent.tsx`, and optionally `page.de.mdx` for German
-4. Run `npm run prepare-content` (or `npm run dev`, which runs it automatically)
+4. Run `npm run prepare-content` (or `npm run dev`, which runs it automatically). Entries are published under `/blog/<slug>/`.
+
+> The private `journal/` folder keeps its name for now; entries still import `JournalLayout`, which is a shim for `BlogLayout`. Old `/journal/*` URLs redirect to `/blog/*` once the site runs as a server.
+
+### Blog admin (Supabase)
+
+Posts live in the Supabase table `posts`; `/admin` (magic-link login) is the editor.
+
+1. Run `supabase/migrations/0002_posts.sql` in the Supabase SQL editor, then add your email to `admin_emails` (INSERT is commented in the file).
+2. Supabase dashboard → Authentication: disable "Allow new users to sign up", create your user, set Site URL and add `<origin>/auth/callback` to the redirect URLs.
+3. `npm run dev` → `/admin`. Only emails in `admin_emails` get access; row level security enforces it in the database.
+
+Legacy MDX entries from the `journal/` submodule are still listed until they are imported.
 
 ## Tech Stack
 
@@ -48,7 +60,7 @@ The home page picks up new apps automatically.
 
 ## Features
 
-- **Journal** — MDX-based entries for documenting learnings (content managed via git submodule)
+- **Blog** — MDX-based entries for documenting learnings (content managed via git submodule)
 - **Multiplayer** — real-time game rooms via Supabase Realtime with shareable room codes
 - **i18n** — English/German with automatic fallback when translations are missing
 - **Static export** — pure HTML/CSS/JS output, no Node.js server needed (cPanel-friendly)
