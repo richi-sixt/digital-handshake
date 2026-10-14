@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
+import { publicOrigin } from '@/lib/site-origin'
 import { updateSession } from '@/lib/supabase/proxy'
 
 const LOGIN_PATH = '/admin/login'
@@ -11,10 +12,7 @@ export async function proxy(request: NextRequest) {
   let isLogin = pathname.replace(/\/$/, '') === LOGIN_PATH
 
   if (!user && !isLogin) {
-    let url = request.nextUrl.clone()
-    url.pathname = LOGIN_PATH
-    url.search = ''
-    return NextResponse.redirect(url)
+    return NextResponse.redirect(new URL(LOGIN_PATH, publicOrigin(request)))
   }
 
   return response

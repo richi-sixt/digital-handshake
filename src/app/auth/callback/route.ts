@@ -1,10 +1,12 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
+import { publicOrigin } from '@/lib/site-origin'
 import { createClient } from '@/lib/supabase/server'
 
 /** Magic-link landing: exchanges the one-time code for a session cookie. */
 export async function GET(request: NextRequest) {
-  let { searchParams, origin } = new URL(request.url)
+  let { searchParams } = request.nextUrl
+  let origin = publicOrigin(request)
   let code = searchParams.get('code')
   let next = searchParams.get('next') ?? '/admin'
   // Only allow redirects inside /admin.
