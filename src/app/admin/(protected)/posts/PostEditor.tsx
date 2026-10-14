@@ -86,10 +86,12 @@ export function PostEditor({
   let [uploading, setUploading] = useState(false)
   let [notice, setNotice] = useState<{ kind: 'ok' | 'error'; text: string }>()
   let [restorable, setRestorable] = useState<FormState | null>(null)
-  let saved = useRef(JSON.stringify(toForm(initial)))
+  let [saved, setSaved] = useState(() => JSON.stringify(toForm(initial)))
   let textarea = useRef<HTMLTextAreaElement>(null)
+  // Snapshot of the form as loaded; used once to detect a stale local backup.
+  let savedAtLoad = useRef(saved)
 
-  let dirty = JSON.stringify(form) !== saved.current
+  let dirty = JSON.stringify(form) !== saved
   let bodyKey: 'body_en' | 'body_de' = lang === 'en' ? 'body_en' : 'body_de'
   let titleKey: 'title_en' | 'title_de' =
     lang === 'en' ? 'title_en' : 'title_de'
@@ -104,7 +106,7 @@ export function PostEditor({
   useEffect(() => {
     try {
       let raw = localStorage.getItem(draftKey)
-      if (raw && raw !== saved.current) setRestorable(JSON.parse(raw))
+      if (raw && raw !== savedAtLoad.current) setRestorable(JSON.parse(raw))
     } catch {}
   }, [draftKey])
 
@@ -156,7 +158,7 @@ export function PostEditor({
     }
 
     setForm(next)
-    saved.current = JSON.stringify(next)
+    setSaved(JSON.stringify(next))
     try {
       localStorage.removeItem(draftKey)
     } catch {}
@@ -180,7 +182,7 @@ export function PostEditor({
       setNotice({ kind: 'error', text: result.error ?? 'Löschen fehlgeschlagen.' })
       return
     }
-    saved.current = JSON.stringify(form)
+    setSaved(JSON.stringify(form))
     try {
       localStorage.removeItem(draftKey)
     } catch {}
