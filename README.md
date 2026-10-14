@@ -38,9 +38,13 @@ Posts live in the Supabase table `posts`; `/admin` (magic-link login) is the edi
 2. Supabase dashboard → Authentication: disable "Allow new users to sign up", create your user, set Site URL and add `<origin>/auth/callback` to the redirect URLs.
 3. `npm run dev` → `/admin`. Only emails in `admin_emails` get access; row level security enforces it in the database.
 
+### Deploy
+
+The site runs as a Node.js server (`npm run build`, then `npm start`). `deploy.sh` pulls, installs and builds; restarting the process is left to your environment. `.env.local` needs `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` at build time (never the service-role key).
+
 ## Tech Stack
 
-- **Next.js 16** (App Router, static export)
+- **Next.js 16** (App Router, server-rendered)
 - **React 19** with TypeScript
 - **Tailwind CSS v4** with dark mode
 - **MDX** for content pages with syntax highlighting
@@ -52,7 +56,6 @@ Posts live in the Supabase table `posts`; `/admin` (magic-link login) is the edi
 - **Blog** — Markdown posts in Supabase, written in the `/admin` editor (EN/DE, images, drafts)
 - **Multiplayer** — real-time game rooms via Supabase Realtime with shareable room codes
 - **i18n** — English/German with automatic fallback when translations are missing
-- **Static export** — pure HTML/CSS/JS output, no Node.js server needed (cPanel-friendly)
 - **Dark mode** — system-aware theme switching
 
 ## Getting Started
