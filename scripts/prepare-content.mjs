@@ -39,6 +39,9 @@ function cleanTarget() {
 
   const entries = readdirSync(TARGET_DIR)
   for (const entry of entries) {
+    // Keep route segments like [slug] (database posts); only generated entry
+    // folders are removed.
+    if (entry.startsWith('[') || entry.startsWith('(')) continue
     const fullPath = join(TARGET_DIR, entry)
     if (statSync(fullPath).isDirectory()) {
       rmSync(fullPath, { recursive: true, force: true })
