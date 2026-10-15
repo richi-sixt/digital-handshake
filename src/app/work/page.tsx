@@ -1,16 +1,15 @@
 import { type Metadata } from 'next'
 
-import { WorkPageContent } from '@/components/WorkPageContent'
-import { getAllWork } from '@/lib/work'
+import { EntryList } from '@/components/EntryList'
+import { getEntries } from '@/lib/entries'
 
 export const metadata: Metadata = {
   title: 'Work',
-  description:
-    'My professional experience in insurance, consulting, and IT.',
+  description: 'My professional experience in insurance, consulting, and IT.',
 }
 
 export default async function WorkIndex() {
-  let works = await getAllWork()
+  let entries = await getEntries('work')
 
-  return <WorkPageContent works={works} />
+  return <EntryList kind="work" entries={entries} />
 }

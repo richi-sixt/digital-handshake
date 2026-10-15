@@ -22,21 +22,41 @@ export default async function ProtectedAdminLayout({
     <Container className="mt-10 pb-16">
       <div className="mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-zinc-100 pb-4 text-sm dark:border-zinc-700/40">
         <div className="flex items-center gap-4">
+          <span className="font-semibold text-zinc-800 dark:text-zinc-100">
+            Admin
+          </span>
           <Link
             href="/admin"
-            className="font-semibold text-zinc-800 dark:text-zinc-100"
-          >
-            Admin
-          </Link>
-          <Link
-            href="/blog/"
             className="text-zinc-500 hover:text-violet-500 dark:text-zinc-400"
           >
-            Zum Blog
+            Beiträge
+          </Link>
+          <Link
+            href="/admin/work"
+            className="text-zinc-500 hover:text-violet-500 dark:text-zinc-400"
+          >
+            Work
+          </Link>
+          <Link
+            href="/admin/education"
+            className="text-zinc-500 hover:text-violet-500 dark:text-zinc-400"
+          >
+            Education
+          </Link>
+          <Link
+            href="/"
+            className="text-zinc-500 hover:text-violet-500 dark:text-zinc-400"
+          >
+            Zur Website
           </Link>
         </div>
         <form action={signOut} className="flex items-center gap-3">
-          <span className="text-zinc-500 dark:text-zinc-400">{user.email}</span>
+          <Link
+            href="/admin/account"
+            className="text-zinc-500 hover:text-violet-500 dark:text-zinc-400"
+          >
+            {user.email}
+          </Link>
           <button
             type="submit"
             className="rounded-full bg-zinc-100 px-3 py-1 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"

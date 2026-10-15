@@ -1,6 +1,6 @@
-# React Playground
+# Digital Handshake
 
-A personal playground for learning and exploring React features, patterns, and concepts hands-on. Each entry is a small, self-contained project that focuses on specific React topics.
+A personal Portfolio website and a playground for learning and exploring React features, patterns, and concepts hands-on. Each entry is a small, self-contained project that focuses on specific React topics.
 
 ## What's Inside
 
@@ -32,11 +32,15 @@ The `/projects` page picks up new apps automatically.
 
 ### Blog admin (Supabase)
 
-Posts live in the Supabase table `posts`; `/admin` (magic-link login) is the editor.
+Posts live in the Supabase table `posts`; `/admin` is the editor. Log in with email and password (set it once under `/admin/account`); the login page also offers a magic link as fallback.
 
 1. Run `supabase/migrations/0002_posts.sql` in the Supabase SQL editor, then add your email to `admin_emails` (INSERT is commented in the file).
-2. Supabase dashboard → Authentication: disable "Allow new users to sign up", create your user, set Site URL and add `<origin>/auth/callback` to the redirect URLs.
+2. Supabase dashboard → Authentication: disable "Allow new users to sign up", create your user, set Site URL and add `<origin>/auth/callback` to the redirect URLs (including `http://localhost:3000/auth/callback` for local development).
 3. `npm run dev` → `/admin`. Only emails in `admin_emails` get access; row level security enforces it in the database.
+
+### Work, Education and the home page
+
+Work and education entries live in the Supabase table `entries` (`supabase/migrations/0004_entries.sql`) and are edited under `/admin/work` and `/admin/education` with the same Markdown editor as the blog (EN/DE, drafts, logo upload). Per entry, "Auf Startseite anzeigen" decides which entries appear in the Work and Education boxes on the home page; work entries can link projects (apps) that are then listed on the entry's page.
 
 ### Deploy
 

@@ -1,16 +1,15 @@
 import { type Metadata } from 'next'
 
-import { EducationPageContent } from '@/components/EducationPageContent'
-import { getAllEducation } from '@/lib/education'
+import { EntryList } from '@/components/EntryList'
+import { getEntries } from '@/lib/entries'
 
 export const metadata: Metadata = {
   title: 'Education',
-  description:
-    'My educational background and professional certifications.',
+  description: 'My educational background and professional certifications.',
 }
 
 export default async function EducationIndex() {
-  let educations = await getAllEducation()
+  let entries = await getEntries('education')
 
-  return <EducationPageContent educations={educations} />
+  return <EntryList kind="education" entries={entries} />
 }

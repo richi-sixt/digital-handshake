@@ -1,33 +1,29 @@
 'use client'
 
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import clsx from 'clsx'
 
 import { deletePost, savePost } from '@/app/admin/actions'
+import { LangTabs } from '@/app/admin/(protected)/editor/LangTabs'
+import { MarkdownPane } from '@/app/admin/(protected)/editor/MarkdownPane'
+import {
+  type Lang,
+  type Notice,
+  csv,
+  inputClass,
+  labelClass,
+  parseCsv,
+} from '@/app/admin/(protected)/editor/shared'
+import {
+  RestoreBanner,
+  useFormBackup,
+} from '@/app/admin/(protected)/editor/useFormBackup'
 import { type PostInput, slugify } from '@/lib/post-input'
 import { type PostRow } from '@/lib/posts'
-import { createClient } from '@/lib/supabase/client'
-
-const PostPreview = dynamic(
-  () => import('@/app/admin/(protected)/posts/PostPreview'),
-  {
-    ssr: false,
-    loading: () => <p className="text-sm text-zinc-400">Lade Vorschau …</p>,
-  },
-)
-
-type Lang = 'en' | 'de'
 
 const today = () => new Date().toISOString().slice(0, 10)
-const csv = (items: string[]) => items.join(', ')
-const parseCsv = (text: string) =>
-  text
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean)
 
 interface FormState {
   slug: string
@@ -63,10 +59,6 @@ function toForm(post: PostRow | null): FormState {
   }
 }
 
-const inputClass =
-  'mt-1 block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100'
-const labelClass = 'text-xs font-medium text-zinc-600 dark:text-zinc-400'
-
 export function PostEditor({
   initial,
   categories,
@@ -81,15 +73,9 @@ export function PostEditor({
   let [form, setForm] = useState<FormState>(() => toForm(initial))
   let [slugTouched, setSlugTouched] = useState(Boolean(initial))
   let [lang, setLang] = useState<Lang>('en')
-  let [pane, setPane] = useState<'write' | 'preview'>('write')
   let [busy, setBusy] = useState(false)
-  let [uploading, setUploading] = useState(false)
-  let [notice, setNotice] = useState<{ kind: 'ok' | 'error'; text: string }>()
-  let [restorable, setRestorable] = useState<FormState | null>(null)
+  let [notice, setNotice] = useState<Notice>()
   let [saved, setSaved] = useState(() => JSON.stringify(toForm(initial)))
-  let textarea = useRef<HTMLTextAreaElement>(null)
-  // Snapshot of the form as loaded; used once to detect a stale local backup.
-  let savedAtLoad = useRef(saved)
 
   let dirty = JSON.stringify(form) !== saved
   let bodyKey: 'body_en' | 'body_de' = lang === 'en' ? 'body_en' : 'body_de'
@@ -102,30 +88,16 @@ export function PostEditor({
     setForm((f) => ({ ...f, [key]: value }))
   }
 
-  // Local backup of unsaved changes (survives a closed tab or lost session).
-  useEffect(() => {
-    try {
-      let raw = localStorage.getItem(draftKey)
-      if (raw && raw !== savedAtLoad.current) setRestorable(JSON.parse(raw))
-    } catch {}
-  }, [draftKey])
-
-  useEffect(() => {
-    if (!dirty) return
-    let timer = setTimeout(() => {
-      try {
-        localStorage.setItem(draftKey, JSON.stringify(form))
-      } catch {}
-    }, 800)
-    return () => clearTimeout(timer)
-  }, [form, dirty, draftKey])
-
-  useEffect(() => {
-    if (!dirty) return
-    let handler = (e: BeforeUnloadEvent) => e.preventDefault()
-    window.addEventListener('beforeunload', handler)
-    return () => window.removeEventListener('beforeunload', handler)
-  }, [dirty])
+  let backup = useFormBackup<FormState>({
+    draftKey,
+    form,
+    saved,
+    dirty,
+    onRestore: (restored) => {
+      setForm(restored)
+      setSlugTouched(true)
+    },
+  })
 
   async function save(status: FormState['status']) {
     setBusy(true)
@@ -159,9 +131,7 @@ export function PostEditor({
 
     setForm(next)
     setSaved(JSON.stringify(next))
-    try {
-      localStorage.removeItem(draftKey)
-    } catch {}
+    backup.clear()
     setNotice({
       kind: 'ok',
       text: status === 'published' ? 'Veröffentlicht.' : 'Gespeichert.',
@@ -183,46 +153,8 @@ export function PostEditor({
       return
     }
     setSaved(JSON.stringify(form))
-    try {
-      localStorage.removeItem(draftKey)
-    } catch {}
+    backup.clear()
     router.push('/admin')
-  }
-
-  async function uploadImages(files: File[]) {
-    let images = files.filter((f) => f.type.startsWith('image/'))
-    if (images.length === 0) return
-
-    setUploading(true)
-    setNotice(undefined)
-    let supabase = createClient()
-    let markdown: string[] = []
-
-    for (let file of images) {
-      let ext = file.name.split('.').pop()?.toLowerCase() || 'png'
-      let base = slugify(file.name.replace(/\.[^.]+$/, '')) || 'image'
-      let path = `${new Date().getFullYear()}/${crypto.randomUUID().slice(0, 8)}-${base}.${ext}`
-
-      let { error } = await supabase.storage
-        .from('blog-images')
-        .upload(path, file, { contentType: file.type, upsert: false })
-
-      if (error) {
-        setNotice({ kind: 'error', text: `Upload fehlgeschlagen: ${error.message}` })
-        continue
-      }
-      let { data } = supabase.storage.from('blog-images').getPublicUrl(path)
-      markdown.push(`![${base}](${data.publicUrl})`)
-    }
-    setUploading(false)
-    if (markdown.length === 0) return
-
-    let el = textarea.current
-    let current = form[bodyKey]
-    let start = el?.selectionStart ?? current.length
-    let end = el?.selectionEnd ?? current.length
-    let insert = markdown.join('\n\n')
-    update(bodyKey, current.slice(0, start) + insert + current.slice(end))
   }
 
   return (
@@ -250,33 +182,8 @@ export function PostEditor({
         </div>
       </div>
 
-      {restorable && (
-        <div className="mt-4 flex flex-wrap items-center gap-3 rounded-lg bg-amber-50 p-3 text-sm text-amber-800 dark:bg-amber-900/20 dark:text-amber-200">
-          Es gibt einen lokal gesicherten, ungespeicherten Entwurf.
-          <button
-            type="button"
-            className="rounded-full bg-amber-200 px-3 py-1 dark:bg-amber-800"
-            onClick={() => {
-              setForm(restorable)
-              setSlugTouched(true)
-              setRestorable(null)
-            }}
-          >
-            Wiederherstellen
-          </button>
-          <button
-            type="button"
-            className="underline"
-            onClick={() => {
-              try {
-                localStorage.removeItem(draftKey)
-              } catch {}
-              setRestorable(null)
-            }}
-          >
-            Verwerfen
-          </button>
-        </div>
+      {backup.restorable && (
+        <RestoreBanner onRestore={backup.restore} onDiscard={backup.discard} />
       )}
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -341,28 +248,7 @@ export function PostEditor({
         </label>
       </div>
 
-      <div className="mt-6 flex gap-2">
-        {(['en', 'de'] as const).map((l) => (
-          <button
-            key={l}
-            type="button"
-            onClick={() => setLang(l)}
-            className={clsx(
-              'rounded-full px-4 py-1.5 text-sm font-medium uppercase transition',
-              lang === l
-                ? 'bg-violet-500 text-white'
-                : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700',
-            )}
-          >
-            {l}
-          </button>
-        ))}
-        {lang === 'de' && (
-          <span className="self-center text-xs text-zinc-500">
-            Leer lassen = Englisch wird angezeigt
-          </span>
-        )}
-      </div>
+      <LangTabs lang={lang} onChange={setLang} />
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <label className={labelClass}>
@@ -388,75 +274,12 @@ export function PostEditor({
         </label>
       </div>
 
-      <div className="mt-4 flex gap-2 lg:hidden">
-        {(['write', 'preview'] as const).map((p) => (
-          <button
-            key={p}
-            type="button"
-            onClick={() => setPane(p)}
-            className={clsx(
-              'rounded-full px-4 py-1.5 text-sm font-medium transition',
-              pane === p
-                ? 'bg-zinc-800 text-white dark:bg-zinc-200 dark:text-zinc-900'
-                : 'bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400',
-            )}
-          >
-            {p === 'write' ? 'Schreiben' : 'Vorschau'}
-          </button>
-        ))}
-      </div>
-
-      <div className="mt-4 grid gap-6 lg:grid-cols-2">
-        <div className={clsx(pane === 'preview' && 'max-lg:hidden')}>
-          <div className="mb-1 flex items-center justify-between">
-            <span className={labelClass}>
-              Markdown ({lang.toUpperCase()}) – Bilder hineinziehen oder
-              einfügen
-            </span>
-            <label className="cursor-pointer text-xs text-violet-500 hover:text-violet-600">
-              {uploading ? 'Lade hoch …' : 'Bild hochladen'}
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                className="hidden"
-                onChange={(e) => {
-                  uploadImages(Array.from(e.target.files ?? []))
-                  e.target.value = ''
-                }}
-              />
-            </label>
-          </div>
-          <textarea
-            ref={textarea}
-            value={form[bodyKey]}
-            onChange={(e) => update(bodyKey, e.target.value)}
-            onDrop={(e) => {
-              if (e.dataTransfer.files.length > 0) {
-                e.preventDefault()
-                uploadImages(Array.from(e.dataTransfer.files))
-              }
-            }}
-            onPaste={(e) => {
-              let files = Array.from(e.clipboardData.files)
-              if (files.length > 0) {
-                e.preventDefault()
-                uploadImages(files)
-              }
-            }}
-            spellCheck
-            className="block min-h-[28rem] w-full rounded-lg border border-zinc-300 bg-white p-3 font-mono text-sm text-zinc-900 lg:min-h-[40rem] dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100"
-          />
-        </div>
-        <div
-          className={clsx(
-            'min-w-0 rounded-lg border border-zinc-200 p-4 dark:border-zinc-700',
-            pane === 'write' && 'max-lg:hidden',
-          )}
-        >
-          <PostPreview markdown={form[bodyKey]} />
-        </div>
-      </div>
+      <MarkdownPane
+        value={form[bodyKey]}
+        onChange={(value) => update(bodyKey, value)}
+        lang={lang}
+        onError={(text) => setNotice({ kind: 'error', text })}
+      />
 
       {notice && (
         <p

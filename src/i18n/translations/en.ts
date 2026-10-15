@@ -85,6 +85,7 @@ const en = {
   'education.goBack': 'Go back to education',
 
   // Work layout
+  'work.projects': 'Projects at {{org}}',
   'work.goBack': 'Go back to work',
 
   // 404

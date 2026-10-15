@@ -15,8 +15,8 @@ export default async function LoginPage({
           Admin-Login
         </h1>
         <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
-          Du bekommst einen Login-Link per E-Mail. Öffne ihn im selben Browser,
-          in dem du ihn angefordert hast.
+          Melde dich mit E-Mail und Passwort an. Alternativ schickt dir
+          «Login-Link senden» einen Link per E-Mail (im selben Browser öffnen).
         </p>
         {error === 'link' && (
           <p className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-700 dark:bg-red-900/20 dark:text-red-300">

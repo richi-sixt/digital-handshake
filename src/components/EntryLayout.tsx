@@ -1,15 +1,17 @@
-
 'use client'
 
 import { useContext } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { AppContext } from '@/app/providers'
+import { Card } from '@/components/Card'
 import { Container } from '@/components/Container'
 import { Prose } from '@/components/Prose'
 import { useTranslation } from '@/i18n'
+import { type AppWithSlug } from '@/lib/apps'
+import { type EntryKind, type EntrySummary } from '@/lib/entries'
+import { entryTitle, formatPeriod } from '@/lib/entry-format'
 import { te } from '@/lib/translatedEntry'
-import { type EducationWithSlug } from '@/lib/education'
 
 function ArrowLeftIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -24,24 +26,29 @@ function ArrowLeftIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-export function EducationLayout({
-  education,
+/** Detail page of a work or education entry (body passed as children). */
+export function EntryLayout({
+  kind,
+  entry,
+  apps = [],
   children,
 }: {
-  education: EducationWithSlug
+  kind: EntryKind
+  entry: EntrySummary
+  apps?: AppWithSlug[]
   children: React.ReactNode
 }) {
   let router = useRouter()
   let { previousPathname } = useContext(AppContext)
-  let { t } = useTranslation()
+  let { t, locale } = useTranslation()
 
   let subtitle = [
-    te(t, `education.${education.slug}.degree`, education.degree),
-    education.field ? te(t, `education.${education.slug}.field`, education.field) : null,
-    education.location,
+    entryTitle(entry, locale),
+    kind === 'education' ? entry.field : null,
+    entry.location,
   ]
     .filter(Boolean)
-    .join(' \u00B7 ')
+    .join(' · ')
 
   return (
     <Container className="mt-16 lg:mt-32">
@@ -51,7 +58,7 @@ export function EducationLayout({
             <button
               type="button"
               onClick={() => router.back()}
-              aria-label={t('education.goBack')}
+              aria-label={t(`${kind}.goBack`)}
               className="group mb-8 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md ring-1 shadow-zinc-800/5 ring-zinc-900/5 transition lg:absolute lg:-left-5 lg:-mt-2 lg:mb-0 xl:-top-1.5 xl:left-0 xl:mt-0 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0 dark:ring-white/10 dark:hover:border-zinc-700 dark:hover:ring-white/20"
             >
               <ArrowLeftIcon className="h-4 w-4 stroke-zinc-500 transition group-hover:stroke-zinc-700 dark:stroke-zinc-500 dark:group-hover:stroke-zinc-400" />
@@ -60,23 +67,25 @@ export function EducationLayout({
           <article>
             <header className="flex flex-col">
               <h1 className="mt-6 text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-                {education.institution}
+                {entry.organization}
               </h1>
               <div className="order-first flex items-center text-base text-zinc-400 dark:text-zinc-500">
                 <span className="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500" />
-                <span className="ml-3">{te(t, `education.${education.slug}.period`, education.period)}</span>
+                <span className="ml-3">
+                  {formatPeriod(entry, t('home.present'))}
+                </span>
               </div>
               <p className="mt-2 text-base text-zinc-600 dark:text-zinc-400">
                 {subtitle}
               </p>
-              {education.tech && education.tech.length > 0 && (
+              {entry.tech.length > 0 && (
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {education.tech.map((t) => (
+                  {entry.tech.map((tech) => (
                     <span
-                      key={t}
+                      key={tech}
                       className="rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200"
                     >
-                      {t}
+                      {tech}
                     </span>
                   ))}
                 </div>
@@ -86,6 +95,39 @@ export function EducationLayout({
               {children}
             </Prose>
           </article>
+
+          {apps.length > 0 && (
+            <section className="mt-16">
+              <h2 className="text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
+                {t('work.projects', { org: entry.organization })}
+              </h2>
+              <ul className="mt-8 space-y-10">
+                {apps.map((app) => (
+                  <li key={app.slug}>
+                    <Card>
+                      <Card.Title href={`/apps/${app.slug}/`}>
+                        {te(t, `app.${app.slug}.title`, app.title)}
+                      </Card.Title>
+                      <Card.Description>
+                        {te(t, `app.${app.slug}.description`, app.description)}
+                      </Card.Description>
+                      <div className="relative z-10 mt-4 flex flex-wrap gap-1">
+                        {app.tech.map((tech) => (
+                          <span
+                            key={tech}
+                            className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                      <Card.Cta>{t('card.readMore')}</Card.Cta>
+                    </Card>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
         </div>
       </div>
     </Container>

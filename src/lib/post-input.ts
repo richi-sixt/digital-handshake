@@ -16,7 +16,7 @@ export interface PostInput {
   body_de: string
 }
 
-const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/
+export const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/
 
 /** Returns an error message, or null when the input is valid. */

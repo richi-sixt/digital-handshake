@@ -102,6 +102,7 @@ const de: Record<keyof typeof en, string> & Record<string, string> = {
   'education.goBack': 'Zurück zu Ausbildung',
 
   // Work layout
+  'work.projects': 'Projekte bei {{org}}',
   'work.goBack': 'Zurück zu Beruf',
 
   // 404

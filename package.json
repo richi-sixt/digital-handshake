@@ -4,9 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "prepare-content": "node scripts/prepare-content.mjs",
-    "dev": "npm run prepare-content && next dev",
-    "build": "npm run prepare-content && next build",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint ."
   },
