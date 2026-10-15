@@ -3,10 +3,10 @@ Eine persönliche Portfolio- und Lebenslauf-Website zur Präsentation von Berufs
 ## Features
 
 - Responsives Design mit Dark-Mode-Unterstützung
-- MDX-basierter Inhalt für Projekte, Berufserfahrung und Ausbildung
-- Statischer Export für schnelles Hosting auf jeder Plattform
+- Blog, Berufserfahrung und Ausbildung in einer Datenbank, bearbeitet in einem Markdown-Editor im Admin-Bereich (Englisch und Deutsch)
+- Login per Passwort oder Magic Link für den Admin-Bereich
 - Übersicht der Skills und Tech-Stack mit kategorisierten Karten
 
 ## Technische Details
 
-Erstellt mit dem Next.js App Router und statisch exportiert. Der Inhalt wird in MDX-Dateien verfasst, die über ein privates Git-Submodul verwaltet werden. So bleibt das öffentliche Repository sauber, während persönliche Inhalte separat gepflegt werden. Die Website nutzt Tailwind CSS für das Styling und next-themes für den Dark Mode.
+Erstellt mit dem Next.js App Router und auf einem Server gerendert. Der Inhalt (Blog-Beiträge, Berufserfahrung und Ausbildung) liegt in Supabase und wird im Admin-Bereich bearbeitet. So enthält das öffentliche Repository keine persönlichen Inhalte. Projekte bleiben MDX-Dateien im Repository. Die Website nutzt Tailwind CSS für das Styling und next-themes für den Dark Mode.

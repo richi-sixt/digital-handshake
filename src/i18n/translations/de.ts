@@ -56,11 +56,6 @@ const de: Record<keyof typeof en, string> & Record<string, string> = {
   'home.methodicalSkills': 'Methodische Fähigkeiten',
   'home.technicalSkills': 'Technische Fähigkeiten',
 
-  // Home page - Resume entries
-  'home.role.mobiliar': 'Leiter Prozess Vertragsführung',
-  'home.role.performa': 'Projektleiter / Berater',
-  'home.role.cvp': 'IT-Verantwortlicher',
-
   // SR-only labels
   'sr.company': 'Unternehmen',
   'sr.role': 'Position',
@@ -77,27 +72,11 @@ const de: Record<keyof typeof en, string> & Record<string, string> = {
   'education.title': 'Ausbildung & Weiterbildung',
   'education.intro':
     'Mein akademischer Werdegang und berufliche Zertifizierungen.',
-  // ZHW MDX
-  'education.zhaw.degree': 'MAS Insurance Management',
-  'education.zhaw.period': '2018 – 2021',
 
   // Work page
   'work.title': 'Berufserfahrung',
   'work.intro':
     'Mein beruflicher Werdegang von der IT-Administration über die Beratung bis zur Prozessführung in der Versicherung.',
-  //Work Entries MDX
-  'work.die-mobiliar.title': 'Leiter Prozess Vertragsführung',
-  'work.die-mobiliar.description': 'Leitung der Abteilung Prozess Vertragsführung mit Aufgaben die Business Analyse, Führung, digitale Transformation umfassen.',
-  'work.die-mobiliar.period': '2013 – Heute',
-
-  'work.performa-ag.title': 'Projektleiter / Berater',
-  'work.performa-ag.description': 'Projektmanagement und Beratung für Geschäftsprozessoptimierung und IT-Lösungen.',
-  'work.performa-ag.period': '2008 – 2012',
-
-  'work.cvp-schweiz.title': 'IT-Verantwortlicher',
-  'work.cvp-schweiz.description': 'Verantwortlich für die IT-Infrastruktur und -Systeme in der nationalen Parteizentrale.',
-  'work.cvp-schweiz.period': '2006 – 2008',
-
   // Education layout
   'education.goBack': 'Zurück zu Ausbildung',
 
@@ -123,7 +102,7 @@ const de: Record<keyof typeof en, string> & Record<string, string> = {
     'Ein Full-Stack-Tracker für Calisthenics-Workouts.',
   'app.digital-handshake.title': 'Digital Handshake',
   'app.digital-handshake.description':
-    'Eine pers\u00F6nliche Portfolio-Website, erstellt mit Next.js, React, TypeScript und Tailwind CSS \u2014 statisch exportiert und mit MDX-Inhalten.',
+    'Eine pers\u00F6nliche Portfolio-Website, erstellt mit Next.js, React, TypeScript und Tailwind CSS \u2014 serverseitig gerendert, mit Admin-Bereich für Blog, Berufserfahrung und Ausbildung in einer Datenbank.',
   'app.playground.title': 'Playground',
   'app.playground.description':
     'Eine React-Plattform zum Lernen, Dokumentieren und praktischen Erkunden von React-Features, Patterns und Konzepten.',

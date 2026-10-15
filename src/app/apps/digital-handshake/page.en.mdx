@@ -1,8 +1,8 @@
 export const app = {
   title: 'Digital Handshake',
   description:
-    'A personal portfolio website built with Next.js, React, TypeScript, and Tailwind CSS — statically exported and powered by MDX content.',
-  tech: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'MDX'],
+    'A personal portfolio website built with Next.js, React, TypeScript, and Tailwind CSS — server-rendered, with an admin area to edit the blog, work and education content in a database.',
+  tech: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Supabase'],
   url: 'https://richi.sixt.services',
   github: 'https://github.com/richi-sixt/digital-handshake',
   date: '2026-03-07',
@@ -14,10 +14,10 @@ A personal portfolio and CV website showcasing work experience, education, and p
 ## Features
 
 - Responsive design with dark mode support
-- MDX-powered content for projects, work experience, and education
-- Static export for fast hosting on any platform
+- Blog, work experience, and education stored in a database and edited in a Markdown admin editor (English and German)
+- Magic-link or password login for the admin area
 - Skills and tech stack overview with categorized cards
 
 ## Technical details
 
-Built with Next.js App Router and statically exported. Content is authored in MDX files managed through a private git submodule, allowing the public repository to remain clean while keeping personal content separate. The site uses Tailwind CSS for styling and next-themes for dark mode.
+Built with the Next.js App Router and rendered on a server. Content (blog posts, work and education entries) lives in Supabase and is edited in an admin area, so the public repository contains no personal content. Projects remain MDX files in the repository. The site uses Tailwind CSS for styling and next-themes for dark mode.

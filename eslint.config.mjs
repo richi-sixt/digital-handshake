@@ -8,8 +8,6 @@ export default defineConfig([
     '.claude/**',
     'out/**',
     'deploy/**',
-    'content/**',
-    'content-examples/**',
     'next-env.d.ts',
   ]),
   {

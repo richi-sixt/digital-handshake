@@ -54,11 +54,6 @@ const en = {
   'home.methodicalSkills': 'Methodical Skills',
   'home.technicalSkills': 'Technical Skills',
 
-  // Home page - Resume entries
-  'home.role.mobiliar': 'Head of Process Contract Management',
-  'home.role.performa': 'Project Manager / Consultant',
-  'home.role.cvp': 'IT Manager',
-
   // SR-only labels
   'sr.company': 'Company',
   'sr.role': 'Role',
