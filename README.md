@@ -21,14 +21,11 @@ This project exists to:
 
 ## Adding New Content
 
-### Adding an App
+### Adding a project
 
-1. Create a directory at `src/app/apps/your-slug/`
-2. Add `page.en.mdx` with an exported `app` metadata object
-3. Create the game component in `src/components/games/YourGame.tsx` (use `'use client'`)
-4. Create `play/page.tsx` for the playable page
+Projects (title, description, text, tech, links, category) live in the Supabase table `projects` (`supabase/migrations/0005_projects.sql`) and are edited under `/admin/projects`; they appear on `/projects` and at `/apps/<slug>/`.
 
-The `/projects` page picks up new apps automatically.
+For a playable game, additionally create the game component in `src/components/games/YourGame.tsx` (use `'use client'`) and a page at `src/app/apps/your-slug/play/page.tsx`, then set the project's "App-Link" to `/apps/your-slug/play/`. Playable routes live in code and take precedence over the database-driven detail page.
 
 ### Blog admin (Supabase)
 

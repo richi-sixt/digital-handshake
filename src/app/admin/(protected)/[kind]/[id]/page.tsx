@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 
 import { EntryEditor } from '@/app/admin/(protected)/[kind]/EntryEditor'
 import { parseKind } from '@/app/admin/(protected)/[kind]/kinds'
-import { getAllApps } from '@/lib/apps'
+import { getProjectOptions } from '@/app/admin/(protected)/projects/options'
 import { type EntryRow } from '@/lib/entries'
 import { createClient } from '@/lib/supabase/server'
 
@@ -23,7 +23,7 @@ export default async function EditEntryPage({
     .maybeSingle()
   if (!entry) notFound()
 
-  let apps = (await getAllApps()).map((a) => ({ slug: a.slug, title: a.title }))
+  let apps = await getProjectOptions()
 
   return <EntryEditor kind={kind} initial={entry as EntryRow} apps={apps} />
 }

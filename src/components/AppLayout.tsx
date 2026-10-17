@@ -8,10 +8,10 @@ import { AppContext } from '@/app/providers'
 import { Container } from '@/components/Container'
 import { Prose } from '@/components/Prose'
 import { useTranslation } from '@/i18n'
-import { type AppWithSlug } from '@/lib/apps'
+import { projectTitle } from '@/lib/project-format'
+import { type ProjectSummary } from '@/lib/projects'
 import { type BlogEntryWithSlug } from '@/lib/blog'
 import { formatDate } from '@/lib/formatDate'
-import { te } from '@/lib/translatedEntry'
 
 function ArrowLeftIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -54,7 +54,7 @@ export function AppLayout({
   children,
   blogEntries,
 }: {
-  app: AppWithSlug
+  app: ProjectSummary
   children: React.ReactNode
   blogEntries?: BlogEntryWithSlug[]
 }) {
@@ -79,7 +79,7 @@ export function AppLayout({
           <article>
             <header className="flex flex-col">
               <h1 className="mt-6 text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-                {te(t, `app.${app.slug}.title`, app.title)}
+                {projectTitle(app, locale)}
               </h1>
               <div className="mt-4 flex flex-wrap gap-2">
                 {app.tech.map((tech) => (
@@ -114,7 +114,7 @@ export function AppLayout({
                 )}
               </div>
             </header>
-            <Prose className="mt-8" data-mdx-content>
+            <Prose className="mt-8">
               {children}
             </Prose>
           </article>

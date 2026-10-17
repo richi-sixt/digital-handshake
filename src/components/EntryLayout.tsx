@@ -8,10 +8,10 @@ import { Card } from '@/components/Card'
 import { Container } from '@/components/Container'
 import { Prose } from '@/components/Prose'
 import { useTranslation } from '@/i18n'
-import { type AppWithSlug } from '@/lib/apps'
+import { projectDescription, projectTitle } from '@/lib/project-format'
+import { type ProjectSummary } from '@/lib/projects'
 import { type EntryKind, type EntrySummary } from '@/lib/entries'
 import { entryTitle, formatPeriod } from '@/lib/entry-format'
-import { te } from '@/lib/translatedEntry'
 
 function ArrowLeftIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -35,7 +35,7 @@ export function EntryLayout({
 }: {
   kind: EntryKind
   entry: EntrySummary
-  apps?: AppWithSlug[]
+  apps?: ProjectSummary[]
   children: React.ReactNode
 }) {
   let router = useRouter()
@@ -106,10 +106,10 @@ export function EntryLayout({
                   <li key={app.slug}>
                     <Card>
                       <Card.Title href={`/apps/${app.slug}/`}>
-                        {te(t, `app.${app.slug}.title`, app.title)}
+                        {projectTitle(app, locale)}
                       </Card.Title>
                       <Card.Description>
-                        {te(t, `app.${app.slug}.description`, app.description)}
+                        {projectDescription(app, locale)}
                       </Card.Description>
                       <div className="relative z-10 mt-4 flex flex-wrap gap-1">
                         {app.tech.map((tech) => (

@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { EntryLayout } from '@/components/EntryLayout'
 import { LocalizedBody } from '@/components/LocalizedBody'
 import { Markdown } from '@/components/Markdown'
-import { getAllApps } from '@/lib/apps'
+import { getProjects } from '@/lib/projects'
 import { type EntryKind, getEntry } from '@/lib/entries'
 
 /** Server-rendered detail page shared by /work/[slug] and /education/[slug]. */
@@ -20,7 +20,7 @@ export async function EntryDetail({
   // Linked projects (work only); unknown slugs are ignored.
   let apps =
     kind === 'work' && entry.related_apps.length > 0
-      ? (await getAllApps()).filter((a) => entry.related_apps.includes(a.slug))
+      ? (await getProjects()).filter((a) => entry.related_apps.includes(a.slug))
       : []
 
   return (

@@ -6,8 +6,11 @@ import clsx from 'clsx'
 import { Card } from '@/components/Card'
 import { formatDate } from '@/lib/formatDate'
 import { useTranslation } from '@/i18n'
-import { type AppWithSlug } from '@/lib/apps'
-import { te } from '@/lib/translatedEntry'
+import {
+  projectDescription,
+  projectTitle,
+} from '@/lib/project-format'
+import { type ProjectSummary } from '@/lib/projects'
 
 type CategoryFilter = 'all' | 'games' | 'tools' | 'web'
 
@@ -19,7 +22,7 @@ const categoryKeys = {
 //  misc: 'filter.misc',
 } as const
 
-export function AppList({ apps }: { apps: AppWithSlug[] }) {
+export function AppList({ apps }: { apps: ProjectSummary[] }) {
   let [category, setCategory] = useState<CategoryFilter>('all')
   let { t, locale } = useTranslation()
 
@@ -56,7 +59,7 @@ export function AppList({ apps }: { apps: AppWithSlug[] }) {
             >
               <Card className="md:col-span-3">
                 <Card.Title href={`/apps/${app.slug}`}>
-                  {te(t, `app.${app.slug}.title`, app.title)}
+                  {projectTitle(app, locale)}
                 </Card.Title>
                 <Card.Eyebrow
                   as="time"
@@ -66,7 +69,7 @@ export function AppList({ apps }: { apps: AppWithSlug[] }) {
                 >
                   {formatDate(app.date, locale)}
                 </Card.Eyebrow>
-                <Card.Description>{te(t, `app.${app.slug}.description`, app.description)}</Card.Description>
+                <Card.Description>{projectDescription(app, locale)}</Card.Description>
                 <div className="relative z-10 mt-4 flex flex-wrap gap-1">
                   {app.tech.map((tech) => (
                     <span
