@@ -10,3 +10,11 @@ export async function getProjectOptions() {
 
   return (data ?? []).map((p) => ({ slug: p.slug, title: p.title_en }))
 }
+
+/** Categories already in use (incl. drafts), as suggestions in the editor. */
+export async function getProjectCategories() {
+  let supabase = await createClient()
+  let { data } = await supabase.from('projects').select('category')
+
+  return [...new Set((data ?? []).map((p) => p.category))].sort()
+}

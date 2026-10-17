@@ -4,7 +4,8 @@ import { createPublicClient } from '@/lib/supabase/public'
 
 export const PROJECTS_TAG = 'projects'
 
-export type ProjectCategory = 'games' | 'tools' | 'web' | 'misc'
+/** Lowercase slug-like label, free to extend in the admin (e.g. games, mobile). */
+export type ProjectCategory = string
 
 /** Row of the `projects` table (see supabase/migrations/0005_projects.sql). */
 export interface ProjectRow {

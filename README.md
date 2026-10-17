@@ -48,7 +48,7 @@ The site runs as a Node.js server (`npm run build`, then `npm start`). `deploy.s
 - **Next.js 16** (App Router, server-rendered)
 - **React 19** with TypeScript
 - **Tailwind CSS v4** with dark mode
-- **MDX** for content pages with syntax highlighting
+- **Markdown** (react-markdown, GFM, sanitized) with syntax highlighting; all content lives in Supabase
 - **Supabase** Realtime for multiplayer
 - **i18n** — English & German with client-side locale switching
 

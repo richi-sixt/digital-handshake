@@ -99,7 +99,7 @@ export function BlogLayout({
                 </div>
               )}
             </header>
-            <Prose className="mt-8" data-mdx-content>
+            <Prose className="mt-8">
               {children}
             </Prose>
           </article>

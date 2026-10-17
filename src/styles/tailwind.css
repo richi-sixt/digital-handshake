@@ -40,10 +40,3 @@ html {
   scroll-padding-top: 6rem;
 }
 
-/* Restore default browser styles for form elements inside Preview boxes */
-.preview-defaults button,
-.preview-defaults input,
-.preview-defaults select,
-.preview-defaults textarea {
-  all: revert;
-}

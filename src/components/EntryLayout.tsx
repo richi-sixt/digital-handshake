@@ -91,7 +91,7 @@ export function EntryLayout({
                 </div>
               )}
             </header>
-            <Prose className="mt-8" data-mdx-content>
+            <Prose className="mt-8">
               {children}
             </Prose>
           </article>

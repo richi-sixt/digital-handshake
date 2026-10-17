@@ -90,32 +90,6 @@ const de: Record<keyof typeof en, string> & Record<string, string> = {
     'Die gesuchte Seite konnte leider nicht gefunden werden.',
   'notFound.goHome': 'Zur Startseite',
 
-  // App detail titles & descriptions
-  'app.tic-tac-toe.title': 'Tic Tac Toe',
-  'app.tic-tac-toe.description':
-    'Klassisches Zwei-Spieler-Spiel mit Zughistorie und Zeitreise. Aufgebaut nach dem offiziellen React-Tutorial.',
-  'app.memory-game.title': 'Memory-Spiel',
-  'app.memory-game.description':
-    'Ein Karten-Memory-Spiel mit Umdreh-Animationen. Finde alle 6 passenden Paare in so wenigen Z\u00FCgen wie m\u00F6glich.',
-  'app.calisthenics-progression.title': 'Calisthenics Progression',
-  'app.calisthenics-progression.description':
-    'Ein Full-Stack-Tracker für Calisthenics-Workouts.',
-  'app.digital-handshake.title': 'Digital Handshake',
-  'app.digital-handshake.description':
-    'Eine pers\u00F6nliche Portfolio-Website, erstellt mit Next.js, React, TypeScript und Tailwind CSS \u2014 serverseitig gerendert, mit Admin-Bereich für Blog, Berufserfahrung und Ausbildung in einer Datenbank.',
-  'app.playground.title': 'Playground',
-  'app.playground.description':
-    'Eine React-Plattform zum Lernen, Dokumentieren und praktischen Erkunden von React-Features, Patterns und Konzepten.',
-  'app.puzzle-slider.title': '15 Puzzle',
-  'app.puzzle-slider.description':
-    'Ein Schiebepuzzle, bei dem du 15 nummerierte Kacheln in die richtige Reihenfolge bringst, indem du benachbarte Kacheln in das leere Feld klickst.',
-  'app.lazy-inviter.title': 'Lazy Inviter',
-  'app.lazy-inviter.description':
-    'Eine React-Web-App zum Erstellen von thematischen Geburtstagseinladungen für Kinder.',
-  'app.cream.title': 'C.R.E.A.M. - eine persöliche Finanz-App',
-  'app.cream.description':
-    ' C.R.E.A.M. — eine persöliche Finanzverwaltungs-App für Schweizer Bankkonten und Rechnungen.',
-
   
   // Tic Tac Toe (solo)
   'ttt.title': 'Tic Tac Toe',

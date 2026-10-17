@@ -24,13 +24,6 @@ import { slugify } from '@/lib/post-input'
 import { type ProjectInput } from '@/lib/project-input'
 import { type ProjectCategory, type ProjectRow } from '@/lib/projects'
 
-const CATEGORIES: { value: ProjectCategory; label: string }[] = [
-  { value: 'games', label: 'Games' },
-  { value: 'tools', label: 'Tools' },
-  { value: 'web', label: 'Web' },
-  { value: 'misc', label: 'Sonstiges' },
-]
-
 const today = () => new Date().toISOString().slice(0, 10)
 
 interface FormState {
@@ -67,7 +60,13 @@ function toForm(project: ProjectRow | null): FormState {
   }
 }
 
-export function ProjectEditor({ initial }: { initial: ProjectRow | null }) {
+export function ProjectEditor({
+  initial,
+  categories,
+}: {
+  initial: ProjectRow | null
+  categories: string[]
+}) {
   let router = useRouter()
   let draftKey = `project-draft:${initial?.id ?? 'new'}`
 
@@ -212,17 +211,18 @@ export function ProjectEditor({ initial }: { initial: ProjectRow | null }) {
         </label>
         <label className={labelClass}>
           Kategorie
-          <select
+          <input
             className={inputClass}
+            list="project-categories"
             value={form.category}
-            onChange={(e) => update('category', e.target.value as ProjectCategory)}
-          >
-            {CATEGORIES.map((c) => (
-              <option key={c.value} value={c.value}>
-                {c.label}
-              </option>
+            onChange={(e) => update('category', e.target.value)}
+            placeholder="z. B. games, mobile"
+          />
+          <datalist id="project-categories">
+            {categories.map((c) => (
+              <option key={c} value={c} />
             ))}
-          </select>
+          </datalist>
         </label>
         <label className={clsx(labelClass, 'lg:col-span-2')}>
           Tech (Komma-getrennt)

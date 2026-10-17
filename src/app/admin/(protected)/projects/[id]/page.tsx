@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 
 import { ProjectEditor } from '@/app/admin/(protected)/projects/ProjectEditor'
+import { getProjectCategories } from '@/app/admin/(protected)/projects/options'
 import { type ProjectRow } from '@/lib/projects'
 import { createClient } from '@/lib/supabase/server'
 
@@ -18,5 +19,10 @@ export default async function EditProjectPage({
     .maybeSingle()
   if (!project) notFound()
 
-  return <ProjectEditor initial={project as ProjectRow} />
+  return (
+    <ProjectEditor
+      initial={project as ProjectRow}
+      categories={await getProjectCategories()}
+    />
+  )
 }

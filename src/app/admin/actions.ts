@@ -6,7 +6,11 @@ import { redirect } from 'next/navigation'
 import { ENTRIES_TAG } from '@/lib/entries'
 import { type EntryInput, validateEntryInput } from '@/lib/entry-input'
 import { type PostInput, validatePostInput } from '@/lib/post-input'
-import { type ProjectInput, validateProjectInput } from '@/lib/project-input'
+import {
+  type ProjectInput,
+  normalizeCategory,
+  validateProjectInput,
+} from '@/lib/project-input'
 import { PROJECTS_TAG } from '@/lib/projects'
 import { POSTS_TAG } from '@/lib/posts'
 import { createClient } from '@/lib/supabase/server'
@@ -190,7 +194,7 @@ export async function saveProject(input: ProjectInput): Promise<SaveResult> {
     url: orNull(input.url),
     github: orNull(input.github),
     date: input.date,
-    category: input.category,
+    category: normalizeCategory(input.category),
   }
 
   let { data, error } = input.id

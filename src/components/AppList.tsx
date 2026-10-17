@@ -7,24 +7,19 @@ import { Card } from '@/components/Card'
 import { formatDate } from '@/lib/formatDate'
 import { useTranslation } from '@/i18n'
 import {
+  categoryLabel,
   projectDescription,
   projectTitle,
+  sortCategories,
 } from '@/lib/project-format'
 import { type ProjectSummary } from '@/lib/projects'
 
-type CategoryFilter = 'all' | 'games' | 'tools' | 'web'
-
-const categoryKeys = {
-  all: 'filter.all',
-  games: 'filter.games',
-  tools: 'filter.tools',
-  web: 'filter.web',
-//  misc: 'filter.misc',
-} as const
-
 export function AppList({ apps }: { apps: ProjectSummary[] }) {
-  let [category, setCategory] = useState<CategoryFilter>('all')
+  let [category, setCategory] = useState('all')
   let { t, locale } = useTranslation()
+
+  // Filter buttons follow the categories actually used by published projects.
+  let categories = ['all', ...sortCategories([...new Set(apps.map((a) => a.category))])]
 
   let filtered =
     category === 'all'
@@ -33,19 +28,19 @@ export function AppList({ apps }: { apps: ProjectSummary[] }) {
 
   return (
     <>
-      <div className="mb-8 flex gap-2">
-        {(['all', 'games', 'tools', 'web'] as const).map((cat) => (
+      <div className="mb-8 flex flex-wrap gap-2">
+        {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setCategory(cat)}
             className={clsx(
-              'rounded-full px-4 py-1.5 text-sm font-medium transition',
+              'rounded-full px-4 py-1.5 text-sm font-medium capitalize transition',
               category === cat
                 ? 'bg-violet-500 text-white'
                 : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700',
             )}
           >
-            {t(categoryKeys[cat])}
+            {cat === 'all' ? t('filter.all') : categoryLabel(t, cat)}
           </button>
         ))}
       </div>

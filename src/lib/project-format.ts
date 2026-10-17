@@ -12,3 +12,30 @@ export function projectDescription(project: ProjectSummary, locale: Locale) {
     ? project.description_de
     : project.description_en
 }
+
+const KNOWN_FILTER_KEYS = {
+  games: 'filter.games',
+  tools: 'filter.tools',
+  web: 'filter.web',
+  misc: 'filter.misc',
+} as const
+
+/** Display label of a category: translated if known, else the humanized slug. */
+export function categoryLabel(
+  t: (key: (typeof KNOWN_FILTER_KEYS)[keyof typeof KNOWN_FILTER_KEYS]) => string,
+  category: string,
+) {
+  let key = KNOWN_FILTER_KEYS[category as keyof typeof KNOWN_FILTER_KEYS]
+  return key ? t(key) : category.replace(/-/g, ' ')
+}
+
+const CATEGORY_ORDER = ['games', 'tools', 'web', 'misc']
+
+/** Known categories first (in their usual order), new ones alphabetically after. */
+export function sortCategories(categories: string[]) {
+  let rank = (c: string) => {
+    let i = CATEGORY_ORDER.indexOf(c)
+    return i === -1 ? CATEGORY_ORDER.length : i
+  }
+  return [...categories].sort((a, z) => rank(a) - rank(z) || a.localeCompare(z))
+}
