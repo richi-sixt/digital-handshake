@@ -6,6 +6,8 @@ import { redirect } from 'next/navigation'
 import { ENTRIES_TAG } from '@/lib/entries'
 import { type EntryInput, validateEntryInput } from '@/lib/entry-input'
 import { type PostInput, validatePostInput } from '@/lib/post-input'
+import { type ProjectInput, validateProjectInput } from '@/lib/project-input'
+import { PROJECTS_TAG } from '@/lib/projects'
 import { POSTS_TAG } from '@/lib/posts'
 import { createClient } from '@/lib/supabase/server'
 
@@ -31,6 +33,7 @@ const PUBLIC_SECTIONS = ['/blog', '/work', '/education', '/apps', '/projects']
 function refreshPublicPages() {
   updateTag(POSTS_TAG)
   updateTag(ENTRIES_TAG)
+  updateTag(PROJECTS_TAG)
   revalidatePath('/')
   for (let path of PUBLIC_SECTIONS) revalidatePath(path, 'layout')
 }
@@ -159,6 +162,67 @@ export async function deleteEntry(
   if (!supabase) return { ok: false, error: 'Nicht angemeldet.' }
 
   let { error } = await supabase.from('entries').delete().eq('id', id)
+  if (error) return { ok: false, error: error.message }
+
+  refreshPublicPages()
+  return { ok: true }
+}
+
+export async function saveProject(input: ProjectInput): Promise<SaveResult> {
+  let supabase = await requireAdmin()
+  if (!supabase) return { ok: false, error: 'Nicht angemeldet.' }
+
+  let invalid = validateProjectInput(input)
+  if (invalid) return { ok: false, error: invalid }
+
+  let orNull = (text: string) => text.trim() || null
+
+  let row = {
+    slug: input.slug,
+    status: input.status,
+    title_en: input.title_en.trim(),
+    title_de: orNull(input.title_de),
+    description_en: input.description_en.trim(),
+    description_de: orNull(input.description_de),
+    body_en: input.body_en,
+    body_de: input.body_de.trim() ? input.body_de : null,
+    tech: [...new Set(input.tech.map((t) => t.trim()).filter(Boolean))],
+    url: orNull(input.url),
+    github: orNull(input.github),
+    date: input.date,
+    category: input.category,
+  }
+
+  let { data, error } = input.id
+    ? await supabase
+        .from('projects')
+        .update(row)
+        .eq('id', input.id)
+        .select('id, slug')
+        .single()
+    : await supabase.from('projects').insert(row).select('id, slug').single()
+
+  if (error || !data) {
+    return {
+      ok: false,
+      error:
+        error?.code === '23505'
+          ? 'Dieser Slug existiert bereits.'
+          : `Speichern fehlgeschlagen: ${error?.message ?? 'unbekannt'}`,
+    }
+  }
+
+  refreshPublicPages()
+  return { ok: true, id: data.id, slug: data.slug }
+}
+
+export async function deleteProject(
+  id: string,
+): Promise<{ ok: boolean; error?: string }> {
+  let supabase = await requireAdmin()
+  if (!supabase) return { ok: false, error: 'Nicht angemeldet.' }
+
+  let { error } = await supabase.from('projects').delete().eq('id', id)
   if (error) return { ok: false, error: error.message }
 
   refreshPublicPages()

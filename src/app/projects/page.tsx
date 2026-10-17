@@ -1,7 +1,7 @@
 import { type Metadata } from 'next'
 
 import { ProjectsPageContent } from '@/components/ProjectsPageContent'
-import { getAllApps } from '@/lib/apps'
+import { getProjects } from '@/lib/projects'
 
 export const metadata: Metadata = {
   title: 'Projects',
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Projects() {
-  let apps = await getAllApps()
+  let apps = await getProjects()
 
   return <ProjectsPageContent apps={apps} />
 }

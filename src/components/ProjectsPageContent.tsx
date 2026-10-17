@@ -3,9 +3,9 @@
 import { AppList } from '@/components/AppList'
 import { SimpleLayout } from '@/components/SimpleLayout'
 import { useTranslation } from '@/i18n'
-import { type AppWithSlug } from '@/lib/apps'
+import { type ProjectSummary } from '@/lib/projects'
 
-export function ProjectsPageContent({ apps }: { apps: AppWithSlug[] }) {
+export function ProjectsPageContent({ apps }: { apps: ProjectSummary[] }) {
   let { t } = useTranslation()
 
   return (

@@ -44,6 +44,12 @@ export default async function ProtectedAdminLayout({
             Education
           </Link>
           <Link
+            href="/admin/projects"
+            className="text-zinc-500 hover:text-violet-500 dark:text-zinc-400"
+          >
+            Projekte
+          </Link>
+          <Link
             href="/"
             className="text-zinc-500 hover:text-violet-500 dark:text-zinc-400"
           >
