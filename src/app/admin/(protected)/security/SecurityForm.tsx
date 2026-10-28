@@ -36,7 +36,8 @@ export function SecurityForm() {
     setError('')
     let { data, error } = await createClient().auth.mfa.enroll({
       factorType: 'totp',
-      friendlyName: `Authenticator ${new Date().toISOString().slice(0, 10)}`,
+      // Names must be unique per user, so add the time to the date.
+      friendlyName: `Authenticator ${new Date().toISOString().slice(0, 16).replace('T', ' ')}`,
     })
     setBusy(false)
     if (error || !data) {

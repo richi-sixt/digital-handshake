@@ -22,19 +22,27 @@ export function MfaForm() {
 
     let supabase = createClient()
     let { data: factors } = await supabase.auth.mfa.listFactors()
-    let factor = factors?.totp[0]
-    if (!factor) {
+    let verified = factors?.totp ?? []
+    if (verified.length === 0) {
       setBusy(false)
       setError('Kein Authenticator eingerichtet.')
       return
     }
 
-    let { error } = await supabase.auth.mfa.challengeAndVerify({
-      factorId: factor.id,
-      code: code.trim(),
-    })
+    // Several devices may each have their own factor; accept any of them.
+    let passed = false
+    for (let factor of verified) {
+      let { error } = await supabase.auth.mfa.challengeAndVerify({
+        factorId: factor.id,
+        code: code.trim(),
+      })
+      if (!error) {
+        passed = true
+        break
+      }
+    }
 
-    if (error) {
+    if (!passed) {
       setBusy(false)
       setError('Der Code stimmt nicht.')
       return
