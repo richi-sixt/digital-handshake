@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 
 import { signOut } from '@/app/admin/actions'
 import { Container } from '@/components/Container'
+import { needsMfa } from '@/lib/supabase/mfa'
 import { createClient } from '@/lib/supabase/server'
 
 export default async function ProtectedAdminLayout({
@@ -15,6 +16,7 @@ export default async function ProtectedAdminLayout({
     data: { user },
   } = await supabase.auth.getUser()
   if (!user) redirect('/admin/login')
+  if (await needsMfa(supabase)) redirect('/admin/mfa')
 
   let { data: isAdmin } = await supabase.rpc('is_admin')
 

@@ -13,6 +13,7 @@ import {
 } from '@/lib/project-input'
 import { PROJECTS_TAG } from '@/lib/projects'
 import { POSTS_TAG } from '@/lib/posts'
+import { needsMfa } from '@/lib/supabase/mfa'
 import { createClient } from '@/lib/supabase/server'
 
 type SaveResult =
@@ -25,6 +26,7 @@ async function requireAdmin() {
     data: { user },
   } = await supabase.auth.getUser()
   if (!user) return null
+  if (await needsMfa(supabase)) return null
 
   let { data: isAdmin } = await supabase.rpc('is_admin')
   return isAdmin ? supabase : null

@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { PasswordForm } from '@/app/admin/(protected)/account/PasswordForm'
 
 export default function AccountPage() {
@@ -12,6 +14,14 @@ export default function AccountPage() {
         Passwortmanager.
       </p>
       <PasswordForm />
+      <p className="mt-8 text-sm">
+        <Link
+          href="/admin/security"
+          className="text-violet-500 hover:text-violet-600"
+        >
+          Zwei-Faktor-Login (Authenticator-App) verwalten
+        </Link>
+      </p>
     </div>
   )
 }
