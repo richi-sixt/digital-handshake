@@ -12,6 +12,8 @@ import {
   validateProjectInput,
 } from '@/lib/project-input'
 import { PROJECTS_TAG } from '@/lib/projects'
+import { type SkillInput, validateSkillInput } from '@/lib/skill-input'
+import { SKILLS_TAG } from '@/lib/skills'
 import { POSTS_TAG } from '@/lib/posts'
 import { needsMfa } from '@/lib/supabase/mfa'
 import { createClient } from '@/lib/supabase/server'
@@ -40,6 +42,7 @@ function refreshPublicPages() {
   updateTag(POSTS_TAG)
   updateTag(ENTRIES_TAG)
   updateTag(PROJECTS_TAG)
+  updateTag(SKILLS_TAG)
   revalidatePath('/')
   for (let path of PUBLIC_SECTIONS) revalidatePath(path, 'layout')
 }
@@ -230,6 +233,88 @@ export async function deleteProject(
 
   let { error } = await supabase.from('projects').delete().eq('id', id)
   if (error) return { ok: false, error: error.message }
+
+  refreshPublicPages()
+  return { ok: true }
+}
+
+export async function saveSkill(input: SkillInput): Promise<SaveResult> {
+  let supabase = await requireAdmin()
+  if (!supabase) return { ok: false, error: 'Nicht angemeldet.' }
+
+  let invalid = validateSkillInput(input)
+  if (invalid) return { ok: false, error: invalid }
+
+  let row = {
+    category: input.category,
+    name: input.name.trim(),
+    url: input.url.trim(),
+    icon_url: input.icon_url.trim() || null,
+  }
+
+  let result
+  if (input.id) {
+    result = await supabase
+      .from('skills')
+      .update(row)
+      .eq('id', input.id)
+      .select('id, name')
+      .single()
+  } else {
+    // New skills go to the end of their category.
+    let { data: last } = await supabase
+      .from('skills')
+      .select('sort_order')
+      .eq('category', input.category)
+      .order('sort_order', { ascending: false })
+      .limit(1)
+      .maybeSingle()
+    result = await supabase
+      .from('skills')
+      .insert({ ...row, sort_order: (last?.sort_order ?? -1) + 1 })
+      .select('id, name')
+      .single()
+  }
+
+  let { data, error } = result
+  if (error || !data) {
+    return {
+      ok: false,
+      error: `Speichern fehlgeschlagen: ${error?.message ?? 'unbekannt'}`,
+    }
+  }
+
+  refreshPublicPages()
+  return { ok: true, id: data.id, slug: data.name }
+}
+
+export async function deleteSkill(
+  id: string,
+): Promise<{ ok: boolean; error?: string }> {
+  let supabase = await requireAdmin()
+  if (!supabase) return { ok: false, error: 'Nicht angemeldet.' }
+
+  let { error } = await supabase.from('skills').delete().eq('id', id)
+  if (error) return { ok: false, error: error.message }
+
+  refreshPublicPages()
+  return { ok: true }
+}
+
+/** `ids` is one category in its new display order. */
+export async function reorderSkills(
+  ids: string[],
+): Promise<{ ok: boolean; error?: string }> {
+  let supabase = await requireAdmin()
+  if (!supabase) return { ok: false, error: 'Nicht angemeldet.' }
+
+  let results = await Promise.all(
+    ids.map((id, index) =>
+      supabase.from('skills').update({ sort_order: index }).eq('id', id),
+    ),
+  )
+  let failed = results.find((r) => r.error)
+  if (failed?.error) return { ok: false, error: failed.error.message }
 
   refreshPublicPages()
   return { ok: true }

@@ -1,6 +1,5 @@
 'use client'
 
-import Image, { type StaticImageData } from 'next/image'
 import Link from 'next/link'
 
 import { Button } from '@/components/Button'
@@ -9,19 +8,7 @@ import { GitHubIcon, LinkedInIcon } from '@/components/SocialIcons'
 import { useTranslation } from '@/i18n'
 import { type EntrySummary } from '@/lib/entries'
 import { entryTitle } from '@/lib/entry-format'
-import iconIreb from '@/images/skills/ireb.svg'
-import iconScrum from '@/images/skills/scrum.svg'
-import iconSAFe from '@/images/skills/safe.svg'
-import iconPython from '@/images/skills/python.svg'
-import iconJavascript from '@/images/skills/javascript.svg'
-import iconTypescript from '@/images/skills/typescript.svg'
-import iconReact from '@/images/skills/react.svg'
-import iconGit from '@/images/skills/git.svg'
-import iconNodejs from '@/images/skills/nodedotjs.svg'
-import iconVite from '@/images/skills/vite.svg'
-import iconNextjs from '@/images/skills/next-js-dark.svg'
-import iconTauri from '@/images/skills/tauri.svg'
-import iconBlender from '@/images/skills/blender_logo.svg'
+import { SKILL_CATEGORIES, type SkillRow } from '@/lib/skills'
 
 function BriefcaseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -153,44 +140,16 @@ function Resume({ entries }: { entries: EntrySummary[] }) {
   )
 }
 
-interface Skill {
-  name: string
-  icon: string | StaticImageData
-  url: string
-}
-
-interface SkillCategory {
-  title: string
-  skills: Skill[]
-}
-
-function useSkillCategories(): SkillCategory[] {
+function useSkillCategories(skills: SkillRow[]) {
   let { t } = useTranslation()
-  return [
-    {
-      title: t('home.methodicalSkills'),
-      skills: [
-        { name: 'IREB', icon: iconIreb, url: 'https://www.ireb.org/' },
-        { name: 'Scrum', icon: iconScrum, url: 'https://www.scrum.org/' },
-        { name: 'SAFe', icon: iconSAFe, url: 'https://scaledagileframework.com/' },
-      ],
-    },
-    {
-      title: t('home.technicalSkills'),
-      skills: [
-        { name: 'Python', icon: iconPython, url: 'https://www.python.org/' },
-        { name: 'JavaScript', icon: iconJavascript, url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
-        { name: 'TypeScript', icon: iconTypescript, url: 'https://www.typescriptlang.org/' },
-        { name: 'React', icon: iconReact, url: 'https://react.dev/' },
-        { name: 'Git', icon: iconGit, url: 'https://git-scm.com/' },
-        { name: 'Node.js', icon: iconNodejs, url: 'https://nodejs.org/' },
-        { name: 'Vite', icon: iconVite, url: 'https://vite.dev/' },
-        { name: 'Next.js', icon: iconNextjs, url: 'https://nextjs.org/' },
-        { name: 'Tauri', icon: iconTauri, url: 'https://v2.tauri.app/'},
-        { name: 'Blender', icon: iconBlender, url: 'https://www.blender.org/'},
-      ],
-    },
-  ]
+  let titles = {
+    methodical: t('home.methodicalSkills'),
+    technical: t('home.technicalSkills'),
+  }
+  return SKILL_CATEGORIES.map((category) => ({
+    title: titles[category],
+    skills: skills.filter((s) => s.category === category),
+  })).filter((c) => c.skills.length > 0)
 }
 
 function EducationPreview({ entries }: { entries: EntrySummary[] }) {
@@ -217,12 +176,14 @@ function EducationPreview({ entries }: { entries: EntrySummary[] }) {
 export function HomeContent({
   work,
   education,
+  skills,
 }: {
   work: EntrySummary[]
   education: EntrySummary[]
+  skills: SkillRow[]
 }) {
   let { t } = useTranslation()
-  let skillCategories = useSkillCategories()
+  let skillCategories = useSkillCategories(skills)
 
   return (
     <>
@@ -286,29 +247,40 @@ export function HomeContent({
                     {category.title}
                   </h3>
                   <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-2">
-                    {category.skills.map((skill) => (
-                      <Link
-                        href={skill.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        key={skill.name}
-                        className="flex items-center gap-3 rounded-xl border border-zinc-100 p-4 transition hover:bg-zinc-50 dark:border-zinc-700/40 dark:hover:bg-zinc-800/50"
-                      >
-                        {typeof skill.icon === 'string' ? (
-                          <span className="text-2xl">{skill.icon}</span>
-                        ) : (
-                          <Image
-                            src={skill.icon}
-                            alt={skill.name}
-                            className="h-7 w-7"
-                            unoptimized
-                          />
-                        )}
-                        <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                          {skill.name}
-                        </span>
-                      </Link>
-                    ))}
+                    {category.skills.map((skill) => {
+                      let content = (
+                        <>
+                          {skill.icon_url && (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={skill.icon_url}
+                              alt=""
+                              className="h-7 w-7 object-contain"
+                            />
+                          )}
+                          <span className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                            {skill.name}
+                          </span>
+                        </>
+                      )
+                      let className =
+                        'flex items-center gap-3 rounded-xl border border-zinc-100 p-4 transition dark:border-zinc-700/40'
+                      return skill.url ? (
+                        <Link
+                          href={skill.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          key={skill.id}
+                          className={`${className} hover:bg-zinc-50 dark:hover:bg-zinc-800/50`}
+                        >
+                          {content}
+                        </Link>
+                      ) : (
+                        <div key={skill.id} className={className}>
+                          {content}
+                        </div>
+                      )
+                    })}
                   </div>
                 </div>
               ))}
