@@ -20,6 +20,8 @@ import iconGit from '@/images/skills/git.svg'
 import iconNodejs from '@/images/skills/nodedotjs.svg'
 import iconVite from '@/images/skills/vite.svg'
 import iconNextjs from '@/images/skills/next-js-dark.svg'
+import iconTauri from '@/images/skills/tauri.svg'
+import iconBlender from '@/images/skills/blender_logo.svg'
 
 function BriefcaseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -184,6 +186,8 @@ function useSkillCategories(): SkillCategory[] {
         { name: 'Node.js', icon: iconNodejs, url: 'https://nodejs.org/' },
         { name: 'Vite', icon: iconVite, url: 'https://vite.dev/' },
         { name: 'Next.js', icon: iconNextjs, url: 'https://nextjs.org/' },
+        { name: 'Tauri', icon: iconTauri, url: 'https://v2.tauri.app/'},
+        { name: 'Blender', icon: iconBlender, url: 'https://www.blender.org/'},
       ],
     },
   ]
