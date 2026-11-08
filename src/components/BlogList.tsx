@@ -1,21 +1,21 @@
 'use client'
 
-import { useState } from 'react'
 import clsx from 'clsx'
 
 import { Card } from '@/components/Card'
 import { formatDate } from '@/lib/formatDate'
 import { useTranslation } from '@/i18n'
 import { type BlogEntryWithSlug } from '@/lib/blog'
+import { useCategoryFilter } from '@/lib/use-category-filter'
 
 export function BlogList({ entries }: { entries: BlogEntryWithSlug[] }) {
-  let [category, setCategory] = useState('all')
   let { t, locale } = useTranslation()
 
   let categories = [
     'all',
     ...new Set(entries.map((e) => e.category).sort()),
   ]
+  let [category, setCategory] = useCategoryFilter(categories)
 
   let filtered =
     category === 'all'

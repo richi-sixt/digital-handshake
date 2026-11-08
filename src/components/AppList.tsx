@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import clsx from 'clsx'
 
 import { Card } from '@/components/Card'
@@ -13,13 +12,14 @@ import {
   sortCategories,
 } from '@/lib/project-format'
 import { type ProjectSummary } from '@/lib/projects'
+import { useCategoryFilter } from '@/lib/use-category-filter'
 
 export function AppList({ apps }: { apps: ProjectSummary[] }) {
-  let [category, setCategory] = useState('all')
   let { t, locale } = useTranslation()
 
   // Filter buttons follow the categories actually used by published projects.
   let categories = ['all', ...sortCategories([...new Set(apps.map((a) => a.category))])]
+  let [category, setCategory] = useCategoryFilter(categories)
 
   let filtered =
     category === 'all'
