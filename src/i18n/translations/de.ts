@@ -136,6 +136,7 @@ const de: Record<keyof typeof en, string> & Record<string, string> = {
   // Multiplayer shared
   'mp.multiplayer': 'Multiplayer',
   'mp.newRoom': 'Neuer Raum',
+  'mp.cleanupNotice': 'Inaktive Räume werden nach einigen Stunden automatisch gelöscht.',
   'mp.creating': 'Erstelle\u2026',
   'mp.joinRoom': 'Raum beitreten',
   'mp.enterCode': 'Code eingeben',

@@ -10,6 +10,7 @@ A personal Portfolio website and a playground for learning and exploring React f
 | **Memory Game** | `useState`, `useEffect`, timers, conditional rendering, flip animations, multiplayer (Supabase Realtime) | `/apps/memory-game` |
 | **15 Puzzle** | `setInterval`, `useEffect`, `useRef` leak-free timer, sovalbility check, inversion counting, blank-row parity | `/apps/puzzle-slider` |
 | **UNO** | Pure-function game engine, immutable state, Supabase Realtime, 2–4 player rooms, wild cards, UNO announce/challenge | `/apps/uno` |
+| **Cipher Cards** | Server-side secrets (RLS + `security definer` RPCs), per-seat token, role-based views, Supabase Realtime, team word game for 4–8 players | `/apps/cipher-cards` |
 
 ## Learning Goals
 

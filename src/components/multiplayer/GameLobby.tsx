@@ -151,6 +151,9 @@ export function GameLobby({
             >
               {t('mp.joinRoom')}
             </button>
+            <p className="text-center text-xs text-zinc-500 dark:text-zinc-400">
+              {t('mp.cleanupNotice')}
+            </p>
           </div>
         )}
 

@@ -134,6 +134,7 @@ const en = {
   // Multiplayer shared
   'mp.multiplayer': 'Multiplayer',
   'mp.newRoom': 'New Room',
+  'mp.cleanupNotice': 'Inactive rooms are deleted automatically after a few hours.',
   'mp.creating': 'Creating\u2026',
   'mp.joinRoom': 'Join Room',
   'mp.enterCode': 'Enter code',
