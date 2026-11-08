@@ -179,6 +179,33 @@ const en = {
   'puzzle.newGame': 'New Game',
   'puzzle.youWon': 'Solved in {{moves}} moves \u2014 {{time}}! \uD83C\uDF89',
 
+  // Quadrift (solo)
+  'quadrift.title': 'Quadrift',
+  'quadrift.description':
+    'Stack falling blocks, clear full lines and keep up as the speed rises.',
+  'quadrift.score': 'Score',
+  'quadrift.level': 'Level',
+  'quadrift.lines': 'Lines',
+  'quadrift.best': 'Best',
+  'quadrift.next': 'Next',
+  'quadrift.start': 'Start',
+  'quadrift.newGame': 'New Game',
+  'quadrift.pause': 'Pause',
+  'quadrift.paused': 'Paused',
+  'quadrift.resume': 'Resume',
+  'quadrift.gameOver': 'Game over',
+  'quadrift.finalScore': 'Final score: {{score}}',
+  'quadrift.newRecord': 'New record!',
+  'quadrift.look3d': '3D look',
+  'quadrift.controls':
+    '← → move · ↑ rotate · ↓ soft drop · Space hard drop · P pause',
+  'quadrift.touchHint': 'On touch screens: swipe to move, tap the board to rotate.',
+  'quadrift.left': 'Move left',
+  'quadrift.right': 'Move right',
+  'quadrift.rotate': 'Rotate',
+  'quadrift.down': 'Soft drop',
+  'quadrift.drop': 'Hard drop',
+
   // Multiplayer N-player
   'mp.shareCodePlayers': 'Share this code with other players',
   'mp.waitingForPlayers': 'Waiting for players\u2026',

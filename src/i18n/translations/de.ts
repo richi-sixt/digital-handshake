@@ -183,6 +183,33 @@ const de: Record<keyof typeof en, string> & Record<string, string> = {
   'puzzle.newGame': 'Neues Spiel',
   'puzzle.youWon': 'Gel\u00F6st in {{moves}} Z\u00FCgen \u2014 {{time}}! \uD83C\uDF89',
 
+  // Quadrift (solo)
+  'quadrift.title': 'Quadrift',
+  'quadrift.description':
+    'Staple fallende Blöcke, räume volle Zeilen ab und halte Schritt, während es schneller wird.',
+  'quadrift.score': 'Punkte',
+  'quadrift.level': 'Level',
+  'quadrift.lines': 'Zeilen',
+  'quadrift.best': 'Rekord',
+  'quadrift.next': 'Nächster',
+  'quadrift.start': 'Start',
+  'quadrift.newGame': 'Neues Spiel',
+  'quadrift.pause': 'Pause',
+  'quadrift.paused': 'Pausiert',
+  'quadrift.resume': 'Weiter',
+  'quadrift.gameOver': 'Game over',
+  'quadrift.finalScore': 'Endstand: {{score}} Punkte',
+  'quadrift.newRecord': 'Neuer Rekord!',
+  'quadrift.look3d': '3D-Look',
+  'quadrift.controls':
+    '← → bewegen · ↑ drehen · ↓ schneller fallen · Leertaste fallen lassen · P Pause',
+  'quadrift.touchHint': 'Auf Touchscreens: wischen zum Bewegen, aufs Spielfeld tippen zum Drehen.',
+  'quadrift.left': 'Nach links',
+  'quadrift.right': 'Nach rechts',
+  'quadrift.rotate': 'Drehen',
+  'quadrift.down': 'Schneller fallen',
+  'quadrift.drop': 'Fallen lassen',
+
   // Multiplayer N-player
   'mp.shareCodePlayers': 'Teile diesen Code mit anderen Spielern',
   'mp.waitingForPlayers': 'Warte auf Spieler\u2026',
