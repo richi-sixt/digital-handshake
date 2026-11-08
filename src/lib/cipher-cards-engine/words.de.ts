@@ -1,0 +1,22 @@
+// Eigene Wortliste für Cipher Cards (Deutsch). Gängige, konkrete Substantive.
+export const WORDS_DE: string[] = [
+  'Anker', 'Apfel', 'Pfeil', 'Dachboden', 'Bäckerei', 'Ballon', 'Bank', 'Fass', 'Korb', 'Strand',
+  'Glocke', 'Fahrrad', 'Brücke', 'Besen', 'Eimer', 'Butter', 'Hütte', 'Kaktus', 'Kamel', 'Kerze',
+  'Schlucht', 'Teppich', 'Schloss', 'Keller', 'Kette', 'Stuhl', 'Käse', 'Kirsche', 'Zirkus', 'Uhr',
+  'Wolke', 'Küste', 'Kompass', 'Kupfer', 'Baumwolle', 'Kran', 'Krone', 'Wüste', 'Diamant', 'Drache',
+  'Trommel', 'Adler', 'Motor', 'Zaun', 'Fähre', 'Feld', 'Flamme', 'Flöte', 'Wald', 'Brunnen',
+  'Fuchs', 'Garten', 'Geist', 'Riese', 'Gletscher', 'Handschuh', 'Ziege', 'Gold', 'Traube', 'Hammer',
+  'Hafen', 'Helm', 'Honig', 'Pferd', 'Insel', 'Elfenbein', 'Jacke', 'Dschungel', 'Kessel', 'Schlüssel',
+  'König', 'Küche', 'Ritter', 'Leiter', 'See', 'Lampe', 'Zitrone', 'Bibliothek', 'Leuchtturm', 'Löwe',
+  'Magnet', 'Landkarte', 'Marmor', 'Markt', 'Maske', 'Wiese', 'Spiegel', 'Affe', 'Mond', 'Berg',
+  'Maus', 'Museum', 'Nadel', 'Nest', 'Netz', 'Nacht', 'Meer', 'Olive', 'Orange', 'Eule',
+  'Palast', 'Papier', 'Papagei', 'Perle', 'Klavier', 'Pilot', 'Pirat', 'Planet', 'Teller', 'Tasche',
+  'Teich', 'Prinz', 'Kürbis', 'Pyramide', 'Königin', 'Hase', 'Radio', 'Regenbogen', 'Fluss', 'Roboter',
+  'Rakete', 'Dach', 'Seil', 'Sattel', 'Segel', 'Salz', 'Sand', 'Schule', 'Schere', 'Schatten',
+  'Hai', 'Muschel', 'Schiff', 'Silber', 'Schnee', 'Spinne', 'Löffel', 'Stern', 'Statue', 'Sturm',
+  'Zucker', 'Schwert', 'Tisch', 'Zelt', 'Donner', 'Tiger', 'Turm', 'Zug', 'Schatz', 'Baum',
+  'Tunnel', 'Schildkröte', 'Regenschirm', 'Tal', 'Geige', 'Vulkan', 'Wagen', 'Mauer', 'Wal', 'Rad',
+  'Wind', 'Fenster', 'Wolf', 'Holz', 'Wolle', 'Jacht', 'Zebra', 'Amboss', 'Bohne', 'Bischof',
+  'Decke', 'Knochen', 'Ziegel', 'Knopf', 'Kanal', 'Kanone', 'Karotte', 'Höhle', 'Kamin', 'Komet',
+  'Strasse', 'Kuh', 'Fisch', 'Brot', 'Hund', 'Katze', 'Hose', 'Schuh', 'Hut', 'Bär',
+]

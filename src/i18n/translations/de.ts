@@ -193,6 +193,104 @@ const de: Record<keyof typeof en, string> & Record<string, string> = {
   'mp.uno.description':
     'Spiele UNO mit 2\u20134 Spielern online. Erstelle einen Raum und teile den Code!',
 
+  // Multiplayer Cipher Cards
+  'mp.cipher.title': 'Cipher Cards',
+  'mp.cipher.description':
+    'Zwei Teams, ein geheimer Schl\u00fcssel. Die Spymaster geben Ein-Wort-Hinweise, die Agenten finden ihre Karten. Ab 4 Spielern.',
+  'mp.cipher.teamRed': 'Rotes Team',
+  'mp.cipher.teamBlue': 'Blaues Team',
+  'mp.cipher.spymaster': 'Spymaster',
+  'mp.cipher.operatives': 'Agenten',
+  'mp.cipher.takeSeat': 'Beitreten',
+  'mp.cipher.leaveSeat': 'Platz verlassen',
+  'mp.cipher.unassigned': 'Ohne Platz',
+  'mp.cipher.needTeams':
+    'Jedes Team braucht einen Spymaster und mindestens einen Agenten.',
+  'mp.cipher.waitHost': 'Warte auf den Host\u2026',
+  'mp.cipher.clue': 'Hinweis',
+  'mp.cipher.clueWord': 'Hinweis (ein Wort)',
+  'mp.cipher.clueCount': 'Anzahl Karten',
+  'mp.cipher.giveClue': 'Hinweis geben',
+  'mp.cipher.guessesLeft': 'noch {{n}} Versuche',
+  'mp.cipher.endTurn': 'Zug beenden',
+  'mp.cipher.rematch': 'Nochmal spielen',
+  'mp.cipher.giveClueHint': 'Gib deinem Team einen Ein-Wort-Hinweis',
+  'mp.cipher.waitingClue': 'Warte auf den Hinweis vom {{team}}\u2026',
+  'mp.cipher.yourGuess': 'W\u00e4hle eine Karte',
+  'mp.cipher.teamGuessing': 'Das {{team}} r\u00e4t\u2026',
+  'mp.cipher.winner': '{{team}} gewinnt!',
+  'mp.cipher.winnerAssassin': '{{team}} gewinnt \u2013 das andere Team hat den Attent\u00e4ter erwischt!',
+  'mp.cipher.rules.title': 'Spielanleitung',
+  'mp.cipher.rules.intro':
+    'Zwei Teams wetteifern darum, auf einem Feld mit 25 Wörtern alle ihre Geheimagenten zu finden. Nur eine Person pro Team weiss, wo sie liegen, und darf pro Runde nur mit einem einzigen Wort helfen.',
+  'mp.cipher.rules.boardAlt': 'Beispiel einer Schlüsselkarte: ein 5x5-Raster aus roten, blauen, beigen und schwarzen Feldern',
+  'mp.cipher.rules.legend.start': 'Startteam: 9 Karten',
+  'mp.cipher.rules.legend.other': 'Anderes Team: 8 Karten',
+  'mp.cipher.rules.legend.neutral': 'Unbeteiligte: 7 Karten',
+  'mp.cipher.rules.legend.assassin': 'Attentäter: 1 Karte',
+  'mp.cipher.rules.setup.title': 'Vorbereitung',
+  'mp.cipher.rules.setup.1':
+    'Bildet zwei Teams (Rot und Blau), möglichst gleich gross. Jedes Team bestimmt einen Spymaster, alle anderen sind Agenten. Ihr braucht mindestens 4 Spieler.',
+  'mp.cipher.rules.setup.2':
+    'Auf dem Feld liegen 25 Wörter. Nur die beiden Spymaster sehen die geheime Schlüsselkarte, die verrät, wem welches Wort gehört (Beispiel unten). Das Startteam muss 9 Wörter finden, das andere Team 8. Wer beginnt, wird zufällig bestimmt.',
+  'mp.cipher.rules.turn.title': 'Eine Runde',
+  'mp.cipher.rules.turn.1':
+    'Der Spymaster des aktiven Teams gibt einen Hinweis: ein Wort und eine Zahl. Die Zahl sagt dem Team, wie viele Wörter auf dem Feld zu diesem Hinweis passen.',
+  'mp.cipher.rules.turn.2':
+    'Die Agenten beraten sich und tippen dann ein Wort an. Was passiert, hängt davon ab, wem die Karte gehört:',
+  'mp.cipher.rules.outcome.own':
+    'Eine Karte des eigenen Teams: Sie wird in eurer Farbe aufgedeckt und ihr dürft weiterraten.',
+  'mp.cipher.rules.outcome.neutral': 'Ein Unbeteiligter: Eure Runde ist zu Ende.',
+  'mp.cipher.rules.outcome.enemy':
+    'Eine Karte des anderen Teams: Eure Runde ist zu Ende und die Karte zählt jetzt für das andere Team.',
+  'mp.cipher.rules.outcome.assassin': 'Der Attentäter: Euer Team hat sofort verloren.',
+  'mp.cipher.rules.clue.title': 'Was ein guter Hinweis ist',
+  'mp.cipher.rules.clue.1':
+    'Ein Hinweis ist genau ein Wort. Keine zusätzlichen Tipps, keine Sätze, keine Erklärungen.',
+  'mp.cipher.rules.clue.2':
+    'Er muss sich auf die Bedeutung beziehen. Nicht erlaubt sind Hinweise auf Buchstaben, die Anzahl Buchstaben oder die Lage eines Wortes auf dem Feld.',
+  'mp.cipher.rules.clue.3':
+    'Er darf kein Wort sein, das noch auf dem Feld liegt, und auch kein Teil davon (die App prüft das genaue Wort). Ist eine Karte aufgedeckt, darf ihr Wort wieder benutzt werden.',
+  'mp.cipher.rules.clue.4':
+    'Eigennamen, zusammengesetzte Wörter und Reime sind Grauzonen. Einigt euch vor dem Start, wie streng ihr sein wollt. Wörter, die gleich klingen, aber etwas anderes bedeuten, gelten als verschiedene Wörter.',
+  'mp.cipher.rules.clue.5':
+    'Spymaster behalten ein Pokerface: keine Hinweise durch Blicke, Gesten oder Reaktionen, während das Team berät. Die Agenten sollten nicht auf den Spymaster schauen.',
+  'mp.cipher.rules.guess.title': 'Anzahl Rateversuche',
+  'mp.cipher.rules.guess.1':
+    'Das Team muss mindestens einmal raten. Ein falscher Tipp beendet die Runde sofort, ein richtiger erlaubt weiterzuraten.',
+  'mp.cipher.rules.guess.2':
+    'Höchstens so viele Karten wie die Hinweiszahl plus eins dürfen getippt werden. Der Zusatzversuch ist für eine Karte eines früheren Hinweises gedacht, die noch offen ist. Ihr könnt auch früher mit «Zug beenden» aufhören.',
+  'mp.cipher.rules.guess.3':
+    'Hinweiszahl 0 (hier als 0 / ∞ angezeigt) heisst: Keine eurer Karten passt zu diesem Wort, haltet euch davon fern. Das Team darf dann beliebig oft raten, mindestens aber einmal. Praktisch auch, um alte offene Hinweise nachzuholen.',
+  'mp.cipher.rules.end.title': 'Spielende',
+  'mp.cipher.rules.end.1':
+    'Das Team, das zuerst alle seine Karten aufgedeckt hat, gewinnt. Das kann auch in der Runde des anderen Teams passieren, wenn es eure letzte Karte antippt.',
+  'mp.cipher.rules.end.2':
+    'Deckt ein Team den Attentäter auf, endet das Spiel sofort und das andere Team gewinnt.',
+  'mp.cipher.rules.tips.title': 'Tipps',
+  'mp.cipher.rules.tips.1':
+    'Spymaster: Gib einen Hinweis nur, wenn du sicher bist, dass er nicht zum Attentäter führt. Ein kleiner, sicherer Hinweis ist besser als ein riskanter grosser.',
+  'mp.cipher.rules.tips.2':
+    'Agenten: Überlegt, auf welche anderen Wörter der Hinweis noch passen könnte, vor allem auf den Attentäter und die Karten des anderen Teams.',
+  'mp.cipher.rules.tips.3':
+    'Die App erzwingt nur die Grundregeln (ein Wort, kein Wort vom Feld). Alles andere beruht auf Vertrauen. Nutzt den Teamchat, den nur dein eigenes Team (inklusive Spymaster) lesen kann, oder sprecht miteinander, vor Ort oder im Anruf. Spymaster können nur mitlesen, solange ihr Team rät.',
+  'mp.cipher.rules.credit':
+    'Cipher Cards ist vom Brettspiel Codenames von Vlaada Chvátil (Czech Games Edition) inspiriert. Es ist ein unabhängiges, nicht kommerzielles Projekt und steht in keiner Verbindung zum Verlag.',
+  'mp.cipher.chat.title': 'Teamchat \u2013 {{team}}',
+  'mp.cipher.chat.private': 'Nur dein Team kann das lesen.',
+  'mp.cipher.chat.empty': 'Noch keine Nachrichten. Besprecht, welche Karten zum Hinweis passen.',
+  'mp.cipher.chat.placeholder': 'Schreib deinem Team\u2026',
+  'mp.cipher.chat.send': 'Senden',
+  'mp.cipher.chat.locked':
+    'Als Spymaster kannst du mitlesen, aber nicht schreiben, solange dein Team r\u00e4t.',
+  'mp.cipher.chat.invalid': 'Bitte schreibe eine Nachricht mit h\u00f6chstens 300 Zeichen.',
+  'mp.cipher.error.generic': 'Etwas ist schiefgelaufen. Bitte versuche es nochmal.',
+  'mp.cipher.error.spymasterTaken': 'Dieses Team hat schon einen Spymaster.',
+  'mp.cipher.error.clueOnBoard': 'Der Hinweis darf kein Wort auf dem Spielfeld sein.',
+  'mp.cipher.error.invalidClue': 'Bitte gib genau ein Wort ein.',
+  'mp.cipher.error.teamsIncomplete':
+    'Jedes Team braucht einen Spymaster und mindestens einen Agenten.',
+
   // UNO game
   'uno.title': 'UNO',
   'uno.description':

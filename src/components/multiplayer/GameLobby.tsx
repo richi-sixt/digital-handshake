@@ -9,15 +9,13 @@ import {
   joinRoom,
   getPlayerA,
   type Room,
-  type TicTacToeState,
-  type MemoryGameState,
+  type AnyGameState,
 } from '@/lib/multiplayer'
-import type { UNOGameState } from '@/lib/uno-engine/types'
 import { WaitingRoom } from './WaitingRoom'
 
 interface GameLobbyProps {
   gameType: Room['game_type']
-  initialGameState: () => TicTacToeState | MemoryGameState | UNOGameState
+  initialGameState: () => AnyGameState
   maxPlayers?: number
   onRoomReady: (room: Room, playerId: string) => void
 }

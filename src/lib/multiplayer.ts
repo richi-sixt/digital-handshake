@@ -1,19 +1,26 @@
 import { supabase } from './supabase'
 import { type RealtimeChannel } from '@supabase/supabase-js'
 import type { UNOGameState } from './uno-engine/types'
+import type { CipherCardsState } from './cipher-cards-engine/types'
 
 // ---- Types ----
+
+export type AnyGameState =
+  | TicTacToeState
+  | MemoryGameState
+  | UNOGameState
+  | CipherCardsState
 
 export interface Room {
   id: string
   code: string
-  game_type: 'tic-tac-toe' | 'memory-game' | 'uno'
+  game_type: 'tic-tac-toe' | 'memory-game' | 'uno' | 'cipher-cards'
   status: 'waiting' | 'playing' | 'finished'
   players: string[]
   player_names: Record<string, string>
   host_player: string
   max_players: number
-  game_state: TicTacToeState | MemoryGameState | UNOGameState
+  game_state: AnyGameState
   current_turn: string | null
   winner: string | null
   created_at: string
@@ -60,7 +67,7 @@ function generateRoomCode(): string {
 export async function createRoom(
   gameType: Room['game_type'],
   playerId: string,
-  initialState: TicTacToeState | MemoryGameState | UNOGameState,
+  initialState: AnyGameState,
   maxPlayers: number = 2,
   playerName: string = '',
 ): Promise<Room> {
@@ -150,7 +157,7 @@ export async function joinRoom(
 
 export async function startRoom(
   roomId: string,
-  gameState: TicTacToeState | MemoryGameState | UNOGameState,
+  gameState: AnyGameState,
   currentTurn: string,
 ): Promise<Room> {
   const { data, error } = await supabase
@@ -170,7 +177,7 @@ export async function startRoom(
 
 export async function updateGameState(
   roomId: string,
-  gameState: TicTacToeState | MemoryGameState | UNOGameState,
+  gameState: AnyGameState,
   currentTurn: string | null,
   winner: string | null = null,
   status?: Room['status'],

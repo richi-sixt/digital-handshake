@@ -1,0 +1,21 @@
+// Own word list for Cipher Cards (English). Common, concrete nouns.
+export const WORDS_EN: string[] = [
+  'Anchor', 'Apple', 'Arrow', 'Attic', 'Bakery', 'Balloon', 'Bank', 'Barrel', 'Basket', 'Beach',
+  'Bell', 'Bicycle', 'Bridge', 'Broom', 'Bucket', 'Butter', 'Cabin', 'Cactus', 'Camel', 'Candle',
+  'Canyon', 'Carpet', 'Castle', 'Cellar', 'Chain', 'Chair', 'Cheese', 'Cherry', 'Circus', 'Clock',
+  'Cloud', 'Coast', 'Compass', 'Copper', 'Cotton', 'Crane', 'Crown', 'Desert', 'Diamond', 'Dragon',
+  'Drum', 'Eagle', 'Engine', 'Fence', 'Ferry', 'Field', 'Flame', 'Flute', 'Forest', 'Fountain',
+  'Fox', 'Garden', 'Ghost', 'Giant', 'Glacier', 'Glove', 'Goat', 'Gold', 'Grape', 'Hammer',
+  'Harbor', 'Helmet', 'Honey', 'Horse', 'Island', 'Ivory', 'Jacket', 'Jungle', 'Kettle', 'Key',
+  'King', 'Kitchen', 'Knight', 'Ladder', 'Lake', 'Lamp', 'Lemon', 'Library', 'Lighthouse', 'Lion',
+  'Magnet', 'Map', 'Marble', 'Market', 'Mask', 'Meadow', 'Mirror', 'Monkey', 'Moon', 'Mountain',
+  'Mouse', 'Museum', 'Needle', 'Nest', 'Net', 'Night', 'Ocean', 'Olive', 'Orange', 'Owl',
+  'Palace', 'Paper', 'Parrot', 'Pearl', 'Piano', 'Pilot', 'Pirate', 'Planet', 'Plate', 'Pocket',
+  'Pond', 'Prince', 'Pumpkin', 'Pyramid', 'Queen', 'Rabbit', 'Radio', 'Rainbow', 'River', 'Robot',
+  'Rocket', 'Roof', 'Rope', 'Saddle', 'Sail', 'Salt', 'Sand', 'School', 'Scissors', 'Shadow',
+  'Shark', 'Shell', 'Ship', 'Silver', 'Snow', 'Spider', 'Spoon', 'Star', 'Statue', 'Storm',
+  'Sugar', 'Sword', 'Table', 'Tent', 'Thunder', 'Tiger', 'Tower', 'Train', 'Treasure', 'Tree',
+  'Tunnel', 'Turtle', 'Umbrella', 'Valley', 'Violin', 'Volcano', 'Wagon', 'Wall', 'Whale', 'Wheel',
+  'Wind', 'Window', 'Wolf', 'Wood', 'Wool', 'Yacht', 'Zebra', 'Anvil', 'Bean', 'Bishop',
+  'Blanket', 'Bone', 'Brick', 'Button', 'Canal', 'Cannon', 'Carrot', 'Cave', 'Chimney', 'Comet',
+]
